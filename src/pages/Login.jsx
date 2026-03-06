@@ -44,9 +44,9 @@ export default function Login() {
 
         if (user.role === "admin") {
           navigate("/admin");
-        } else if (response.data.data.user.role === "client") {
+        } else if (response.data.user.role === "client") {
           navigate("/jobs");
-        } else if (response.data.data.user.role === "freelancer") {
+        } else if (response.data.user.role === "freelancer") {
           navigate("/jobs");
         }
       }

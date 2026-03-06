@@ -100,8 +100,8 @@ const FreelancerProfile = () => {
 
         try {
             const endpoint = userId
-                ? `http://localhost:5000/api/user-profile/${userId}`
-                : "http://localhost:5000/api/user-profile/profile"
+                ? ` https://membershiptbenefits-server-1.onrender.com/api/user-profile/${userId}`
+                : " https://membershiptbenefits-server-1.onrender.com/api/user-profile/profile"
 
             const response = await fetch(endpoint, {
                 method: "GET",
@@ -274,7 +274,7 @@ const FreelancerProfile = () => {
 
 
             console.log(dataToSend, "data to send")
-            const response = await fetch(`http://localhost:5000/api/user-profile/${userId}`, {
+            const response = await fetch(` https://membershiptbenefits-server-1.onrender.com/api/user-profile/${userId}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,

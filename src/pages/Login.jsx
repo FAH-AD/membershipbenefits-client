@@ -31,7 +31,9 @@ export default function Login() {
       const response = await axios.post("/api/auth/login", { email, password });
 
       if (response.status === 200) {
-        const { token, user, message } = response.data.data;
+        console.log(response.data, "response data");
+
+        const { token, user, message } = response.data;
         webSocketSingleton.init(token)
         console.log(response.data, "response data");
 

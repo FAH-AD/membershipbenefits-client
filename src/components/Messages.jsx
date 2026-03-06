@@ -11,7 +11,7 @@ const Chat = ({ jobId, clientId, freelancerId, currentUser }) => {
     useEffect(() => {
         socket.emit("joinRoom", { jobId });
 
-        axios.get(`http://localhost:5000/chat/${jobId}`)
+        axios.get(` https://membershiptbenefits-server-1.onrender.com/chat/${jobId}`)
             .then(response => setMessages(response.data))
             .catch(error => console.error(error));
 
@@ -29,7 +29,7 @@ const Chat = ({ jobId, clientId, freelancerId, currentUser }) => {
         const newMessage = { jobId, senderId: currentUser, text: message };
 
         try {
-            await axios.post("http://localhost:5000/api/messages/message", newMessage);
+            await axios.post(" https://membershiptbenefits-server-1.onrender.com/api/messages/message", newMessage);
             socket.emit("sendMessage", newMessage);
             setMessage("");
         } catch (error) {

@@ -59,7 +59,7 @@ const MyTeams = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/jobs/freelancer/teams", {
+      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api/jobs/freelancer/teams", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -136,7 +136,7 @@ const MyTeams = () => {
       // Make the API call to submit the milestone
       console.log(selectedTeam, 'is selected team');
       const response = await axios.post(
-        `http://localhost:5000/api/freelancer/jobs/${selectedTeam._id}/milestones/${submittingMilestone._id}/submit`,
+        ` https://membershiptbenefits-server-1.onrender.com/api/freelancer/jobs/${selectedTeam._id}/milestones/${submittingMilestone._id}/submit`,
         submissionData,
         {
           headers: {

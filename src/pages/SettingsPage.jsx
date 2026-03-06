@@ -23,7 +23,7 @@ export default function SettingsPage() {
   }, []);
 
   const connect = () => {
-    window.location.href = 'http://localhost:5000/api/integrations/eventbrite/connect';
+    window.location.href = ' https://membershiptbenefits-server-1.onrender.com/api/integrations/eventbrite/connect';
   };
 
   const saveOrg = async () => {

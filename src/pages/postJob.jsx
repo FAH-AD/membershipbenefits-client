@@ -71,7 +71,7 @@ const PostJob = () => {
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/user-profile/${user._id}`,
+          ` https://membershiptbenefits-server-1.onrender.com/api/user-profile/${user._id}`,
           {
             method: "GET",
             headers: {
@@ -270,7 +270,7 @@ const PostJob = () => {
       }
 
       // Send data to API
-      const response = await fetch("http://localhost:5000/api/jobs", {
+      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api/jobs", {
         method: "POST",
         body: formDataToSend,
         headers: {

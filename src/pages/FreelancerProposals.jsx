@@ -49,7 +49,7 @@ const FreelancerProposals = () => {
 
     try {
       console.log(token, "token in proposals")
-      const response = await axios.get("http://localhost:5000/api/bids/my-bids", {
+      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api/bids/my-bids", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

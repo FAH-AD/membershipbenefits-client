@@ -45,7 +45,7 @@ const MessageTest = ({
       const payload = { userId }
       if (jobId) payload.jobId = jobId
 
-      const response = await fetch("http://localhost:5000/api/messages/conversations", {
+      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api/messages/conversations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

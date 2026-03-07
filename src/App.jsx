@@ -121,7 +121,6 @@ export default function App() {
             <Route path="issues" element={<AdminIssueManagement />} />
           </Route>
           <Route path="/company-member" element={<UserLayout />}>
-            <Route index element={<Client />} />
             <Route path="verify-company" element={<VerifyCompany />} />
             <Route path="post-job" element={<PostJob />} />
             <Route path="my-applications" element={<FreelacnerProposals />} />
@@ -145,7 +144,6 @@ export default function App() {
 
 
           <Route path="/member" element={<UserLayout />}>
-            <Route index element={<Freelancer />} />
             <Route path="apply-job/:jobId" element={<ApplyOnJobPage />} />
             <Route path="my-proposals" element={<FreelacnerProposals />} />
             <Route path="my-jobs" element={<FreelancerJobs />} />

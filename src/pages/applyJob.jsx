@@ -277,7 +277,7 @@ const ApplyJob = () => {
 
       // Redirect after success
       setTimeout(() => {
-        navigate("/member", { state: { message: "Proposal submitted successfully!" } })
+        navigate("/member/jobs", { state: { message: "Application submitted successfully!" } })
       }, 2000)
     } catch (err) {
       setError(err.message || "Failed to submit proposal. Please try again.")
@@ -304,8 +304,8 @@ const ApplyJob = () => {
           <div className="mx-auto w-16 h-16 bg-[#12a1e2]/20 rounded-full flex items-center justify-center mb-4">
             <CheckCircle size={32} className="text-[#12a1e2]" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Proposal Submitted!</h2>
-          <p className="text-slate-500 mb-6">Your proposal has been sent to the client.</p>
+          <h2 className="text-2xl font-bold mb-2">Application Submitted!</h2>
+          <p className="text-slate-500 mb-6">Your Application has been sent to the client.</p>
           <div className="animate-pulse">
             <p className="text-sm text-slate-500">Redirecting to dashboard...</p>
           </div>

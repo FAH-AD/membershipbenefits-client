@@ -28,8 +28,7 @@ export default function Login() {
     }
 
     try {
-      const response = await axios.post("/api/auth/login", { email, password });
-
+      const response = await post("/api/auth/login", { email, password });
       if (response.status === 200) {
         console.log("FULL LOGIN RESPONSE:", response);
         console.log("LOGIN RESPONSE DATA:", response.data);
@@ -38,7 +37,6 @@ export default function Login() {
         const { user, token } = response.data.data;
         const { message } = response.data;
         webSocketSingleton.init(token)
-        console.log(response.data, "response data");
 
         localStorage.setItem("authToken", token);
         dispatch(SetUser(user));

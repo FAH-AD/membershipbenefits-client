@@ -31,6 +31,9 @@ export default function Login() {
       const response = await axios.post("/api/auth/login", { email, password });
 
       if (response.status === 200) {
+        console.log("FULL LOGIN RESPONSE:", response);
+        console.log("LOGIN RESPONSE DATA:", response.data);
+        console.log("LOGIN RESPONSE DATA.DATA:", response.data?.data);
 
         const { user, token } = response.data.data;
         const { message } = response.data;

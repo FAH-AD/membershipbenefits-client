@@ -126,7 +126,7 @@ const Messaging = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        " https://membershiptbenefits-server-1.onrender.com/api/messages/conversations",
+        " https://membershiptbenefits-server-1.onrender.com/api / messages / conversations",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -289,7 +289,7 @@ const Messaging = () => {
       if (jobId) payload.jobId = jobId;
 
       const response = await fetch(
-        " https://membershiptbenefits-server-1.onrender.com/api/messages/conversations",
+        " https://membershiptbenefits-server-1.onrender.com/api / messages / conversations",
         {
           method: "POST",
           headers: {
@@ -350,7 +350,7 @@ const Messaging = () => {
       scrollToBottom();
       if (!customMessage) setNewMessage(""); // Only clear if it's not a custom message
 
-      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api/messages", {
+      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api / messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

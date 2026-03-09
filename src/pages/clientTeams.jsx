@@ -89,7 +89,7 @@ const ClientTeams = () => {
 
       // Refresh the team data
       const response = await axios.get(
-        " https://membershiptbenefits-server-1.onrender.com/api/jobs/client/teams",
+        " https://membershiptbenefits-server-1.onrender.com/api / jobs / client / teams",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -131,7 +131,7 @@ const ClientTeams = () => {
       );
 
       // Refresh the team data
-      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api/jobs/teams", {
+      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api / jobs / teams", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -190,7 +190,7 @@ const ClientTeams = () => {
 
         // Refresh the team data
         const response = await axios.get(
-          " https://membershiptbenefits-server-1.onrender.com/api/jobs/client/teams",
+          " https://membershiptbenefits-server-1.onrender.com/api / jobs / client / teams",
           {
             headers: {
               Authorization: `Bearer ${token}`,

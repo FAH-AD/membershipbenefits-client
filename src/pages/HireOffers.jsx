@@ -47,7 +47,7 @@ const HireOffers = () => {
     setError(null)
 
     try {
-      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api/freelancer/offers/pending", {
+      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api / freelancer / offers / pending", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },

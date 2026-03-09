@@ -270,7 +270,7 @@ const PostJob = () => {
       }
 
       // Send data to API
-      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api/jobs", {
+      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api / jobs", {
         method: "POST",
         body: formDataToSend,
         headers: {

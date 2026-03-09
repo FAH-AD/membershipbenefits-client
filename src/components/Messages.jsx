@@ -29,7 +29,7 @@ const Chat = ({ jobId, clientId, freelancerId, currentUser }) => {
         const newMessage = { jobId, senderId: currentUser, text: message };
 
         try {
-            await axios.post(" https://membershiptbenefits-server-1.onrender.com/api/messages/message", newMessage);
+            await axios.post(" https://membershiptbenefits-server-1.onrender.com/api/messages / message", newMessage);
             socket.emit("sendMessage", newMessage);
             setMessage("");
         } catch (error) {

@@ -142,7 +142,7 @@ const SearchJobs = () => {
         date_posted: "all",
       },
       headers: {
-        // "x-rapidapi-key": "b35514ee42msh0430efbb5114919p19d699jsn15ac3cb5b0c3",
+        "x-rapidapi-key": "b35514ee42msh0430efbb5114919p19d699jsn15ac3cb5b0c3",
         "x-rapidapi-host": "jsearch.p.rapidapi.com",
       },
     }

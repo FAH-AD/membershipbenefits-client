@@ -101,6 +101,7 @@ const Navbar = () => {
         { name: "About Us", href: "https://ripmediagroup.com/" },
         { name: "Services", href: "https://ripmediagroup.com/services-2" },
         { name: "Contact Us", href: "https://ripmediagroup.com/contact-us" },
+        { name: "Events", href: "/events" },
       ];
     }
 
@@ -122,6 +123,7 @@ const Navbar = () => {
           { name: "Post Job", href: "/company-member/post-job" },
           { name: "My Applications", href: "/company-member/my-applications" },
           { name: "My Jobs", href: "/company-member/my-jobs" },
+          { name: "Events", href: "/events" },
           { name: "Support", href: "/company-member/support" },
         ];
       case "freelancer":
@@ -129,6 +131,7 @@ const Navbar = () => {
 
           { name: "Find Job", href: "/jobs" },
           { name: "My Applications", href: "/member/my-proposals" },
+          { name: "Events", href: "/events" },
 
           { name: "Support", href: "/member/support" },
         ];
@@ -179,14 +182,13 @@ const Navbar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full border-b border-slate-200 transition-all duration-200 ${isScrolled ? "bg-white/95 backdrop-blur" : "bg-white"
-        }`}
+      className={`sticky top-0 z-40 w-full border-b border-white/10 transition-all duration-200 bg-[rgb(11,79,213)] text-white`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <div className="flex items-center gap-2">
 
-          <span className="text-xl font-bold text-[#12a1e2]">Membership Benefits</span>
+          <span className="text-xl font-bold text-white">Membership Benefits</span>
         </div>
 
         {/* Desktop Navigation */}
@@ -196,8 +198,8 @@ const Navbar = () => {
               key={index}
               to={link.href}
               className={`text-sm font-medium transition-colors ${location.pathname === link.href
-                ? "text-[#12a1e2]" // Highlighted state
-                : "text-slate-900 hover:text-[#12a1e2]" // Normal state
+                ? "text-white opacity-100" // Highlighted state
+                : "text-white/80 hover:text-white" // Normal state
                 }`}
             >
               {link.name}
@@ -231,8 +233,8 @@ const Navbar = () => {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <span className="hidden sm:block text-sm font-medium text-slate-900">{user?.name}</span>
-                  <ChevronDown size={16} className="text-slate-900" />
+                  <span className="hidden sm:block text-sm font-medium text-white">{user?.name}</span>
+                  <ChevronDown size={16} className="text-white" />
                 </button>
 
                 {isProfileOpen && (
@@ -263,7 +265,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/login"
-                className="rounded-md bg-[#12a1e2] px-4 py-2 text-sm font-medium text-white hover:bg-[#0e8cd4] transition-colors"
+                className="rounded-md bg-[rgb(37,37,37)] px-4 py-2 text-sm font-medium text-white hover:bg-black transition-colors"
               >
                 Log in
               </Link>
@@ -271,7 +273,7 @@ const Navbar = () => {
           )}
 
           {/* Mobile menu button */}
-          <button onClick={toggleMenu} className="md:hidden text-slate-900 hover:text-[#12a1e2] transition-colors">
+          <button onClick={toggleMenu} className="md:hidden text-white hover:text-white/80 transition-colors">
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>

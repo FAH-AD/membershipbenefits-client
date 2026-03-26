@@ -47,7 +47,7 @@ export const fetchRealTimeEvents = async (query, location, date = 'any') => {
         });
 
         const events = response.data?.data || [];
-        
+
         return events.map(evt => ({
             title: evt.name || evt.title || 'No Title',
             start_date: evt.start_time || evt.start_at || null,
@@ -115,7 +115,7 @@ export const fetchEventbriteAPI4Events = async (query, location) => {
 
         // The API returns events in a results array or directly in data
         const events = response.data?.results || response.data || [];
-        
+
         return (Array.isArray(events) ? events : []).map(evt => ({
             title: evt.title || evt.name || 'No Title',
             start_date: evt.start_date || evt.start_at || null,
@@ -159,7 +159,7 @@ export const fetchAllEvents = async (query, location) => {
         // Deduplicate with multi-layered strategy
         const seenUrls = new Set();
         const seenEvents = new Set(); // Key: normalizedTitle|startDate
-        
+
         const unique = combined.filter(evt => {
             // 1. URL Normalization (Primary)
             let url = evt.event_url || evt.url || '#';
@@ -168,7 +168,7 @@ export const fetchAllEvents = async (query, location) => {
                     const u = new URL(url);
                     url = u.origin + u.pathname; // Strip query params
                 }
-            } catch(e) {}
+            } catch (e) { }
 
             // 2. Title + Date Normalization (Secondary)
             const title = (evt.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');

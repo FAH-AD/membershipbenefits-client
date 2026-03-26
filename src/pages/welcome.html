@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to MembershipBenefits.club</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0f1a;
+    --bg-card: #111827;
+    --bg-card-hover: #1a2332;
+    --bg-elevated: #162033;
+    --green-primary: #22c55e;
+    --green-glow: rgba(34, 197, 94, 0.15);
+    --green-glow-strong: rgba(34, 197, 94, 0.3);
+    --green-dark: #16a34a;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: rgba(255,255,255,0.06);
+    --border-green: rgba(34, 197, 94, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ambient glow effects */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, var(--green-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── NAV ── */
+  nav {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--green-primary); }
+  .nav-badge {
+    background: var(--green-glow);
+    border: 1px solid var(--border-green);
+    color: var(--green-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 80px 0 60px;
+    animation: fadeUp 0.8s ease-out;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-glow);
+    border: 1px solid var(--border-green);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--green-primary);
+    margin-bottom: 28px;
+  }
+  .hero-badge .check {
+    width: 20px; height: 20px;
+    background: var(--green-primary);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-badge .check svg { width: 12px; height: 12px; }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero h1 .green { color: var(--green-primary); }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* ── SAVINGS TICKER ── */
+  .ticker-section {
+    padding: 20px 0 50px;
+    animation: fadeUp 0.8s ease-out 0.15s both;
+  }
+  .ticker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .ticker-item {
+    text-align: center;
+  }
+  .ticker-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--green-primary);
+    letter-spacing: -0.03em;
+  }
+  .ticker-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .ticker-divider {
+    width: 1px;
+    height: 48px;
+    background: var(--border-color);
+  }
+
+  /* ── REGISTRATION CARD ── */
+  .reg-section {
+    padding: 0 0 70px;
+    animation: fadeUp 0.8s ease-out 0.3s both;
+  }
+  .reg-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .reg-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-primary), var(--green-dark), var(--green-primary));
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .reg-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .reg-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .reg-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .form-group input {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    outline: none;
+  }
+  .form-group input::placeholder {
+    color: var(--text-muted);
+  }
+  .form-group input:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px var(--green-glow);
+  }
+
+  .submit-btn {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    background: var(--green-primary);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(34, 197, 94, 0.3);
+  }
+  .submit-btn:active { transform: translateY(0); }
+
+  .form-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
+  }
+
+  /* Success state */
+  .success-message {
+    display: none;
+    text-align: center;
+    padding: 30px;
+  }
+  .success-message.show { display: block; }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--green-glow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-icon svg { width: 32px; height: 32px; color: var(--green-primary); }
+  .success-message h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .success-message p { color: var(--text-secondary); }
+
+  /* ── BENEFITS ── */
+  .benefits-section {
+    padding: 0 0 80px;
+  }
+  .section-label {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-primary);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .benefit-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 32px 24px;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  .benefit-card:nth-child(1) { animation-delay: 0.4s; }
+  .benefit-card:nth-child(2) { animation-delay: 0.5s; }
+  .benefit-card:nth-child(3) { animation-delay: 0.6s; }
+  .benefit-card:nth-child(4) { animation-delay: 0.7s; }
+  .benefit-card:nth-child(5) { animation-delay: 0.8s; }
+  .benefit-card:nth-child(6) { animation-delay: 0.9s; }
+
+  .benefit-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-green);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .benefit-icon {
+    width: 44px; height: 44px;
+    background: var(--green-glow);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    font-size: 1.3rem;
+  }
+  .benefit-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .benefit-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section {
+    padding: 0 0 80px;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  .testimonial-card:nth-child(1) { animation-delay: 0.5s; }
+  .testimonial-card:nth-child(2) { animation-delay: 0.6s; }
+  .testimonial-card:nth-child(3) { animation-delay: 0.7s; }
+  .testimonial-card:nth-child(4) { animation-delay: 0.8s; }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .author-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--green-glow);
+    border: 2px solid var(--border-green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--green-primary);
+  }
+  .author-info .name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .author-info .savings {
+    font-size: 0.75rem;
+    color: var(--green-primary);
+    font-weight: 600;
+  }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    text-align: center;
+    padding: 60px 0 80px;
+    border-top: 1px solid var(--border-color);
+  }
+  .cta-footer h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .cta-footer p {
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+  .cta-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .cta-footer a:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+  }
+
+  .footer-copy {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .benefits-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .ticker { gap: 24px; }
+    .ticker-divider { display: none; }
+    .reg-card { padding: 32px 24px; }
+    .hero { padding: 50px 0 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Membership<span>Benefits</span>.club</div>
+    <div class="nav-badge">✦ Member Access</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+      Payment Confirmed
+    </div>
+    <h1>Welcome to the club!</h1>
+    <p>You just unlocked 30–80% off 400+ tools your team already uses. Register below and your personal deals portal goes live instantly.</p>
+  </section>
+
+  <!-- SAVINGS TICKER -->
+  <section class="ticker-section">
+    <div class="section-label green" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(1.4rem,3vw,1.8rem); font-weight:800; letter-spacing:-0.02em; text-transform:none; color:var(--green-primary); margin-bottom:24px; text-align:center;">Start saving today.</div>
+    <div class="ticker">
+      <div class="ticker-item">
+        <div class="ticker-number">$22,000+</div>
+        <div class="ticker-label">In Annual Savings</div>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <div class="ticker-number">400+</div>
+        <div class="ticker-label">Tool Deals</div>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <div class="ticker-number">30–80%</div>
+        <div class="ticker-label">Off Retail</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION FORM -->
+  <section class="reg-section">
+    <div class="reg-card">
+      <div id="formArea">
+        <div class="reg-header">
+          <h2>🎉 Activate Your Membership</h2>
+          <p>Enter your details to get instant access to your deals portal.</p>
+        </div>
+        <form id="regForm" class="form-grid" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="entry.XXXXXXXXX" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="entry.XXXXXXXXX" placeholder="Doe" required>
+          </div>
+          <div class="form-group full">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="entry.XXXXXXXXX" placeholder="jane@community.com" required>
+          </div>
+          <button type="submit" class="submit-btn">Activate My Deals Portal →</button>
+          <div class="form-note">Your info is only used to set up your portal. No spam, ever.</div>
+        </form>
+      </div>
+      <div id="successArea" class="success-message">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>You're all set! 🚀</h3>
+        <p>Check your inbox — your deals portal link is on the way.<br>Start browsing 400+ deals right now.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-label">What You Get</div>
+    <h2 class="section-title">Everything included in your membership</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">💰</div>
+        <h3>Instant Savings</h3>
+        <p>Access 400+ exclusive deals the moment you register. Most members save more than their fee on day one.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔗</div>
+        <h3>Your Custom Portal</h3>
+        <p>A custom deals page with your community name and logo. Pin it in your group — members tap and save.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔄</div>
+        <h3>New Deals Monthly</h3>
+        <p>We negotiate fresh discounts every month. Your portal updates automatically — no work on your end.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📈</div>
+        <h3>Retention Engine</h3>
+        <p>Members who save money stay. Members who stay tell friends. Your community grows on word of mouth.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <h3>Live in Minutes</h3>
+        <p>No code, no developers. Register above, get your portal, pin the link. Your members start saving today.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🤝</div>
+        <h3>Dedicated Support</h3>
+        <p>Questions? We're here via WhatsApp and email. Real humans, real help, usually within the hour.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-label">Members Love It</div>
+    <h2 class="section-title">Hear from real community owners</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"I pinned the deals portal on Monday. By Friday, members were posting screenshots of their savings. Best retention hack I've found."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div class="author-info">
+            <div class="name">Alex T.</div>
+            <div class="savings">Saved $4,200 in first month</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"HubSpot alone saved me $1,200. Then Notion, then Stripe credits… it paid for itself ten times over. No brainer."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div class="author-info">
+            <div class="name">Sarah K.</div>
+            <div class="savings">Saved $6,800 total</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"My members used to mute the group. Now they check it daily because they don't want to miss a new deal drop."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div class="author-info">
+            <div class="name">Mike R.</div>
+            <div class="savings">Community grew 3x</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Setup was literally 5 minutes. I signed up, got the portal link, pinned it, done. My members started saving the same day."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">J</div>
+          <div class="author-info">
+            <div class="name">Jordan P.</div>
+            <div class="savings">Live within 10 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <section class="cta-footer">
+    <h2>Ready to explore your deals?</h2>
+    <p>Register above and your portal goes live instantly.</p>
+    <a href="#regForm" onclick="document.getElementById('firstName').focus()">Activate My Membership →</a>
+  </section>
+
+  <div class="footer-copy">© 2026 MembershipBenefits.club</div>
+
+</div>
+
+<script>
+  // ─── GOOGLE FORM SUBMISSION ───
+  // Replace GOOGLE_FORM_ID and entry.XXXXXXXXX values with your actual Google Form IDs.
+  //
+  // HOW TO SET UP:
+  // 1. Create a Google Form with fields: First Name, Last Name, Email
+  // 2. Get the form's pre-filled link to find each entry.XXXXXXXXX ID
+  // 3. Replace YOUR_FORM_ID below and the entry IDs in the HTML name attributes above
+  //
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+
+    // Build form data — replace entry.XXXXXXXXX with real IDs from your Google Form
+    const formData = new URLSearchParams();
+    formData.append('entry.XXXXXXXXX', firstName);  // Replace with your First Name entry ID
+    formData.append('entry.XXXXXXXXX', lastName);    // Replace with your Last Name entry ID
+    formData.append('entry.XXXXXXXXX', email);       // Replace with your Email entry ID
+
+    // Submit to Google Form silently
+    fetch(GOOGLE_FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    }).then(() => {
+      showSuccess();
+    }).catch(() => {
+      // Google Forms no-cors always succeeds visually; show success anyway
+      showSuccess();
+    });
+  }
+
+  function showSuccess() {
+    document.getElementById('formArea').querySelector('form').style.display = 'none';
+    document.getElementById('formArea').querySelector('.reg-header').style.display = 'none';
+    document.getElementById('successArea').classList.add('show');
+  }
+</script>
+
+</body>
+</html>

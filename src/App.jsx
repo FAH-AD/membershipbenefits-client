@@ -47,6 +47,8 @@ import ClientJobDetails from './pages/ClientJobDetails';
 import SupportPage from './pages/SupportPage';
 import AdminIssueManagement from './pages/AdminIssueManagement';
 import Events from './pages/EventsPage';
+import WelcomeIndividual from './pages/WelcomeIndividual';
+import WelcomeCommunity from './pages/WelcomeCommunity';
 
 
 // Forgot Password Flow
@@ -103,6 +105,8 @@ export default function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<RoleSelection />} />
             <Route path="events" element={<Events />} />
+            <Route path="welcome/individual" element={<WelcomeIndividual />} />
+            <Route path="welcome/community" element={<WelcomeCommunity />} />
             <Route path="signup/freelancer" element={<FreelancerRegister />} />
             <Route path="signup/client" element={token ? <RedirectLoggedInUser /> : <ClientRegister />} />
             <Route path="forgot-password" element={<ForgotPassword />} />

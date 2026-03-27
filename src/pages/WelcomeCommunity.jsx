@@ -6,9 +6,11 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResp
 
 export default function WelcomeCommunity() {
   const [success, setSuccess] = useState(false);
+  const [regUrl, setRegUrl] = useState('');
   const firstNameRef = useRef(null);
 
   const [formData, setFormData] = useState({
+    communityName: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -36,16 +38,18 @@ export default function WelcomeCommunity() {
     setLoading(true);
 
     try {
-      // Direct registration in backend (similar to individual flow)
-      const response = await post('/api/auth/register', {
-        name: `${formData.firstName} ${formData.lastName}`.trim(),
+      // Direct registration in backend for community
+      const response = await post('/api/auth/register-community', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
-        role: 'freelancer' // Default role for community members as well
+        communityName: formData.communityName
       });
 
       if (response.status === 201) {
         setSuccess(true);
+        setRegUrl(response.data.data.community.registrationUrl);
       }
     } catch (err) {
       console.error('Registration failed:', err);
@@ -119,9 +123,13 @@ export default function WelcomeCommunity() {
                   <p>Enter your details to get instant access to your deals portal.</p>
                 </div>
                 <form id="regFormCommunity" className="form-grid" onSubmit={handleSubmit}>
+                  <div className="form-group full">
+                    <label htmlFor="communityName">Community Name</label>
+                    <input type="text" id="communityName" name="communityName" placeholder="My Awesome Community" required ref={firstNameRef} value={formData.communityName} onChange={handleChange} />
+                  </div>
                   <div className="form-group">
                     <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="Jane" required ref={firstNameRef} value={formData.firstName} onChange={handleChange} />
+                    <input type="text" id="firstName" name="firstName" placeholder="Jane" required value={formData.firstName} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="lastName">Last Name</label>
@@ -134,19 +142,19 @@ export default function WelcomeCommunity() {
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <div className="password-wrapper">
-                      <input 
-                        type={showPassword ? "text" : "password"} 
-                        id="password" 
-                        name="password" 
-                        placeholder="••••••••" 
-                        required 
-                        minLength="8" 
-                        value={formData.password} 
-                        onChange={handleChange} 
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        placeholder="••••••••"
+                        required
+                        minLength="8"
+                        value={formData.password}
+                        onChange={handleChange}
                       />
-                      <button 
-                        type="button" 
-                        className="password-toggle" 
+                      <button
+                        type="button"
+                        className="password-toggle"
                         onClick={() => setShowPassword(!showPassword)}
                         aria-label={showPassword ? "Hide password" : "Show password"}
                       >
@@ -161,19 +169,19 @@ export default function WelcomeCommunity() {
                   <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <div className="password-wrapper">
-                      <input 
-                        type={showConfirmPassword ? "text" : "password"} 
-                        id="confirmPassword" 
-                        name="confirmPassword" 
-                        placeholder="••••••••" 
-                        required 
-                        minLength="8" 
-                        value={formData.confirmPassword} 
-                        onChange={handleChange} 
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="••••••••"
+                        required
+                        minLength="8"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
                       />
-                      <button 
-                        type="button" 
-                        className="password-toggle" 
+                      <button
+                        type="button"
+                        className="password-toggle"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                       >
@@ -202,7 +210,31 @@ export default function WelcomeCommunity() {
                   </svg>
                 </div>
                 <h3>You're all set! 🚀</h3>
-                <p>Welcome to the club. Your account is active and verified.Please check your email to get access for 400+ deals. <br />The email may take a while to arrive, we appreciate your patience.</p>
+                <p>Welcome to the club. Your community is registered and your deals portal is live. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
+                <div style={{ marginTop: '30px', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid var(--border-green)' }}>
+                  <p style={{ color: 'var(--green-primary)', fontWeight: '700', marginBottom: '10px' }}>Your Member Invite Link:</p>
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <input
+                      readOnly
+                      value={regUrl}
+                      style={{ flex: 1, background: '#000', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px', color: '#fff', fontSize: '0.8rem' }}
+                    />
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(regUrl);
+                        alert('Link copied to clipboard!');
+                      }}
+                      style={{ background: 'var(--green-primary)', border: 'none', borderRadius: '8px', padding: '0 15px', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                  <p style={{ marginTop: '15px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    Share this link with your members so they can join your community's private portal.
+                  </p>
+                </div>
+
+
               </div>
             )}
           </div>

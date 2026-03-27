@@ -49,6 +49,7 @@ import AdminIssueManagement from './pages/AdminIssueManagement';
 import Events from './pages/EventsPage';
 import WelcomeIndividual from './pages/WelcomeIndividual';
 import WelcomeCommunity from './pages/WelcomeCommunity';
+import CommunityRegister from './pages/CommunityRegister';
 
 
 // Forgot Password Flow
@@ -115,6 +116,7 @@ export default function App() {
             <Route path="about-us" element={<AboutUs />} />
             <Route path="how-it-works" element={<HowItWorks />} />
             <Route path="verify-email" element={<VerifyEmail />} />
+            <Route path="community-register/:id" element={<CommunityRegister />} />
           </Route>
 
           {/* Admin Routes */}

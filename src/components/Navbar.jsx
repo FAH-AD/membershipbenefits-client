@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+  const [regUrl, setRegUrl] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation(); // Add this line to get the current location
@@ -46,6 +47,25 @@ const Navbar = () => {
             console.log("Token seems to be invalid. Logging out.");
             handleLogout();
           }
+        }
+      }
+
+      // Fetch Community Invite Link for clients
+      if (isAuthenticated && user?.role === 'client' && token) {
+        try {
+          const response = await fetch('https://membershiptbenefits-server-1.onrender.com/api/auth/my-community', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setRegUrl(data.data.registrationUrl);
+          }
+        } catch (error) {
+          console.error('Error fetching community link:', error);
         }
       }
     };
@@ -211,13 +231,19 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {isAuthenticated ? (
             <>
-              {/* Notification Icon - Only for logged in users */}
-              {/* <button className="relative text-slate-900 hover:text-[#12a1e2] transition-colors">
-                <Bell size={20} />
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#12a1e2] text-[10px] text-slate-900">
-                  3
-                </span>
-              </button> */}
+              {/* Copy Invite Link - Only for client owners */}
+              {user?.role === 'client' && regUrl && (
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(regUrl);
+                    alert('Invite link copied to clipboard!');
+                  }}
+                  className="hidden lg:flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-xs font-bold transition-all border border-white/20"
+                >
+                  <Users size={14} />
+                  Copy Invite Link
+                </button>
+              )}
 
               {/* Messages Icon - Only for logged in users */}
 
@@ -282,6 +308,20 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-slate-200">
+          {user?.role === 'client' && regUrl && (
+            <div className="px-4 py-3 border-b border-slate-100">
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(regUrl);
+                  alert('Invite link copied!');
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-[rgb(11,79,213)] text-white py-2 rounded-md text-sm font-bold"
+              >
+                <Users size={16} />
+                Copy Invite Link
+              </button>
+            </div>
+          )}
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link, index) => (
               <Link

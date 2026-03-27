@@ -133,19 +133,19 @@ export default function WelcomeIndividual() {
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <div className="password-wrapper">
-                      <input 
-                        type={showPassword ? "text" : "password"} 
-                        id="password" 
-                        name="password" 
-                        placeholder="••••••••" 
-                        required 
-                        minLength="8" 
-                        value={formData.password} 
-                        onChange={handleChange} 
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        placeholder="••••••••"
+                        required
+                        minLength="8"
+                        value={formData.password}
+                        onChange={handleChange}
                       />
-                      <button 
-                        type="button" 
-                        className="password-toggle" 
+                      <button
+                        type="button"
+                        className="password-toggle"
                         onClick={() => setShowPassword(!showPassword)}
                         aria-label={showPassword ? "Hide password" : "Show password"}
                       >
@@ -160,19 +160,19 @@ export default function WelcomeIndividual() {
                   <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <div className="password-wrapper">
-                      <input 
-                        type={showConfirmPassword ? "text" : "password"} 
-                        id="confirmPassword" 
-                        name="confirmPassword" 
-                        placeholder="••••••••" 
-                        required 
-                        minLength="8" 
-                        value={formData.confirmPassword} 
-                        onChange={handleChange} 
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="••••••••"
+                        required
+                        minLength="8"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
                       />
-                      <button 
-                        type="button" 
-                        className="password-toggle" 
+                      <button
+                        type="button"
+                        className="password-toggle"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                       >
@@ -201,7 +201,7 @@ export default function WelcomeIndividual() {
                   </svg>
                 </div>
                 <h3>You're all set! 🚀</h3>
-                <p>Welcome to the club. Your account is active and verified.Please check your email to get access for 400+ deals. <br />The email may take a while to arrive, we appreciate your patience.</p>
+                <p>Welcome to the club. Your account is active and verified.Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
               </div>
             )}
           </div>

@@ -9,6 +9,10 @@ import AdminLaouts from './Layouts/AdminLaouts';
 import UserLayout from './Layouts/UserLayout';
 import PublicLayouts from './Layouts/PublicLayouts';
 import HowItWorks from './pages/how-it-works';
+import Pricing from './pages/Pricing';
+import FAQ from './pages/FAQ';
+import Deals from './pages/Deals';
+import DealsLanding from './pages/DealsLanding';
 
 // Pages
 import Home from './pages/HomePage';
@@ -115,6 +119,10 @@ export default function App() {
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="about-us" element={<AboutUs />} />
             <Route path="how-it-works" element={<HowItWorks />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="faq" element={<FAQ />} />
+            <Route path="deals" element={<Deals />} />
+            <Route path="deals-1" element={<DealsLanding />} />
             <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="community-register/:id" element={<CommunityRegister />} />
           </Route>

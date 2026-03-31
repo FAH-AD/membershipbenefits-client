@@ -1,0 +1,280 @@
+/* ===== LAUNCH KIT CSS ===== */
+.launch-kit {
+  --navy: #0a0f1e;
+  --navy-mid: #0f1628;
+  --navy-light: #1a2240;
+  --navy-border: #1e2d50;
+  --green: #00c46a;
+  --green-dim: #00a358;
+  --green-muted: rgba(0,196,106,0.12);
+  --green-glow: rgba(0,196,106,0.06);
+  --text: #e8edf5;
+  --text-muted: #8a96b0;
+  --text-dim: #5a6480;
+  --accent: #3d9aff;
+  --mono: 'DM Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --body: 'DM Sans', sans-serif;
+
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.launch-kit .site-header {
+  background: var(--navy-mid);
+  border-bottom: 1px solid var(--navy-border);
+  padding: 28px 48px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.launch-kit .logo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+.launch-kit .logo span { color: var(--green); }
+
+.launch-kit .kit-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.launch-kit .hero {
+  padding: 72px 48px 56px;
+  max-width: 900px;
+}
+
+.launch-kit .hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.launch-kit .hero h1 {
+  font-family: var(--display);
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.launch-kit .hero p {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+.launch-kit .instructions {
+  background: var(--green-muted);
+  border: 1px solid rgba(0,196,106,0.2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 32px 48px;
+  max-width: 820px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.launch-kit .instructions strong {
+  color: var(--green);
+  font-weight: 500;
+}
+
+.launch-kit .kit-body {
+  padding: 0 48px 80px;
+  max-width: 900px;
+}
+
+.launch-kit .asset {
+  margin-bottom: 56px;
+}
+
+.launch-kit .asset-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.launch-kit .asset-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.launch-kit .asset-title {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.launch-kit .asset-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.launch-kit .card {
+  background: var(--navy-mid);
+  border: 1px solid var(--navy-border);
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.launch-kit .card:hover {
+  border-color: rgba(0,196,106,0.25);
+}
+
+.launch-kit .card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.launch-kit .card-label span { color: var(--green); }
+
+.launch-kit .subject-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.launch-kit .subject-line {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.launch-kit .subject-line .num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.launch-kit .copy-block {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.launch-kit .placeholder {
+  background: rgba(0,196,106,0.15);
+  color: var(--green);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.launch-kit .version-divider {
+  height: 1px;
+  background: var(--navy-border);
+  margin: 28px 0;
+  position: relative;
+}
+.launch-kit .version-divider::after {
+  content: 'VERSION 2';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  background: var(--navy-mid);
+  padding-right: 10px;
+}
+
+.launch-kit .template-grid { display: grid; gap: 10px; }
+.launch-kit .template-field { display: grid; grid-template-columns: 140px 1fr; gap: 12px; align-items: start; }
+.launch-kit .field-key { font-family: var(--mono); font-size: 11px; color: var(--text-dim); padding-top: 2px; }
+.launch-kit .field-val { font-size: 14.5px; color: var(--text); line-height: 1.6; }
+
+.launch-kit .faq-item { padding: 18px 0; border-bottom: 1px solid var(--navy-border); }
+.launch-kit .faq-item:last-child { border-bottom: none; }
+.launch-kit .faq-q { font-weight: 500; font-size: 14.5px; color: var(--text); margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
+.launch-kit .faq-q-num { font-family: var(--mono); font-size: 11px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+.launch-kit .faq-a { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding-left: 24px; }
+
+.launch-kit .sms-box { background: var(--navy-light); border: 1px solid var(--navy-border); border-radius: 18px 18px 18px 4px; padding: 16px 20px; max-width: 400px; font-size: 14.5px; color: var(--text); }
+.launch-kit .char-count { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 10px; text-align: right; }
+
+.launch-kit .copy-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--navy-light);
+  border: 1px solid var(--navy-border);
+  color: var(--text-dim);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.15s;
+}
+.launch-kit .copy-btn:hover, .launch-kit .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+.launch-kit .kit-footer {
+  border-top: 1px solid var(--navy-border);
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.launch-kit .kit-footer strong { color: var(--green); font-weight: 500; }
+
+@media (max-width: 700px) {
+  .launch-kit .site-header, .launch-kit .hero, .launch-kit .kit-body, .launch-kit .instructions { padding-left: 20px; padding-right: 20px; }
+  .launch-kit .hero h1 { font-size: 28px; }
+  .launch-kit .template-field { grid-template-columns: 1fr; gap: 2px; }
+}

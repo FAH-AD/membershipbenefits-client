@@ -13,6 +13,8 @@ import Pricing from './pages/Pricing';
 import FAQ from './pages/FAQ';
 import Deals from './pages/Deals';
 import DealsLanding from './pages/DealsLanding';
+import LaunchKit from './pages/LaunchKit';
+import CommunityOwnersSales from './pages/CommunityOwnersSales';
 
 // Pages
 import Home from './pages/HomePage';
@@ -123,6 +125,8 @@ export default function App() {
             <Route path="faq" element={<FAQ />} />
             <Route path="deals" element={<Deals />} />
             <Route path="deals-1" element={<DealsLanding />} />
+            <Route path="deals-2" element={<CommunityOwnersSales />} />
+            <Route path="launch-kit" element={<LaunchKit />} />
             <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="community-register/:id" element={<CommunityRegister />} />
           </Route>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/LaunchKit.css';
+import { Link } from 'react-router-dom';
+
 
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
@@ -24,10 +26,10 @@ const CopyButton = ({ text }) => {
 const LaunchKit = () => {
   return (
     <div className="launch-kit">
-      <header className="site-header">
-        <div className="logo">Membership<span>Benefits</span>.club</div>
-        <div className="kit-label">Community Owner Launch Kit</div>
-      </header>
+      <nav>
+        <Link to="/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
+        <a href="https://membershipbenefits.club/pricing" className="nav-cta">Get Started</a>
+      </nav>
 
       <div className="hero">
         <div className="hero-eyebrow">Done-For-You</div>
@@ -56,7 +58,7 @@ const LaunchKit = () => {
             </div>
             <div className="card-label">Body Copy</div>
             <div className="copy-block">
-{`Hey [FIRST NAME],
+              {`Hey [FIRST NAME],
 
 I just added something to your [COMMUNITY NAME] membership that you're going to want to bookmark.
 
@@ -130,7 +132,7 @@ P.S. Most members find at least one deal worth more than a full month's membersh
           <div className="card">
             <div className="version-label">Version 1 — Benefit First</div>
             <div className="copy-block">
-{`I just added a private software deal portal to [COMMUNITY NAME] memberships. No extra cost.
+              {`I just added a private software deal portal to [COMMUNITY NAME] memberships. No extra cost.
 
 You now have access to 500+ discounts that don't exist publicly. Not coupon codes. Actual closed-network pricing that merchants reserve for verified communities.
 
@@ -148,7 +150,7 @@ It's live now and already included in your membership. No extra cost.
             </div>
             <div className="version-divider"></div>
             <div className="copy-block">
-{`Why does FreshBooks give 90% off inside private communities but only 10% off publicly?
+              {`Why does FreshBooks give 90% off inside private communities but only 10% off publicly?
 
 Because merchants reserve their best pricing for verified closed audiences. Public coupon sites get scraps.
 

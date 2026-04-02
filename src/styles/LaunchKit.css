@@ -6,8 +6,8 @@
   --navy-border: #1e2d50;
   --green: #00c46a;
   --green-dim: #00a358;
-  --green-muted: rgba(0,196,106,0.12);
-  --green-glow: rgba(0,196,106,0.06);
+  --green-muted: rgba(0, 196, 106, 0.12);
+  --green-glow: rgba(0, 196, 106, 0.06);
   --text: #e8edf5;
   --text-muted: #8a96b0;
   --text-dim: #5a6480;
@@ -22,6 +22,45 @@
   font-size: 15px;
   line-height: 1.6;
   min-height: 100vh;
+}
+
+.launch-kit nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 18px 40px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 15, 30, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.launch-kit .nav-logo {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.launch-kit .nav-logo span {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.launch-kit .nav-cta {
+  background: var(--green);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 4px;
+  text-decoration: none;
 }
 
 .launch-kit .site-header {
@@ -43,7 +82,10 @@
   letter-spacing: -0.3px;
   color: var(--text);
 }
-.launch-kit .logo span { color: var(--green); }
+
+.launch-kit .logo span {
+  color: var(--green);
+}
 
 .launch-kit .kit-label {
   font-family: var(--mono);
@@ -54,8 +96,9 @@
 }
 
 .launch-kit .hero {
-  padding: 72px 48px 56px;
+  padding: 122px 48px 56px;
   max-width: 900px;
+
 }
 
 .launch-kit .hero-eyebrow {
@@ -86,7 +129,7 @@
 
 .launch-kit .instructions {
   background: var(--green-muted);
-  border: 1px solid rgba(0,196,106,0.2);
+  border: 1px solid rgba(0, 196, 106, 0.2);
   border-radius: 8px;
   padding: 16px 20px;
   margin: 32px 48px;
@@ -154,7 +197,7 @@
 }
 
 .launch-kit .card:hover {
-  border-color: rgba(0,196,106,0.25);
+  border-color: rgba(0, 196, 106, 0.25);
 }
 
 .launch-kit .card-label {
@@ -166,7 +209,9 @@
   margin-bottom: 14px;
 }
 
-.launch-kit .card-label span { color: var(--green); }
+.launch-kit .card-label span {
+  color: var(--green);
+}
 
 .launch-kit .subject-lines {
   display: flex;
@@ -202,7 +247,7 @@
 }
 
 .launch-kit .placeholder {
-  background: rgba(0,196,106,0.15);
+  background: rgba(0, 196, 106, 0.15);
   color: var(--green);
   border-radius: 3px;
   padding: 0 4px;
@@ -217,6 +262,7 @@
   margin: 28px 0;
   position: relative;
 }
+
 .launch-kit .version-divider::after {
   content: 'VERSION 2';
   position: absolute;
@@ -230,19 +276,82 @@
   padding-right: 10px;
 }
 
-.launch-kit .template-grid { display: grid; gap: 10px; }
-.launch-kit .template-field { display: grid; grid-template-columns: 140px 1fr; gap: 12px; align-items: start; }
-.launch-kit .field-key { font-family: var(--mono); font-size: 11px; color: var(--text-dim); padding-top: 2px; }
-.launch-kit .field-val { font-size: 14.5px; color: var(--text); line-height: 1.6; }
+.launch-kit .template-grid {
+  display: grid;
+  gap: 10px;
+}
 
-.launch-kit .faq-item { padding: 18px 0; border-bottom: 1px solid var(--navy-border); }
-.launch-kit .faq-item:last-child { border-bottom: none; }
-.launch-kit .faq-q { font-weight: 500; font-size: 14.5px; color: var(--text); margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
-.launch-kit .faq-q-num { font-family: var(--mono); font-size: 11px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
-.launch-kit .faq-a { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding-left: 24px; }
+.launch-kit .template-field {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  align-items: start;
+}
 
-.launch-kit .sms-box { background: var(--navy-light); border: 1px solid var(--navy-border); border-radius: 18px 18px 18px 4px; padding: 16px 20px; max-width: 400px; font-size: 14.5px; color: var(--text); }
-.launch-kit .char-count { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 10px; text-align: right; }
+.launch-kit .field-key {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  padding-top: 2px;
+}
+
+.launch-kit .field-val {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.launch-kit .faq-item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.launch-kit .faq-item:last-child {
+  border-bottom: none;
+}
+
+.launch-kit .faq-q {
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.launch-kit .faq-q-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.launch-kit .faq-a {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  padding-left: 24px;
+}
+
+.launch-kit .sms-box {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-border);
+  border-radius: 18px 18px 18px 4px;
+  padding: 16px 20px;
+  max-width: 400px;
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+.launch-kit .char-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 10px;
+  text-align: right;
+}
 
 .launch-kit .copy-btn {
   position: absolute;
@@ -259,7 +368,12 @@
   text-transform: uppercase;
   transition: all 0.15s;
 }
-.launch-kit .copy-btn:hover, .launch-kit .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+.launch-kit .copy-btn:hover,
+.launch-kit .copy-btn.copied {
+  border-color: var(--green);
+  color: var(--green);
+}
 
 .launch-kit .kit-footer {
   border-top: 1px solid var(--navy-border);
@@ -271,10 +385,28 @@
   font-size: 11px;
   color: var(--text-dim);
 }
-.launch-kit .kit-footer strong { color: var(--green); font-weight: 500; }
+
+.launch-kit .kit-footer strong {
+  color: var(--green);
+  font-weight: 500;
+}
 
 @media (max-width: 700px) {
-  .launch-kit .site-header, .launch-kit .hero, .launch-kit .kit-body, .launch-kit .instructions { padding-left: 20px; padding-right: 20px; }
-  .launch-kit .hero h1 { font-size: 28px; }
-  .launch-kit .template-field { grid-template-columns: 1fr; gap: 2px; }
+
+  .launch-kit .site-header,
+  .launch-kit .hero,
+  .launch-kit .kit-body,
+  .launch-kit .instructions {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .launch-kit .hero h1 {
+    font-size: 28px;
+  }
+
+  .launch-kit .template-field {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
 }

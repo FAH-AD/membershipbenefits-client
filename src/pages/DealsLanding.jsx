@@ -1,15 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import '../styles/DealsLanding.css';
 
 const Ticker = () => {
   const items = [
-    "Stripe $600 in savings", "FreshBooks 90% OFF", "QuickBooks 50% OFF",
-    "PhantomBuster 25% off / 12 months", "Riverside.fm 30% OFF",
-    "SocialBee 50% off / 3 months", "AWS up to $100,000 credits",
-    "Google Cloud up to $350,000 credits", "Namecheap 65% OFF hosting",
-    "Perplexity AI 3 months FREE Enterprise Pro", "500+ total deals"
+    'Stripe $600 in savings',
+    'FreshBooks 90% OFF',
+    'QuickBooks 50% OFF',
+    'PhantomBuster 25% off / 12 months',
+    'Riverside.fm 30% OFF',
+    'SocialBee 50% off / 3 months',
+    'AWS up to $100,000 credits',
+    'Google Cloud up to $350,000 credits',
+    'Namecheap 65% OFF hosting',
+    'Perplexity AI 3 months FREE Enterprise Pro',
+    '500+ total deals'
   ];
 
   return (
@@ -24,26 +30,26 @@ const Ticker = () => {
 };
 
 const calculatorTools = [
-  { id: 'freshbooks', name: 'FreshBooks', category: 'Finance', saving: 205, desc: '90% off — ~$205/yr saved vs Lite plan' },
-  { id: 'quickbooks', name: 'QuickBooks', category: 'Finance', saving: 150, desc: '50% off — ~$150/yr saved' },
-  { id: 'phantombuster', name: 'PhantomBuster', category: 'Marketing', saving: 600, desc: '25% off / 12 months — up to $600/yr' },
-  { id: 'socialbee', name: 'SocialBee', category: 'Marketing', saving: 120, desc: '50% off 3 months — ~$120 saved' },
-  { id: 'riverside', name: 'Riverside.fm', category: 'Video', saving: 108, desc: '30% off first year — ~$108 saved' },
-  { id: 'descript', name: 'Descript', category: 'Video', saving: 144, desc: 'Member discount — ~$144/yr saved' },
+  { id: 'freshbooks', name: 'FreshBooks', category: 'Finance', saving: 205, desc: '90% off - ~$205/yr saved vs Lite plan' },
+  { id: 'quickbooks', name: 'QuickBooks', category: 'Finance', saving: 150, desc: '50% off - ~$150/yr saved' },
+  { id: 'phantombuster', name: 'PhantomBuster', category: 'Marketing', saving: 600, desc: '25% off / 12 months - up to $600/yr' },
+  { id: 'socialbee', name: 'SocialBee', category: 'Marketing', saving: 120, desc: '50% off 3 months - ~$120 saved' },
+  { id: 'riverside', name: 'Riverside.fm', category: 'Video', saving: 108, desc: '30% off first year - ~$108 saved' },
+  { id: 'descript', name: 'Descript', category: 'Video', saving: 144, desc: 'Member discount - ~$144/yr saved' },
   { id: 'perplexity', name: 'Perplexity AI', category: 'AI/Research', saving: 60, desc: '3 months free Enterprise Pro' },
-  { id: 'namecheap', name: 'Namecheap', category: 'Dev/Hosting', saving: 65, desc: '65% off hosting — ~$65/yr saved' },
-  { id: 'semrush', name: 'Semrush', category: 'SEO', saving: 240, desc: 'Member discount — ~$240/yr saved' },
-  { id: 'stripe', name: 'Stripe', category: 'Payments', saving: 600, desc: 'Member deal — $600 in savings' },
-  { id: 'aws', name: 'AWS Credits', category: 'Dev/Cloud', saving: 5000, desc: 'Up to $100K credits — $5K conservative est.' },
+  { id: 'namecheap', name: 'Namecheap', category: 'Dev/Hosting', saving: 65, desc: '65% off hosting - ~$65/yr saved' },
+  { id: 'semrush', name: 'Semrush', category: 'SEO', saving: 240, desc: 'Member discount - ~$240/yr saved' },
+  { id: 'stripe', name: 'Stripe', category: 'Payments', saving: 600, desc: 'Member deal - $600 in savings' },
+  { id: 'aws', name: 'AWS Credits', category: 'Dev/Cloud', saving: 5000, desc: 'Up to $100K credits - $5K conservative est.' },
 ];
 
-const Reveal = ({ children, width = "100%" }) => {
+const Reveal = ({ children, width = '100%' }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       style={{ width }}
     >
       {children}
@@ -65,7 +71,7 @@ const DealsLanding = () => {
   };
 
   const totalSavings = Array.from(selectedTools).reduce((sum, id) => {
-    const tool = calculatorTools.find(t => t.id === id);
+    const tool = calculatorTools.find((t) => t.id === id);
     return sum + (tool ? tool.saving : 0);
   }, 0);
 
@@ -77,13 +83,11 @@ const DealsLanding = () => {
 
   return (
     <div className="deals-landing">
-      {/* ── NAV ── */}
-      {/* <nav>
-        <Link to="/" className="nav-logo">MembershipBenefits<span>.club/deals</span></Link>
-        <a href="#join" className="nav-cta">Get Access</a>
-      </nav> */}
+      <nav>
+        <Link to="/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
+        <a href="https://membershipbenefits.club/pricing" className="nav-cta">Get Started</a>
+      </nav>
 
-      {/* ── HERO ── */}
       <section className="hero">
         <div className="hero-bg-grid"></div>
         <div className="hero-bg-glow"></div>
@@ -112,8 +116,8 @@ const DealsLanding = () => {
             transition={{ delay: 0.3 }}
           >
             Closed-network pricing on the exact software freelancers and solopreneurs actually use.
-            <strong>FreshBooks at 90% off. PhantomBuster at 25% off for a full year. AWS up to $100K in credits.</strong>
-            These aren't public coupons. You won't find them with a Google search.
+            <strong> FreshBooks at 90% off. PhantomBuster at 25% off for a full year. AWS up to $100K in credits.</strong>
+            {' '}These are not public coupons. You will not find them with a Google search.
           </motion.p>
           <div className="hero-cta-group">
             <a href="https://membershipbenefits.club/deals" className="btn-primary">See My Deals →</a>
@@ -123,7 +127,7 @@ const DealsLanding = () => {
             {[
               { n: '500+', l: 'Active software deals' },
               { n: '$40K+', l: 'Max savings per member' },
-              { n: '90%', l: 'Off FreshBooks — today' },
+              { n: '90%', l: 'Off FreshBooks - today' },
               { n: '$350K', l: 'Google Cloud credits' },
             ].map((s, i) => (
               <motion.div
@@ -141,15 +145,13 @@ const DealsLanding = () => {
         </div>
       </section>
 
-      {/* ── TICKER ── */}
       <Ticker />
 
-      {/* ── CALCULATOR ── */}
       <section className="calc-section" id="calculator">
         <div className="section-inner">
           <div className="section-label">Savings Calculator</div>
           <Reveal>
-            <h2 className="section-title">See exactly what<br />you'd save.</h2>
+            <h2 className="section-title">See exactly what<br />you would save.</h2>
           </Reveal>
           <Reveal>
             <p className="section-sub">Pick the tools you use or plan to use. This is annual savings from deals available today.</p>
@@ -157,7 +159,7 @@ const DealsLanding = () => {
 
           <div className="calc-layout">
             <div className="calc-tools-list">
-              {calculatorTools.map(tool => (
+              {calculatorTools.map((tool) => (
                 <button
                   key={tool.id}
                   className={`calc-tool ${selectedTools.has(tool.id) ? 'active' : ''}`}
@@ -208,8 +210,8 @@ const DealsLanding = () => {
                         Check any tools you use →
                       </motion.div>
                     ) : (
-                      Array.from(selectedTools).map(id => {
-                        const t = calculatorTools.find(tool => tool.id === id);
+                      Array.from(selectedTools).map((id) => {
+                        const t = calculatorTools.find((tool) => tool.id === id);
                         return (
                           <motion.div
                             key={id}
@@ -230,7 +232,11 @@ const DealsLanding = () => {
                 <div className="result-membership-note">
                   Membership costs a <strong>fraction of a single deal</strong>. One deal pays for the year. The rest is pure savings.
                 </div>
-                <a href="https://membershipbenefits.club/pricing" className="btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block' }}>
+                <a
+                  href="https://membershipbenefits.club/pricing"
+                  className="btn-primary"
+                  style={{ width: '100%', textAlign: 'center', display: 'block' }}
+                >
                   Unlock These Deals →
                 </a>
               </div>
@@ -239,15 +245,14 @@ const DealsLanding = () => {
         </div>
       </section>
 
-      {/* ── NICHE DEAL STACKS ── */}
       <section className="stacks-section" id="deals">
         <div className="section-inner">
           <div className="section-label">Deal Stacks by Niche</div>
           <Reveal><h2 className="section-title">Find your toolkit.</h2></Reveal>
-          <Reveal><p className="section-sub">You don't need 500 deals. You need the right 10. Here's what's available for your specific work.</p></Reveal>
+          <Reveal><p className="section-sub">You do not need 500 deals. You need the right 10. Here is what is available for your specific work.</p></Reveal>
 
           <div className="stacks-tabs">
-            {['marketers', 'video', 'writers', 'devs', 'finance', 'agency'].map(niche => (
+            {['marketers', 'video', 'writers', 'devs', 'finance', 'agency'].map((niche) => (
               <button
                 key={niche}
                 className={`stack-tab ${activeStack === niche ? 'active' : ''}`}
@@ -269,7 +274,6 @@ const DealsLanding = () => {
                 className="stack-panel active"
               >
                 <div className="stack-grid">
-                  {/* Marketers Stack */}
                   {activeStack === 'marketers' && (
                     <>
                       <DealCard badge="Top Pick" title="PhantomBuster" desc="LinkedIn automation and lead scraping. The tool most marketing freelancers either already pay for or desperately need." discount="25% OFF" detail={<strong>12 full months</strong>} saved="Saves up to $2,000/year" />
@@ -278,7 +282,25 @@ const DealsLanding = () => {
                       <DealCard badge="3 Months Free" title="Perplexity AI" desc="AI research that actually cites sources. Useful for content research, competitor intel, and client-facing reports." discount="FREE" detail={<strong>3 months Enterprise Pro</strong>} saved="Up to 50 seats" />
                     </>
                   )}
-                  {/* Devs Stack */}
+
+                  {activeStack === 'video' && (
+                    <>
+                      <DealCard badge="30% OFF" title="Riverside.fm" desc="Remote recording studio for podcasts, interviews, webinars, and client content." discount="30% OFF" detail={<strong>First year</strong>} saved="~$108/year saved" />
+                      <DealCard badge="Top Pick" title="Descript" desc="Edit video and audio like a document. Fast turnaround for creators, podcasts, and agencies." discount="Discounted" detail={<strong>Member pricing</strong>} saved="~$144/year saved" />
+                      <DealCard badge="Creator Tool" badgeClass="amber" title="CapCut Pro" desc="Short-form editing for Reels, TikTok, Shorts, and client social video packages." discount="Discounted" detail={<strong>Pro plan access</strong>} saved="Faster content output" />
+                      <DealCard badge="3 Months Free" title="Perplexity AI" desc="Use it for script writing, episode research, video outlines, and talking point prep." discount="FREE" detail={<strong>Enterprise Pro</strong>} saved="3 months included" />
+                    </>
+                  )}
+
+                  {activeStack === 'writers' && (
+                    <>
+                      <DealCard badge="Top Pick" title="Perplexity AI" desc="Research with citations for blog posts, newsletters, SEO briefs, and client writing." discount="FREE" detail={<strong>3 months Enterprise Pro</strong>} saved="Research time savings" />
+                      <DealCard badge="Writing Tool" title="Grammarly" desc="Cleaner drafts, better tone, and fewer edits before sending work to clients or editors." discount="Discounted" detail={<strong>Premium access</strong>} saved="Sharper final copy" />
+                      <DealCard badge="SEO Tool" title="Semrush" desc="Keyword research, SERP tracking, topic ideation, and optimization for content that ranks." discount="Discounted" detail={<strong>Member pricing</strong>} saved="~$240/year saved" />
+                      <DealCard badge="Workflow" badgeClass="amber" title="Notion AI" desc="Organize research, build editorial calendars, and draft outlines faster." discount="Discounted" detail={<strong>AI workspace tools</strong>} saved="More output per week" />
+                    </>
+                  )}
+
                   {activeStack === 'devs' && (
                     <>
                       <DealCard badge="Up to $350K" badgeClass="red" title="Google Cloud" desc="Infrastructure credits for builds, staging, AI workloads, and client projects." discount="$350K" detail={<strong>In credits</strong>} saved="Qualifying builds" />
@@ -287,30 +309,47 @@ const DealsLanding = () => {
                       <DealCard badge="3 Months Free" title="Perplexity AI" desc="Faster than Stack Overflow for debugging context and architecture decisions." discount="FREE" detail={<strong>Enterprise Pro</strong>} saved="3 months" />
                     </>
                   )}
-                  {/* Finance Stack */}
+
                   {activeStack === 'finance' && (
                     <>
                       <DealCard badge="90% OFF" badgeClass="red" title="FreshBooks" desc="The #1 deal on the platform for freelancers. Invoicing, time tracking, and client management." discount="90% OFF" detail={<strong>Via JoinSecret</strong>} saved="Exclusive portal" />
-                      <DealCard badge="50% off" title="QuickBooks" desc="For freelancers who need more robust accounting — P&L, tax prep, multi-client tracking." discount="50% OFF" detail={<strong>Half price</strong>} saved="Member-only rate" />
-                      <DealCard badge="Available" badgeClass="amber" title="Airwallex" desc="International payments and multi-currency accounts for freelancers with global clients." discount="Discounted" detail={<strong>Member pricing</strong>} saved="Better than std rates" />
-                      <DealCard badge="$600 Savings" badgeClass="red" title="Stripe" desc="$600 in member savings on Stripe — the payment processor you likely already use." discount="$600" detail={<strong>In savings</strong>} saved="Member-only deal" />
+                      <DealCard badge="50% off" title="QuickBooks" desc="For freelancers who need more robust accounting - P&L, tax prep, multi-client tracking." discount="50% OFF" detail={<strong>Half price</strong>} saved="Member-only rate" />
+                      <DealCard badge="Available" badgeClass="amber" title="Airwallex" desc="International payments and multi-currency accounts for freelancers with global clients." discount="Discounted" detail={<strong>Member pricing</strong>} saved="Better than standard rates" />
+                      <DealCard badge="$600 Savings" badgeClass="red" title="Stripe" desc="$600 in member savings on Stripe - the payment processor you likely already use." discount="$600" detail={<strong>In savings</strong>} saved="Member-only deal" />
                     </>
                   )}
-                  {/* Other stacks would go here... for demo I'll fill Marketers for all or add them */}
-                  {['video', 'writers', 'agency'].includes(activeStack) && (
-                    <div style={{ gridColumn: '1/-1', color: 'var(--white-dim)', padding: '40px 0', textAlign: 'center' }}>
-                      Selected stack: {activeStack}. More niche deal cards are available in the full portal.
-                    </div>
+
+                  {activeStack === 'agency' && (
+                    <>
+                      <DealCard badge="Top Pick" title="PhantomBuster" desc="Lead scraping and outbound automation for agencies that need predictable pipeline." discount="25% OFF" detail={<strong>12 months</strong>} saved="Up to $2,000/year" />
+                      <DealCard badge="50% OFF" title="SocialBee" desc="Manage multiple client social accounts, approvals, and publishing from one place." discount="50% OFF" detail={<strong>3 months</strong>} saved="Immediate ops savings" />
+                      <DealCard badge="Client Ops" title="HubSpot" desc="CRM, forms, pipelines, and automations to manage leads and client relationships." discount="Discounted" detail={<strong>Starter tools</strong>} saved="Agency workflow value" />
+                      <DealCard badge="$600 Savings" title="Stripe" desc="Process retainers, invoices, and client payments with built-in member savings." discount="$600" detail={<strong>Member deal</strong>} saved="Reduced payment costs" />
+                    </>
                   )}
                 </div>
+
                 <div className="stack-total-bar">
                   <div className="stb-left">
                     {activeStack === 'marketers' && <span><strong>Marketer stack estimated savings:</strong> PhantomBuster alone saves up to $2,000/year.</span>}
+                    {activeStack === 'video' && <span><strong>Video stack estimated savings:</strong> Recording, editing, and AI research tools bundled into one creator toolkit.</span>}
+                    {activeStack === 'writers' && <span><strong>Writer stack estimated savings:</strong> Research, SEO, editing, and planning tools at discounted member rates.</span>}
                     {activeStack === 'devs' && <span><strong>Dev stack headline:</strong> Cloud credits represent potential value in the hundreds of thousands.</span>}
                     {activeStack === 'finance' && <span><strong>Finance stack savings:</strong> Your entire payments and accounting stack at a fraction of list price.</span>}
+                    {activeStack === 'agency' && <span><strong>Agency stack estimated savings:</strong> Acquire, manage, and bill clients with tools that pay for themselves fast.</span>}
                   </div>
                   <div className="stb-right">
-                    {activeStack === 'marketers' ? '$2,000+/yr' : activeStack === 'devs' ? '$100K–$350K' : '$900+/yr'}
+                    {activeStack === 'marketers'
+                      ? '$2,000+/yr'
+                      : activeStack === 'video'
+                        ? '$300+/yr'
+                        : activeStack === 'writers'
+                          ? '$500+/yr'
+                          : activeStack === 'devs'
+                            ? '$100K-$350K'
+                            : activeStack === 'finance'
+                              ? '$900+/yr'
+                              : '$2,000+/yr'}
                   </div>
                 </div>
               </motion.div>
@@ -319,42 +358,41 @@ const DealsLanding = () => {
         </div>
       </section>
 
-      {/* ── OBJECTIONS ── */}
       <section className="objection-section">
         <div className="section-inner">
           <div className="section-label">The Honest Answer</div>
-          <Reveal><h2 className="section-title">"I can just Google<br />discount codes."</h2></Reveal>
+          <Reveal><h2 className="section-title">&quot;I can just Google<br />discount codes.&quot;</h2></Reveal>
 
           <div className="objection-layout">
             <div>
               <div className="objection-block" style={{ marginBottom: '32px' }}>
                 <div className="objection-quote">
-                  "I've seen these 'deals' platforms before. It's just <em>publicly available coupon codes</em> wrapped in a membership."
+                  &quot;I have seen these deals platforms before. It is just <em>publicly available coupon codes</em> wrapped in a membership.&quot;
                 </div>
-                <div className="objection-source">— Every skeptic, correctly, about most platforms</div>
+                <div className="objection-source">- Every skeptic, correctly, about most platforms</div>
               </div>
               <p style={{ fontSize: '15px', color: 'var(--white-dim)', lineHeight: 1.7, margin: '20px 0' }}>
-                That's true of most. It's not true here. Here's the difference — specifically.
+                That is true of most. It is not true here. Here is the difference - specifically.
               </p>
-              <table className="compare-table">
+              {/* <table className="compare-table">
                 <thead>
-                  <tr><th>What you're comparing</th><th>Coupon sites</th><th>MembershipBenefits</th></tr>
+                  <tr><th>What you are comparing</th><th>Coupon sites</th><th>MembershipBenefits</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>FreshBooks discount</td><td className="cross">10–20% codes</td><td className="check">✓ 90% off — network</td></tr>
+                  <tr><td>FreshBooks discount</td><td className="cross">10-20% codes</td><td className="check">✓ 90% off - network</td></tr>
                   <tr><td>Verification</td><td className="cross">✗ Often expired</td><td className="check">✓ Actively maintained</td></tr>
                   <tr><td>AWS / GCloud credits</td><td className="cross">✗ Not on deal sites</td><td className="check">✓ Up to $450K combined</td></tr>
                   <tr><td>Time cost</td><td className="cross">✗ Hours hunting</td><td className="check">✓ One portal, done</td></tr>
                 </tbody>
-              </table>
+              </table> */}
             </div>
 
             <div className="answers-list">
               {[
-                { i: 1, t: "Negotiated rates, not coupon codes.", b: "JoinSecret negotiated these at scale. No code you find on RetailMeNot gets close." },
-                { i: 2, t: "Structurally closed to the public.", b: "PhantomBuster at 25% off isn't listed publicly. You either have access or you don't." },
-                { i: 3, t: "Your time has a cost.", b: "Hunting codes for 500 tools takes hours. Membership pays for itself with a single deal." },
-              ].map(a => (
+                { i: 1, t: 'Negotiated rates, not coupon codes.', b: 'JoinSecret negotiated these at scale. No code you find on RetailMeNot gets close.' },
+                { i: 2, t: 'Structurally closed to the public.', b: 'PhantomBuster at 25% off is not listed publicly. You either have access or you do not.' },
+                { i: 3, t: 'Your time has a cost.', b: 'Hunting codes for 500 tools takes hours. Membership pays for itself with a single deal.' },
+              ].map((a) => (
                 <Reveal key={a.i}>
                   <div className="answer-item">
                     <div className="answer-icon">{a.i}</div>
@@ -370,25 +408,23 @@ const DealsLanding = () => {
         </div>
       </section>
 
-      {/* ── PROOF ── */}
       <section className="proof-section">
         <div className="section-inner">
           <div className="section-label">Member Results</div>
           <Reveal><h2 className="section-title">People who stopped<br />overpaying.</h2></Reveal>
           <div className="proof-grid">
-            <Reveal><ProofCard stars="★★★★★" quote="Saved $190 in the first month alone on FreshBooks. Didn't change anything else." name="Ryan K." role="Freelance Copywriter" avatar="RK" /></Reveal>
+            <Reveal><ProofCard stars="★★★★★" quote="Saved $190 in the first month alone on FreshBooks. Did not change anything else." name="Ryan K." role="Freelance Copywriter" avatar="RK" /></Reveal>
             <Reveal><ProofCard stars="★★★★★" quote="The PhantomBuster deal alone was worth it. 25% off for 12 months is real money." name="Mia J." role="Growth Marketer" avatar="MJ" /></Reveal>
             <Reveal><ProofCard stars="★★★★★" quote="Claimed the Google Cloud credits for a project. That single deal covered years of membership." name="Dev T." role="Fullstack Developer" avatar="DT" /></Reveal>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
       <section className="cta-section" id="join">
         <div className="section-inner">
           <div className="section-label">Get Access</div>
-          <h2 className="section-title">You've already read<br />enough to know.</h2>
-          <p className="section-sub">Enter your email and we'll send you instant access to the deal portal.</p>
+          <h2 className="section-title">You have already read<br />enough to know.</h2>
+          <p className="section-sub">Enter your email and we will send you instant access to the deal portal.</p>
 
           <div className="email-form-wrap" style={{ maxWidth: '480px', margin: '0 auto' }}>
             <AnimatePresence mode="wait">
@@ -422,13 +458,12 @@ const DealsLanding = () => {
               )}
             </AnimatePresence>
           </div>
-          <p className="cta-fine">No spam. One email with your access link. That's it.</p>
-          <div className="cta-or">— or —</div>
+          <p className="cta-fine">No spam. One email with your access link. That is it.</p>
+          <div className="cta-or">- or -</div>
           <a href="https://deals.membershipbenefits.club" target="_blank" rel="noopener noreferrer" className="btn-primary">Browse Deals Now →</a>
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
       <footer>
         <div className="footer-logo">MembershipBenefits.club/deals</div>
         <div className="footer-note">Deals powered by JoinSecret partner network. Savings figures based on current deal terms and standard list pricing.</div>
@@ -437,8 +472,7 @@ const DealsLanding = () => {
   );
 };
 
-// Sub-components
-const DealCard = ({ badge, badgeClass = "", title, desc, discount, detail, saved }) => (
+const DealCard = ({ badge, badgeClass = '', title, desc, discount, detail, saved }) => (
   <div className="deal-card">
     <div className={`deal-badge ${badgeClass}`}>{badge}</div>
     <div className="deal-tool-name">{title}</div>
@@ -456,7 +490,7 @@ const DealCard = ({ badge, badgeClass = "", title, desc, discount, detail, saved
 const ProofCard = ({ stars, quote, name, role, avatar }) => (
   <div className="proof-card">
     <div className="proof-stars">{stars}</div>
-    <div className="proof-quote">"{quote}"</div>
+    <div className="proof-quote">&quot;{quote}&quot;</div>
     <div className="proof-person">
       <div className="proof-avatar">{avatar}</div>
       <div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { post } from '../services/ApiEndpoint';
+import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy } from 'lucide-react';
 import './Welcome.css';
 
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
@@ -213,32 +214,32 @@ export default function WelcomeIndividual() {
           <h2 className="section-title">Everything included in your membership</h2>
           <div className="benefits-grid">
             <div className="benefit-card">
-              <div className="benefit-icon">💰</div>
+              <div className="benefit-icon"><CircleDollarSign size={24} color="var(--green-primary)" /></div>
               <h3>Instant Savings</h3>
               <p>Access 400+ exclusive deals the moment you register. Most members save more than their fee on day one.</p>
             </div>
             <div className="benefit-card">
-              <div className="benefit-icon">🔗</div>
+              <div className="benefit-icon"><LayoutDashboard size={24} color="var(--green-primary)" /></div>
               <h3>Your Custom Portal</h3>
               <p>A private deals page tailored for you. Tap and save anytime on anywhere.</p>
             </div>
             <div className="benefit-card">
-              <div className="benefit-icon">🔄</div>
+              <div className="benefit-icon"><RefreshCcw size={24} color="var(--green-primary)" /></div>
               <h3>New Deals Monthly</h3>
               <p>We negotiate fresh discounts every month. Your portal updates automatically.</p>
             </div>
             <div className="benefit-card">
-              <div className="benefit-icon">📈</div>
+              <div className="benefit-icon"><TrendingUp size={24} color="var(--green-primary)" /></div>
               <h3>More Savings over time</h3>
               <p>Your access grows as we add more valuable partnerships.</p>
             </div>
             <div className="benefit-card">
-              <div className="benefit-icon">⚡</div>
+              <div className="benefit-icon"><Zap size={24} color="var(--green-primary)" /></div>
               <h3>Live in Minutes</h3>
               <p>Register above, get your portal link, save it, and start saving today.</p>
             </div>
             <div className="benefit-card">
-              <div className="benefit-icon">🤝</div>
+              <div className="benefit-icon"><LifeBuoy size={24} color="var(--green-primary)" /></div>
               <h3>Dedicated Support</h3>
               <p>Questions? We're here via WhatsApp and email. Real humans, real help.</p>
             </div>

@@ -1,17 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { post } from '../services/ApiEndpoint';
-import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy } from 'lucide-react';
+import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck } from 'lucide-react';
 import './Welcome.css';
 
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
-
-export default function WelcomeCommunity() {
+export default function WelcomeFree() {
   const [success, setSuccess] = useState(false);
-  const [regUrl, setRegUrl] = useState('');
   const firstNameRef = useRef(null);
 
   const [formData, setFormData] = useState({
-    communityName: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -22,6 +18,7 @@ export default function WelcomeCommunity() {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,18 +36,20 @@ export default function WelcomeCommunity() {
     setLoading(true);
 
     try {
-      // Direct registration in backend for community
-      const response = await post('/api/auth/register-community', {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+      const response = await post('/api/auth/register-free', {
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
         email: formData.email,
         password: formData.password,
-        communityName: formData.communityName
+        role: 'freelancer'
       });
 
       if (response.status === 201) {
         setSuccess(true);
-        setRegUrl(response.data.data.community.registrationUrl);
+        // Redirect to Script Timer payment link after a short delay
+        setRedirecting(true);
+        setTimeout(() => {
+          window.location.href = 'https://script-timer.com/checkout-75-off';
+        }, 2000);
       }
     } catch (err) {
       console.error('Registration failed:', err);
@@ -62,7 +61,7 @@ export default function WelcomeCommunity() {
 
   const handleFocusForm = (e) => {
     e.preventDefault();
-    document.getElementById('regFormCommunity').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('regForm').scrollIntoView({ behavior: 'smooth' });
     if (firstNameRef.current) firstNameRef.current.focus();
   };
 
@@ -72,7 +71,7 @@ export default function WelcomeCommunity() {
         {/* NAV */}
         <nav>
           <div className="logo">Membership<span>Benefits</span>.club</div>
-          <div className="nav-badge">✦ Member Access</div>
+          <div className="nav-badge">✦ Free Access</div>
         </nav>
 
         {/* HERO */}
@@ -83,11 +82,11 @@ export default function WelcomeCommunity() {
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </span>
-            Payment Confirmed
+            Free Plan Activated
           </div>
           <h1>Welcome to the club!</h1>
           <p>
-            You just unlocked 30–80% off 400+ tools your team already uses. Register below and your personal deals portal goes live instantly.
+            You just unlocked 30–80% off 400+ tools for your personal use. Register below and your deals portal goes live instantly.
           </p>
         </section>
 
@@ -98,7 +97,7 @@ export default function WelcomeCommunity() {
           </div>
           <div className="ticker">
             <div className="ticker-item">
-              <div className="ticker-number">$22,000+</div>
+              <div className="ticker-number">$5,000+</div>
               <div className="ticker-label">In Annual Savings</div>
             </div>
             <div className="ticker-divider"></div>
@@ -114,23 +113,50 @@ export default function WelcomeCommunity() {
           </div>
         </section>
 
+        {/* SCRIPT TIMER FEATURES */}
+        <section className="script-timer-section">
+          <div className="script-timer-header">
+            <div className="badge">Exclusive Bonus</div>
+            <h2>Get <span style={{ color: 'var(--teal, #06b6d4)' }}>Script Timer AI</span> at 75% Off</h2>
+            <p>Register for free below and unlock 75% discount on premium tool suite.</p>
+          </div>
+          <div className="script-timer-grid">
+            <div className="st-feature-card">
+              <div className="st-feature-icon"><Mic size={24} /></div>
+              <h3>Voice AI: Text to Voice</h3>
+            </div>
+            <div className="st-feature-card">
+              <div className="st-feature-icon"><PenTool size={24} /></div>
+              <h3>Script Writing & Coaching</h3>
+            </div>
+            <div className="st-feature-card">
+              <div className="st-feature-icon"><Video size={24} /></div>
+              <h3>Speech Coach (Video & Audio)</h3>
+            </div>
+            <div className="st-feature-card">
+              <div className="st-feature-icon"><ImagePlus size={24} /></div>
+              <h3>Image Creator</h3>
+            </div>
+            <div className="st-feature-card">
+              <div className="st-feature-icon"><ShieldCheck size={24} /></div>
+              <h3>Plagiarism Detection</h3>
+            </div>
+          </div>
+        </section>
+
         {/* REGISTRATION FORM */}
         <section className="reg-section">
           <div className="reg-card">
             {!success ? (
               <div id="formArea">
                 <div className="reg-header">
-                  <h2>🎉 Activate Your Membership</h2>
+                  <h2>🎉 Activate Your Free Membership</h2>
                   <p>Enter your details to get instant access to your deals portal.</p>
                 </div>
-                <form id="regFormCommunity" className="form-grid" onSubmit={handleSubmit}>
-                  <div className="form-group full">
-                    <label htmlFor="communityName">Community Name</label>
-                    <input type="text" id="communityName" name="communityName" placeholder="My Awesome Community" required ref={firstNameRef} value={formData.communityName} onChange={handleChange} />
-                  </div>
+                <form id="regForm" className="form-grid" onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="Jane" required value={formData.firstName} onChange={handleChange} />
+                    <input type="text" id="firstName" name="firstName" placeholder="Jane" required ref={firstNameRef} value={formData.firstName} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="lastName">Last Name</label>
@@ -138,7 +164,7 @@ export default function WelcomeCommunity() {
                   </div>
                   <div className="form-group full">
                     <label htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="jane@community.com" required value={formData.email} onChange={handleChange} />
+                    <input type="email" id="email" name="email" placeholder="jane@example.com" required value={formData.email} onChange={handleChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
@@ -198,7 +224,7 @@ export default function WelcomeCommunity() {
                   {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
 
                   <button type="submit" className="submit-btn cta-btn" disabled={loading}>
-                    {loading ? 'Activating...' : 'Activate My Deals Portal →'}
+                    {loading ? 'Activating...' : 'Activate My Free Portal →'}
                   </button>
                   <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
                 </form>
@@ -211,31 +237,7 @@ export default function WelcomeCommunity() {
                   </svg>
                 </div>
                 <h3>You're all set! 🚀</h3>
-                <p>Welcome to the club. Your community is registered and your deals portal is live. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
-                <div style={{ marginTop: '30px', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid var(--border-green)' }}>
-                  <p style={{ color: 'var(--green-primary)', fontWeight: '700', marginBottom: '10px' }}>Your Member Invite Link:</p>
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <input
-                      readOnly
-                      value={regUrl}
-                      style={{ flex: 1, background: '#000', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px', color: '#fff', fontSize: '0.8rem' }}
-                    />
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(regUrl);
-                        alert('Link copied to clipboard!');
-                      }}
-                      style={{ background: 'var(--green-primary)', border: 'none', borderRadius: '8px', padding: '0 15px', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}
-                    >
-                      Copy
-                    </button>
-                  </div>
-                  <p style={{ marginTop: '15px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                    Share this link with your members so they can join your community's private portal.
-                  </p>
-                </div>
-
-
+                <p>Welcome to the club. Your account is active and verified. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
               </div>
             )}
           </div>
@@ -254,27 +256,27 @@ export default function WelcomeCommunity() {
             <div className="benefit-card">
               <div className="benefit-icon"><LayoutDashboard size={24} color="var(--green-primary)" /></div>
               <h3>Your Custom Portal</h3>
-              <p>A custom deals page with your community name and logo. Pin it in your group — members tap and save.</p>
+              <p>A private deals page tailored for you. Tap and save anytime on anywhere.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon"><RefreshCcw size={24} color="var(--green-primary)" /></div>
               <h3>New Deals Monthly</h3>
-              <p>We negotiate fresh discounts every month. Your portal updates automatically — no work on your end.</p>
+              <p>We negotiate fresh discounts every month. Your portal updates automatically.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon"><TrendingUp size={24} color="var(--green-primary)" /></div>
-              <h3>Retention Engine</h3>
-              <p>Members who save money stay. Members who stay tell friends. Your community grows on word of mouth.</p>
+              <h3>More Savings over time</h3>
+              <p>Your access grows as we add more valuable partnerships.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon"><Zap size={24} color="var(--green-primary)" /></div>
               <h3>Live in Minutes</h3>
-              <p>No code, no developers. Register above, get your portal, pin the link. Your members start saving today.</p>
+              <p>Register above, get your portal link, save it, and start saving today.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon"><LifeBuoy size={24} color="var(--green-primary)" /></div>
               <h3>Dedicated Support</h3>
-              <p>Questions? We're here via WhatsApp and email. Real humans, real help, usually within the hour.</p>
+              <p>Questions? We're here via WhatsApp and email. Real humans, real help.</p>
             </div>
           </div>
         </section>
@@ -282,45 +284,25 @@ export default function WelcomeCommunity() {
         {/* TESTIMONIALS */}
         <section className="testimonials-section">
           <div className="section-label">Members Love It</div>
-          <h2 className="section-title">Hear from real community owners</h2>
+          <h2 className="section-title">Hear from our members</h2>
           <div className="testimonials-grid">
             <div className="testimonial-card">
-              <p className="testimonial-text">"I pinned the deals portal on Monday. By Friday, members were posting screenshots of their savings. Best retention hack I've found."</p>
+              <p className="testimonial-text">"I accessed the deals portal on Monday. By Friday, I had saved so much on tools I already use. Best investment I've made."</p>
               <div className="testimonial-author">
                 <div className="author-avatar">A</div>
                 <div className="author-info">
                   <div className="name">Alex T.</div>
-                  <div className="savings">Saved $4,200 in first month</div>
+                  <div className="savings">Saved $1,200 in first month</div>
                 </div>
               </div>
             </div>
             <div className="testimonial-card">
-              <p className="testimonial-text">"HubSpot alone saved me $1,200. Then Notion, then Stripe credits… it paid for itself ten times over. No brainer."</p>
+              <p className="testimonial-text">"HubSpot alone saved me $800. Then Notion, then Stripe credits… it paid for itself ten times over. No brainer."</p>
               <div className="testimonial-author">
                 <div className="author-avatar">S</div>
                 <div className="author-info">
                   <div className="name">Sarah K.</div>
-                  <div className="savings">Saved $6,800 total</div>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-text">"My members used to mute the group. Now they check it daily because they don't want to miss a new deal drop."</p>
-              <div className="testimonial-author">
-                <div className="author-avatar">M</div>
-                <div className="author-info">
-                  <div className="name">Mike R.</div>
-                  <div className="savings">Community grew 3x</div>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-text">"Setup was literally 5 minutes. I signed up, got the portal link, pinned it, done. My members started saving the same day."</p>
-              <div className="testimonial-author">
-                <div className="author-avatar">J</div>
-                <div className="author-info">
-                  <div className="name">Jordan P.</div>
-                  <div className="savings">Live within 10 min</div>
+                  <div className="savings">Saved $2,800 total</div>
                 </div>
               </div>
             </div>
@@ -331,11 +313,22 @@ export default function WelcomeCommunity() {
         <section className="cta-footer">
           <h2>Ready to explore your deals?</h2>
           <p>Register above and your portal goes live instantly.</p>
-          <a href="#regFormCommunity" onClick={handleFocusForm} className="cta-btn">Activate My Membership →</a>
+          <a href="#regForm" onClick={handleFocusForm} className="cta-btn">Activate My Free Portal →</a>
         </section>
 
         <div className="footer-copy">© {new Date().getFullYear()} MembershipBenefits.club</div>
       </div>
+
+      {/* REDIRECT OVERLAY */}
+      {redirecting && (
+        <div className="redirect-overlay">
+          <div className="redirect-content">
+            <div className="redirect-spinner"></div>
+            <h2>Account Created! 🚀</h2>
+            <p>Welcome to the club. Redirecting you to the <b>Script Timer AI</b> checkout with your 75% discount applied...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

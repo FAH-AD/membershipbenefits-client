@@ -129,7 +129,7 @@ const ClientDashboard = () => {
   // Fetch posted jobs
   const fetchPostedJobs = async () => {
     try {
-      const response = await fetch(' https://membershiptbenefits-server-1.onrender.com/api / jobs / my / posted - jobs', {
+      const response = await fetch(' https://membershiptbenefits-server-1.onrender.com/api/jobs/my/posted-jobs', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

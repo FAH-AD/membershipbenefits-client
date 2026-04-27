@@ -59,7 +59,7 @@ const MyTeams = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api / jobs / freelancer / teams", {
+      const response = await axios.get(" https://membershiptbenefits-server-1.onrender.com/api/jobs/freelancer/teams", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

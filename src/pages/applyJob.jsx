@@ -257,7 +257,7 @@ const ApplyJob = () => {
       console.log(bidData, "bid data")
 
       // Submit bid to API
-      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api / bids", {
+      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api/bids", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

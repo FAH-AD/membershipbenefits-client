@@ -37,7 +37,7 @@ const ClientJobs = () => {
     setError(null);
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api / jobs / my / posted - jobs", {
+      const response = await fetch(" https://membershiptbenefits-server-1.onrender.com/api/jobs/my/posted-jobs", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

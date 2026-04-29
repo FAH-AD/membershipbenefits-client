@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { post } from '../services/ApiEndpoint';
-import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck } from 'lucide-react';
+import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import './Welcome.css';
 
 export default function WelcomeFree() {
@@ -97,7 +97,7 @@ export default function WelcomeFree() {
           </div>
           <div className="ticker">
             <div className="ticker-item">
-              <div className="ticker-number">$5,000+</div>
+              <div className="ticker-number">$22,000+</div>
               <div className="ticker-label">In Annual Savings</div>
             </div>
             <div className="ticker-divider"></div>
@@ -112,11 +112,15 @@ export default function WelcomeFree() {
             </div>
           </div>
         </section>
+      </div>
 
-        {/* SCRIPT TIMER FEATURES */}
+      {/* HIGHLIGHTED ZONE */}
+      <div className="highlight-zone">
+        <div className="container">
+          {/* SCRIPT TIMER FEATURES */}
         <section className="script-timer-section">
           <div className="script-timer-header">
-            <div className="badge">Exclusive Bonus</div>
+            <div className="badge">THIS MONTHS DEAL FOR FREE MEMBERS: Script Timer Ai at 75% Off</div>
             <h2>Get <span style={{ color: 'var(--teal, #06b6d4)' }}>Script Timer AI</span> at 75% Off</h2>
             <p>Register for free below and unlock 75% discount on premium tool suite.</p>
           </div>
@@ -141,6 +145,10 @@ export default function WelcomeFree() {
               <div className="st-feature-icon"><ShieldCheck size={24} /></div>
               <h3>Plagiarism Detection</h3>
             </div>
+            <div className="st-feature-card">
+              <div className="st-feature-icon"><ClipboardCheck size={24} /></div>
+              <h3>Auto Rewriting and Grade Scoring</h3>
+            </div>
           </div>
         </section>
 
@@ -150,8 +158,7 @@ export default function WelcomeFree() {
             {!success ? (
               <div id="formArea">
                 <div className="reg-header">
-                  <h2>🎉 Activate Your Free Membership</h2>
-                  <p>Enter your details to get instant access to your deals portal.</p>
+                  <h2>🎉 Activate Your First Discount Deal: 75% Off Script Timer Discount Here</h2>
                 </div>
                 <form id="regForm" className="form-grid" onSubmit={handleSubmit}>
                   <div className="form-group">
@@ -242,11 +249,13 @@ export default function WelcomeFree() {
             )}
           </div>
         </section>
+      </div>
+    </div>
 
+      <div className="container">
         {/* BENEFITS */}
         <section className="benefits-section">
-          <div className="section-label">What You Get</div>
-          <h2 className="section-title">Everything included in your membership</h2>
+          <h2 className="section-title">What you get in your full membership</h2>
           <div className="benefits-grid">
             <div className="benefit-card">
               <div className="benefit-icon"><CircleDollarSign size={24} color="var(--green-primary)" /></div>
@@ -318,7 +327,7 @@ export default function WelcomeFree() {
 
         <div className="footer-copy">© {new Date().getFullYear()} MembershipBenefits.club</div>
       </div>
-
+ 
       {/* REDIRECT OVERLAY */}
       {redirecting && (
         <div className="redirect-overlay">

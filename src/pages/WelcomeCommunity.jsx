@@ -113,8 +113,12 @@ export default function WelcomeCommunity() {
             </div>
           </div>
         </section>
+      </div>
 
-        {/* REGISTRATION FORM */}
+      {/* HIGHLIGHTED ZONE */}
+      <div className="highlight-zone">
+        <div className="container">
+          {/* REGISTRATION FORM */}
         <section className="reg-section">
           <div className="reg-card">
             {!success ? (
@@ -240,7 +244,10 @@ export default function WelcomeCommunity() {
             )}
           </div>
         </section>
+      </div>
+    </div>
 
+      <div className="container">
         {/* BENEFITS */}
         <section className="benefits-section">
           <div className="section-label">What You Get</div>

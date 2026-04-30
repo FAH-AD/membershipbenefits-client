@@ -118,139 +118,139 @@ export default function WelcomeFree() {
       <div className="highlight-zone">
         <div className="container">
           {/* SCRIPT TIMER FEATURES */}
-        <section className="script-timer-section">
-          <div className="script-timer-header">
-            <div className="badge">THIS MONTHS DEAL FOR FREE MEMBERS: Script Timer Ai at 75% Off</div>
-            <h2>Get <span style={{ color: 'var(--teal, #06b6d4)' }}>Script Timer AI</span> at 75% Off</h2>
-            <p>Register for free below and unlock 75% discount on premium tool suite.</p>
-          </div>
-          <div className="script-timer-grid">
-            <div className="st-feature-card">
-              <div className="st-feature-icon"><Mic size={24} /></div>
-              <h3>Voice AI: Text to Voice</h3>
+          <section className="script-timer-section">
+            <div className="script-timer-header">
+              <h2 className="badge">THIS MONTHS DEAL FOR FREE MEMBERS: Script Timer Ai at 75% Off</h2>
+              <h2>Get <span style={{ color: 'var(--teal, #06b6d4)' }}>Script Timer AI</span> at 75% Off</h2>
+              {/* <p>Register for free below and unlock 75% discount on premium tool suite.</p> */}
             </div>
-            <div className="st-feature-card">
-              <div className="st-feature-icon"><PenTool size={24} /></div>
-              <h3>Script Writing & Coaching</h3>
-            </div>
-            <div className="st-feature-card">
-              <div className="st-feature-icon"><Video size={24} /></div>
-              <h3>Speech Coach (Video & Audio)</h3>
-            </div>
-            <div className="st-feature-card">
-              <div className="st-feature-icon"><ImagePlus size={24} /></div>
-              <h3>Image Creator</h3>
-            </div>
-            <div className="st-feature-card">
-              <div className="st-feature-icon"><ShieldCheck size={24} /></div>
-              <h3>Plagiarism Detection</h3>
-            </div>
-            <div className="st-feature-card">
-              <div className="st-feature-icon"><ClipboardCheck size={24} /></div>
-              <h3>Auto Rewriting and Grade Scoring</h3>
-            </div>
-          </div>
-        </section>
-
-        {/* REGISTRATION FORM */}
-        <section className="reg-section">
-          <div className="reg-card">
-            {!success ? (
-              <div id="formArea">
-                <div className="reg-header">
-                  <h2>🎉 Activate Your First Discount Deal: 75% Off Script Timer Discount Here</h2>
-                </div>
-                <form id="regForm" className="form-grid" onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="Jane" required ref={firstNameRef} value={formData.firstName} onChange={handleChange} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Doe" required value={formData.lastName} onChange={handleChange} />
-                  </div>
-                  <div className="form-group full">
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="jane@example.com" required value={formData.email} onChange={handleChange} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <div className="password-wrapper">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        name="password"
-                        placeholder="••••••••"
-                        required
-                        minLength="8"
-                        value={formData.password}
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="password-toggle"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={showPassword ? "Hide password" : "Show password"}
-                      >
-                        {showPassword ? (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                        ) : (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <div className="password-wrapper">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        placeholder="••••••••"
-                        required
-                        minLength="8"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="password-toggle"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                      >
-                        {showConfirmPassword ? (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                        ) : (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
-
-                  <button type="submit" className="submit-btn cta-btn" disabled={loading}>
-                    {loading ? 'Activating...' : 'Activate My Free Portal →'}
-                  </button>
-                  <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
-                </form>
+            <div className="script-timer-grid">
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><Mic size={24} /></div>
+                <h3>Voice AI: Text to Voice</h3>
               </div>
-            ) : (
-              <div id="successArea" className="success-message show">
-                <div className="success-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <h3>You're all set! 🚀</h3>
-                <p>Welcome to the club. Your account is active and verified. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><PenTool size={24} /></div>
+                <h3>Script Writing & Coaching</h3>
               </div>
-            )}
-          </div>
-        </section>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><Video size={24} /></div>
+                <h3>Speech Coach (Video & Audio)</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><ImagePlus size={24} /></div>
+                <h3>Image Creator</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><ShieldCheck size={24} /></div>
+                <h3>Plagiarism Detection</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><ClipboardCheck size={24} /></div>
+                <h3>Auto Rewriting and Grade Scoring</h3>
+              </div>
+            </div>
+          </section>
+
+          {/* REGISTRATION FORM */}
+          <section className="reg-section">
+            <div className="reg-card">
+              {!success ? (
+                <div id="formArea">
+                  <div className="reg-header">
+                    <h2>🎉 Activate Your First Discount Deal: 75% Off Script Timer Discount Here</h2>
+                  </div>
+                  <form id="regForm" className="form-grid" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="firstName">First Name</label>
+                      <input type="text" id="firstName" name="firstName" placeholder="Jane" required ref={firstNameRef} value={formData.firstName} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="lastName">Last Name</label>
+                      <input type="text" id="lastName" name="lastName" placeholder="Doe" required value={formData.lastName} onChange={handleChange} />
+                    </div>
+                    <div className="form-group full">
+                      <label htmlFor="email">Email Address</label>
+                      <input type="email" id="email" name="email" placeholder="jane@example.com" required value={formData.email} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <div className="password-wrapper">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          name="password"
+                          placeholder="••••••••"
+                          required
+                          minLength="8"
+                          value={formData.password}
+                          onChange={handleChange}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label={showPassword ? "Hide password" : "Show password"}
+                        >
+                          {showPassword ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="confirmPassword">Confirm Password</label>
+                      <div className="password-wrapper">
+                        <input
+                          type={showConfirmPassword ? "text" : "password"}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          placeholder="••••••••"
+                          required
+                          minLength="8"
+                          value={formData.confirmPassword}
+                          onChange={handleChange}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                        >
+                          {showConfirmPassword ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
+
+                    <button type="submit" className="submit-btn cta-btn" disabled={loading}>
+                      {loading ? 'Activating...' : 'Activate My Free Portal →'}
+                    </button>
+                    <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
+                  </form>
+                </div>
+              ) : (
+                <div id="successArea" className="success-message show">
+                  <div className="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <h3>You're all set! 🚀</h3>
+                  <p>Welcome to the club. Your account is active and verified. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
 
       <div className="container">
         {/* BENEFITS */}
@@ -327,7 +327,7 @@ export default function WelcomeFree() {
 
         <div className="footer-copy">© {new Date().getFullYear()} MembershipBenefits.club</div>
       </div>
- 
+
       {/* REDIRECT OVERLAY */}
       {redirecting && (
         <div className="redirect-overlay">

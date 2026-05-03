@@ -57,6 +57,7 @@ import WelcomeIndividual from './pages/WelcomeIndividual';
 import WelcomeCommunity from './pages/WelcomeCommunity';
 import CommunityRegister from './pages/CommunityRegister';
 import WelcomeFree from './pages/WelcomeFree';
+import WelcomeScriptTimer from './pages/WelcomeScriptTimer';
 
 
 // Forgot Password Flow
@@ -115,6 +116,7 @@ export default function App() {
             <Route path="events" element={<Events />} />
             <Route path="welcome/individual" element={<WelcomeIndividual />} />
             <Route path="welcome/starter" element={<WelcomeFree />} />
+            <Route path="welcome/script-timer" element={<WelcomeScriptTimer />} />
             <Route path="welcome/community" element={<WelcomeCommunity />} />
             <Route path="signup/freelancer" element={<FreelancerRegister />} />
             <Route path="signup/client" element={token ? <RedirectLoggedInUser /> : <ClientRegister />} />

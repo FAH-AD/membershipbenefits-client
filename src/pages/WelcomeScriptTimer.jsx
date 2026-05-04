@@ -91,7 +91,7 @@ export default function WelcomeScriptTimer() {
           </div>
           <div className="ticker">
             <div className="ticker-item">
-              <div className="ticker-number" style={{ color: '#06b6d4' }}>$5,000+</div>
+              <div className="ticker-number" style={{ color: '#06b6d4' }}>$20,000+</div>
               <div className="ticker-label">In Annual Savings</div>
             </div>
             <div className="ticker-divider"></div>

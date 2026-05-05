@@ -191,7 +191,12 @@ export default function WelcomeScriptTimer() {
                     {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
 
                     <button type="submit" className="submit-btn cta-btn" style={{ background: '#06b6d4' }} disabled={loading}>
-                      {loading ? 'Activating...' : 'Activate My Portal →'}
+                      {loading ? (
+                        <>
+                          <span className="btn-loader"></span>
+                          Activating...
+                        </>
+                      ) : 'Activate My Portal →'}
                     </button>
                     <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
                   </form>

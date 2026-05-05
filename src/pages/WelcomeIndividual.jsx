@@ -193,7 +193,12 @@ export default function WelcomeIndividual() {
                   {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
 
                   <button type="submit" className="submit-btn cta-btn" disabled={loading}>
-                    {loading ? 'Activating...' : 'Activate My Deals Portal →'}
+                    {loading ? (
+                      <>
+                        <span className="btn-loader"></span>
+                        Activating...
+                      </>
+                    ) : 'Activate My Deals Portal →'}
                   </button>
                   <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
                 </form>

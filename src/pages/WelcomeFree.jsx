@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { post } from '../services/ApiEndpoint';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import './Welcome.css';
+import RegistrationLoading from '../components/RegistrationLoading';
 
 export default function WelcomeFree() {
   const [success, setSuccess] = useState(false);
@@ -48,7 +49,7 @@ export default function WelcomeFree() {
         // Redirect to Script Timer payment link after a short delay
         setRedirecting(true);
         setTimeout(() => {
-          window.location.href = 'https://script-timer.com/checkout-75-off';
+          window.location.href = 'https://app.script-timer.com/membership-benefits';
         }, 2000);
       }
     } catch (err) {
@@ -67,6 +68,7 @@ export default function WelcomeFree() {
 
   return (
     <div className="welcome-theme-wrapper">
+      {loading && <RegistrationLoading color="#22c55e" />}
       <div className="container">
         {/* NAV */}
         <nav>
@@ -339,7 +341,7 @@ export default function WelcomeFree() {
           <div className="redirect-content">
             <div className="redirect-spinner"></div>
             <h2>Account Created! 🚀</h2>
-            <p>Welcome to the club. Redirecting you to the <b>Script Timer AI</b> checkout with your 75% discount applied...</p>
+            <p>Welcome to the club. Redirecting you to your <b>Script Timer AI</b> membership benefits portal...</p>
           </div>
         </div>
       )}

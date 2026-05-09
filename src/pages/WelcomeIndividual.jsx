@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { post } from '../services/ApiEndpoint';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy } from 'lucide-react';
 import './Welcome.css';
+import RegistrationLoading from '../components/RegistrationLoading';
 
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
 
@@ -63,6 +64,7 @@ export default function WelcomeIndividual() {
 
   return (
     <div className="welcome-theme-wrapper">
+      {loading && <RegistrationLoading color="#22c55e" />}
       <div className="container">
         {/* NAV */}
         <nav>

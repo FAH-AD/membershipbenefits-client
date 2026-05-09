@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { post } from '../services/ApiEndpoint';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import './Welcome.css';
+import RegistrationLoading from '../components/RegistrationLoading';
 
 export default function WelcomeScriptTimer() {
   const [success, setSuccess] = useState(false);
@@ -61,6 +62,7 @@ export default function WelcomeScriptTimer() {
 
   return (
     <div className="welcome-theme-wrapper script-timer-theme" style={{ '--green-primary': '#06b6d4', '--green-glow': 'rgba(6, 182, 212, 0.15)', '--green-dark': '#0891b2', '--border-green': 'rgba(6, 182, 212, 0.25)' }}>
+      {loading && <RegistrationLoading color="#06b6d4" />}
       <div className="container">
         {/* NAV */}
         <nav>

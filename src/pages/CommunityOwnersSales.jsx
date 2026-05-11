@@ -18,8 +18,8 @@ const CommunityOwnersSales = () => {
   return (
     <div className="community-sales">
       <nav>
-        <Link to="/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
-        <a href="#pricing" className="nav-cta">Get Started</a>
+        <Link to="https://www.membershipbenefits.club/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
+        <a href="https://www.membershipbenefits.club/pricing" className="nav-cta">Get Started</a>
       </nav>
 
       {/* Hero */}
@@ -31,12 +31,12 @@ const CommunityOwnersSales = () => {
             software super-hub.
           </h1>
           <p className="hero-sub">
-            Add a private deal portal with <strong>500+ deep software discounts</strong> to your membership. 
+            Add a private deal portal with <strong>500+ deep software discounts</strong> to your membership.
             FreshBooks 90% off. QuickBooks 50% off. AWS up to $100K in credits.
           </p>
           <div className="hero-cta-group">
             <a href="#pricing" className="btn-primary">View Pricing & Plans</a>
-            <a href="#how-it-works" className="btn-secondary">How it works →</a>
+            <a href="https://www.membershipbenefits.club/how-it-works" className="btn-secondary">How it works →</a>
           </div>
         </div>
       </section>

@@ -84,7 +84,7 @@ const DealsLanding = () => {
   return (
     <div className="deals-landing">
       <nav>
-        <Link to="/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
+        <Link to="https://www.membershipbenefits.club/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
         <a href="https://membershipbenefits.club/pricing" className="nav-cta">Get Started</a>
       </nav>
 

@@ -17,7 +17,7 @@ const DealsPage = () => {
     const fetchDeals = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://www.joinsecret.com/api/v2/deals', {
+        const response = await fetch('/joinsecret-api/api/v2/deals', {
           headers: {
             'Authorization': 'Bearer 7iNMlB0RwkxALaMHbRsxgw',
             'Accept': 'application/json'
@@ -45,37 +45,48 @@ const DealsPage = () => {
     fetchDeals();
   }, []);
 
+  const getText = (val) => {
+    if (typeof val === 'string') return val;
+    if (val && typeof val === 'object') {
+      return val.en || val.fr || Object.values(val)[0] || '';
+    }
+    return val || '';
+  };
+
   const mapApiDealToLocal = (apiDeal) => {
-    // This function maps API fields to the format expected by DealCard and DealModal
-    // It's designed to be robust even if the API structure changes slightly
+    const name = getText(apiDeal.name || apiDeal.title);
+    const description = getText(apiDeal.description || apiDeal.short_description);
+    const offer = getText(apiDeal.offer_title || apiDeal.benefit);
+    const categoryName = getText(apiDeal.category?.name || apiDeal.category_name);
+
     return {
       id: apiDeal.id || apiDeal.slug || Math.random().toString(36).substr(2, 9),
-      name: apiDeal.name || apiDeal.title || 'Unknown Tool',
+      name: name || 'Unknown Tool',
       category: (apiDeal.category?.slug || apiDeal.category_slug || 'business').toLowerCase(),
-      categoryName: apiDeal.category?.name || apiDeal.category_name || 'Business',
-      logo: apiDeal.logo_url ? <img src={apiDeal.logo_url} alt={apiDeal.name} /> : (apiDeal.name ? apiDeal.name.substring(0, 3).toUpperCase() : 'APP'),
+      categoryName: categoryName || 'Business',
+      logo: apiDeal.logo_url ? <img src={apiDeal.logo_url} alt={name} /> : (name ? name.substring(0, 3).toUpperCase() : 'APP'),
       logoStyle: apiDeal.logo_url ? {} : { background: 'var(--n9)', color: 'var(--w)', fontSize: '16px', fontWeight: '900' },
       tag: apiDeal.is_new ? 'NEW' : (apiDeal.is_popular ? 'POPULAR' : ''),
       tagClass: apiDeal.is_new ? 'nw' : '',
-      bgClass: 'bg-a', // Default background class
-      description: apiDeal.description || apiDeal.short_description || 'No description available.',
-      offer: apiDeal.offer_title || apiDeal.benefit || 'Exclusive Deal',
-      offerDetail: apiDeal.offer_description || apiDeal.benefit_details || apiDeal.description,
-      subText: apiDeal.offer_subtext || 'Limited time offer',
-      savings: apiDeal.savings_amount || 'Significant Savings',
+      bgClass: 'bg-a',
+      description: description || 'No description available.',
+      offer: offer || 'Exclusive Deal',
+      offerDetail: getText(apiDeal.offer_description || apiDeal.benefit_details) || description,
+      subText: getText(apiDeal.offer_subtext) || 'Limited time offer',
+      savings: getText(apiDeal.savings_amount) || 'Significant Savings',
       rating: apiDeal.rating || '4.5/5',
       users: apiDeal.users_count ? `${apiDeal.users_count} users` : 'Many users',
       dealsContent: {
-        title: apiDeal.deal_terms_title || 'Terms & Conditions',
-        items: apiDeal.deal_terms || ['Check website for details'],
-        description: apiDeal.deal_summary || apiDeal.description
+        title: getText(apiDeal.deal_terms_title) || 'Terms & Conditions',
+        items: Array.isArray(apiDeal.deal_terms) ? apiDeal.deal_terms.map(getText) : ['Check website for details'],
+        description: getText(apiDeal.deal_summary) || description
       },
-      pricingContent: apiDeal.pricing_plans || [
-        { name: 'Standard', price: 'Contact for pricing' }
-      ],
-      faqContent: apiDeal.faqs || [
-        { q: 'How do I redeem?', a: 'Join our platform to get instant access to this deal and more.' }
-      ]
+      pricingContent: Array.isArray(apiDeal.pricing_plans) 
+        ? apiDeal.pricing_plans.map(p => ({ name: getText(p.name), price: getText(p.price) }))
+        : [{ name: 'Standard', price: 'Contact for pricing' }],
+      faqContent: Array.isArray(apiDeal.faqs)
+        ? apiDeal.faqs.map(f => ({ q: getText(f.q || f.question), a: getText(f.a || f.answer) }))
+        : [{ q: 'How do I redeem?', a: 'Join our platform to get instant access to this deal and more.' }]
     };
   };
 

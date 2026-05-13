@@ -10,11 +10,12 @@ export default defineConfig({
     },
   },
   server: {
+
     proxy: {
-      '/api': {
-        target: 'https://gowithflow-backend.onrender.com',
+      '/joinsecret-api': {
+        target: 'https://www.joinsecret.com',
         changeOrigin: true,
-        secure: false,
+        rewrite: (path) => path.replace(/^\/joinsecret-api/, ''),
       },
     },
   },

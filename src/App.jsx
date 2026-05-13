@@ -11,7 +11,7 @@ import PublicLayouts from './Layouts/PublicLayouts';
 import HowItWorks from './pages/how-it-works';
 import Pricing from './pages/Pricing';
 import FAQ from './pages/FAQ';
-import Deals from './pages/Deals';
+import Deals from './pages/DealsPage';
 import DealsLanding from './pages/DealsLanding';
 import LaunchKit from './pages/LaunchKit';
 import CommunityOwnersSales from './pages/CommunityOwnersSales';

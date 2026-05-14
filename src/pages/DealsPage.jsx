@@ -1,94 +1,136 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { categories as staticCategories } from '../data/dealsData';
+import React, { useState, useMemo } from 'react';
+import categoryData from '../category_wise_data_updated_headers.json';
 import DealCard from '../components/Deals/DealCard';
 import DealModal from '../components/Deals/DealModal';
 import '../styles/Deals.css';
 
+const categoryInfoMap = {
+  'ai': { name: 'AI', icon: '🤖' },
+  'project management': { name: 'Project Management', icon: '📊' },
+  'data': { name: 'Data', icon: '🗄️' },
+  'customer': { name: 'Customer', icon: '💬' },
+  'developer': { name: 'Development', icon: '⚙️' },
+  'marketing': { name: 'Marketing', icon: '📣' },
+  'finance': { name: 'Finance', icon: '💰' },
+  'communication': { name: 'Communication', icon: '📡' },
+  'sales': { name: 'Sales', icon: '🎯' },
+  'business': { name: 'Business', icon: '🏢' },
+  'it': { name: 'IT', icon: '🖥️' },
+  'humar resource': { name: 'Human Resources', icon: '👥' },
+};
+
+const categoryOrder = [
+  'ai',
+  'marketing',
+  'sales',
+  'project management',
+  'developer',
+  'data',
+  'finance',
+  'customer',
+  'communication',
+  'it',
+  'business',
+  'humar resource'
+];
+
 const DealsPage = () => {
-  const [deals, setDeals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
   const [selectedDeal, setSelectedDeal] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const itemsPerPage = 30;
 
-  useEffect(() => {
-    const fetchDeals = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/joinsecret-api/api/v2/deals', {
-          headers: {
-            'Authorization': 'Bearer 7iNMlB0RwkxALaMHbRsxgw',
-            'Accept': 'application/json'
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch deals: ${response.status} ${response.statusText}`);
+  // Process the JSON data into a flat list of deals
+  const deals = useMemo(() => {
+    const allDeals = [];
+    Object.keys(categoryData)
+      .filter(catId => catId !== 'lifestyle' && catId !== 'operations management')
+      .forEach(catId => {
+        const catDeals = categoryData[catId];
+        if (Array.isArray(catDeals)) {
+          catDeals.forEach(deal => {
+            // Filter out incomplete entries
+            if (deal['Logo Name']) {
+              allDeals.push(mapJsonDealToLocal(deal, catId));
+            }
+          });
         }
-
-        const data = await response.json();
-        // Assuming the API returns an array directly or inside a "deals" property
-        const dealsArray = Array.isArray(data) ? data : (data.deals || []);
-        
-        const mappedDeals = dealsArray.map(mapApiDealToLocal);
-        setDeals(mappedDeals);
-      } catch (err) {
-        console.error('Error fetching deals:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDeals();
+      });
+    return allDeals;
   }, []);
 
-  const getText = (val) => {
-    if (typeof val === 'string') return val;
-    if (val && typeof val === 'object') {
-      return val.en || val.fr || Object.values(val)[0] || '';
-    }
-    return val || '';
-  };
+  // Dynamically generate categories from the data with specific ordering
+  const categories = useMemo(() => {
+    const counts = { all: 0 };
+    Object.keys(categoryData)
+      .filter(catId => catId !== 'lifestyle' && catId !== 'operations management')
+      .forEach(catId => {
+        const validDeals = categoryData[catId].filter(d => d['Logo Name']).length;
+        counts[catId] = validDeals;
+        counts.all += validDeals;
+      });
 
-  const mapApiDealToLocal = (apiDeal) => {
-    const name = getText(apiDeal.name || apiDeal.title);
-    const description = getText(apiDeal.description || apiDeal.short_description);
-    const offer = getText(apiDeal.offer_title || apiDeal.benefit);
-    const categoryName = getText(apiDeal.category?.name || apiDeal.category_name);
+    const cats = [{ id: 'all', name: 'All Deals', icon: '⚡', count: counts.all }];
+
+    // Sort keys based on the defined order
+    const sortedKeys = Object.keys(categoryData)
+      .filter(catId => catId !== 'lifestyle' && catId !== 'operations management')
+      .sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a);
+        const indexB = categoryOrder.indexOf(b);
+        if (indexA === -1) return 1;
+        if (indexB === -1) return -1;
+        return indexA - indexB;
+      });
+
+    sortedKeys.forEach(catId => {
+      const info = categoryInfoMap[catId] || {
+        name: catId.charAt(0).toUpperCase() + catId.slice(1).replace(/_/g, ' '),
+        icon: '📁'
+      };
+      cats.push({
+        id: catId,
+        name: info.name,
+        icon: info.icon,
+        count: counts[catId]
+      });
+    });
+    return cats;
+  }, []);
+
+  function mapJsonDealToLocal(jsonDeal, categoryId) {
+    const name = jsonDeal['Logo Name'];
+    const info = categoryInfoMap[categoryId] || { name: categoryId };
 
     return {
-      id: apiDeal.id || apiDeal.slug || Math.random().toString(36).substr(2, 9),
-      name: name || 'Unknown Tool',
-      category: (apiDeal.category?.slug || apiDeal.category_slug || 'business').toLowerCase(),
-      categoryName: categoryName || 'Business',
-      logo: apiDeal.logo_url ? <img src={apiDeal.logo_url} alt={name} /> : (name ? name.substring(0, 3).toUpperCase() : 'APP'),
-      logoStyle: apiDeal.logo_url ? {} : { background: 'var(--n9)', color: 'var(--w)', fontSize: '16px', fontWeight: '900' },
-      tag: apiDeal.is_new ? 'NEW' : (apiDeal.is_popular ? 'POPULAR' : ''),
-      tagClass: apiDeal.is_new ? 'nw' : '',
+      id: jsonDeal['absolute href'] || Math.random().toString(36).substr(2, 9),
+      name: name,
+      category: categoryId,
+      categoryName: info.name,
+      logo: jsonDeal['App Logo'] ? <img src={jsonDeal['App Logo']} alt={name} /> : name.substring(0, 3).toUpperCase(),
+      logoStyle: jsonDeal['App Logo'] ? {} : { background: 'var(--n9)', color: 'var(--w)', fontSize: '16px', fontWeight: '900' },
+      tag: '', // JSON doesn't have tags
+      tagClass: '',
       bgClass: 'bg-a',
-      description: description || 'No description available.',
-      offer: offer || 'Exclusive Deal',
-      offerDetail: getText(apiDeal.offer_description || apiDeal.benefit_details) || description,
-      subText: getText(apiDeal.offer_subtext) || 'Limited time offer',
-      savings: getText(apiDeal.savings_amount) || 'Significant Savings',
-      rating: apiDeal.rating || '4.5/5',
-      users: apiDeal.users_count ? `${apiDeal.users_count} users` : 'Many users',
+      description: jsonDeal['Description'] || 'No description available.',
+      offer: jsonDeal['Deal Detail'] || 'Exclusive Deal',
+      offerDetail: jsonDeal['Deal Detail'] || 'Exclusive Deal',
+      subText: jsonDeal['Users'] || 'Limited time offer',
+      savings: jsonDeal['Save'] || 'Significant Savings',
+      rating: '4.5/5',
+      users: jsonDeal['Users'] || 'Many users',
       dealsContent: {
-        title: getText(apiDeal.deal_terms_title) || 'Terms & Conditions',
-        items: Array.isArray(apiDeal.deal_terms) ? apiDeal.deal_terms.map(getText) : ['Check website for details'],
-        description: getText(apiDeal.deal_summary) || description
+        title: 'Deal Details',
+        items: [jsonDeal['Deal Detail']],
+        description: jsonDeal['Description'] || ''
       },
-      pricingContent: Array.isArray(apiDeal.pricing_plans) 
-        ? apiDeal.pricing_plans.map(p => ({ name: getText(p.name), price: getText(p.price) }))
-        : [{ name: 'Standard', price: 'Contact for pricing' }],
-      faqContent: Array.isArray(apiDeal.faqs)
-        ? apiDeal.faqs.map(f => ({ q: getText(f.q || f.question), a: getText(f.a || f.answer) }))
-        : [{ q: 'How do I redeem?', a: 'Join our platform to get instant access to this deal and more.' }]
+      pricingContent: [{ name: 'Standard', price: 'Check website for details' }],
+      faqContent: [{ q: 'How do I redeem?', a: `Click the "Get deal" button to visit the provider's website and claim this offer.` }]
     };
-  };
+  }
 
   const filteredDeals = useMemo(() => {
     return deals.filter(deal => {
@@ -99,24 +141,41 @@ const DealsPage = () => {
     });
   }, [activeCategory, searchQuery, deals]);
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredDeals.length / itemsPerPage);
+  const paginatedDeals = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return filteredDeals.slice(start, start + itemsPerPage);
+  }, [filteredDeals, currentPage]);
+
+  const handleCategoryChange = (catId) => {
+    setActiveCategory(catId);
+    setCurrentPage(1); // Reset to first page on category change
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="deals-page-container">
       <header className="site-header">
         <div className="header-container">
-          <a href="/" className="header-logo">
+          <a href="https://www.membershipbenefits.club/" className="header-logo">
             <img
               src="https://images.squarespace-cdn.com/content/v1/69b30bfaac362e539cfe126d/07b0c51a-28f8-40b9-98cc-d5d1ab77ec6c/logo.png?format=1500w"
               alt="MembershipBenefits.club"
             />
           </a>
 
-          <div className="mobile-burger">
+          <div className={`mobile-burger ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <span></span>
             <span></span>
             <span></span>
           </div>
 
-          <nav className="header-nav">
+          <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
             <a href="/how-it-works">How It Works</a>
             <a href="/pricing">Pricing</a>
             <a href="/deals">Deals</a>
@@ -128,11 +187,11 @@ const DealsPage = () => {
 
       <div className="pw">
         <div className="ph">
-          <h1>Explore <span>600+ exclusive</span> software deals</h1>
+          <h1>Explore <span>700+ exclusive</span> software deals</h1>
           <p>Every deal is from a closed network — not publicly available, not on any coupon site. Access unlocks the moment you join for $29/month.</p>
           <div className="stats">
-            <div className="stat"><span className="stat-val">609</span><span className="stat-lbl">active deals</span></div>
-            <div className="stat"><span className="stat-val">14</span><span className="stat-lbl">categories</span></div>
+            <div className="stat"><span className="stat-val">{deals.length}</span><span className="stat-lbl">active deals</span></div>
+            <div className="stat"><span className="stat-val">{categories.length - 1}</span><span className="stat-lbl">categories</span></div>
             <div className="stat"><span className="stat-val">$450K+</span><span className="stat-lbl">max savings</span></div>
             <div className="stat"><span className="stat-val">$29</span><span className="stat-lbl">per month, flat</span></div>
           </div>
@@ -144,7 +203,10 @@ const DealsPage = () => {
                 type="text"
                 placeholder="Search tools, categories, offers..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1); // Reset to first page on search
+                }}
                 style={{
                   width: '100%',
                   background: 'var(--n7)',
@@ -160,65 +222,52 @@ const DealsPage = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="cl">
-          <aside className="sb">
-            <span className="sbt">Categories</span>
-            <div className="sbc">
-              {staticCategories.map(cat => (
-                <button
-                  key={cat.id}
-                  className={`cb ${activeCategory === cat.id ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(cat.id)}
-                >
-                  <span className="ci">{cat.icon}</span>
-                  {cat.name}
-                  <span className="cc">{cat.count}</span>
-                </button>
-              ))}
-            </div>
-          </aside>
+      <div className="main-content-section">
+        <div className="pw">
+          <div className="cl">
+            <aside className="sb">
+              <span className="sbt">Categories</span>
+              <div className="sbc">
+                {categories.map(cat => (
+                  <button
+                    key={cat.id}
+                    className={`cb ${activeCategory === cat.id ? 'active' : ''}`}
+                    onClick={() => handleCategoryChange(cat.id)}
+                  >
+                    <span className="ci">{cat.icon}</span>
+                    {cat.name}
+                    <span className="cc">{cat.count}</span>
+                  </button>
+                ))}
+              </div>
+            </aside>
 
-          <main>
-            <div className="sortbar">
-              <div className="stabs">
-                <span className="stab active">Most Popular</span>
-                <span className="stab">Premium</span>
-                <span className="stab">Recently Added</span>
+            <main>
+              <div className="sortbar">
+                <div className="vt">
+                  <button
+                    className={`vb ${viewMode === 'grid' ? 'active' : ''}`}
+                    onClick={() => setViewMode('grid')}
+                    title="Grid"
+                  >
+                    ⊞
+                  </button>
+                  <button
+                    className={`vb ${viewMode === 'list' ? 'active' : ''}`}
+                    onClick={() => setViewMode('list')}
+                    title="List"
+                  >
+                    ☰
+                  </button>
+                </div>
               </div>
-              <div className="vt">
-                <button
-                  className={`vb ${viewMode === 'grid' ? 'active' : ''}`}
-                  onClick={() => setViewMode('grid')}
-                  title="Grid"
-                >
-                  ⊞
-                </button>
-                <button
-                  className={`vb ${viewMode === 'list' ? 'active' : ''}`}
-                  onClick={() => setViewMode('list')}
-                  title="List"
-                >
-                  ☰
-                </button>
-              </div>
-            </div>
 
-            {loading ? (
-              <div className="loading-state" style={{ textAlign: 'center', padding: '40px', color: 'var(--g1)' }}>
-                <div className="loader"></div>
-                <p>Fetching exclusive deals...</p>
-              </div>
-            ) : error ? (
-              <div className="error-state" style={{ textAlign: 'center', padding: '40px', color: 'var(--red)' }}>
-                <p>Error loading deals: {error}</p>
-                <button onClick={() => window.location.reload()} className="btn-u">Try Again</button>
-              </div>
-            ) : (
               <div className={`dg ${viewMode === 'list' ? 'list-view' : ''}`}>
-                {filteredDeals.length > 0 ? (
-                  filteredDeals.map(deal => (
-                    <DealCard key={deal.id} deal={deal} onClick={setSelectedDeal} />
+                {paginatedDeals.length > 0 ? (
+                  paginatedDeals.map((deal, idx) => (
+                    <DealCard key={deal.id + idx} deal={deal} onClick={setSelectedDeal} />
                   ))
                 ) : (
                   <div className="teaser">
@@ -226,17 +275,58 @@ const DealsPage = () => {
                     <p>Try adjusting your search or category filter to find what you're looking for.</p>
                   </div>
                 )}
-
-                {activeCategory === 'all' && searchQuery === '' && (
-                  <div className="teaser">
-                    <h4>Can't find a specific tool?</h4>
-                    <p>We add 5-10 new deals every single week. If you're looking for something specific, our members can request new partnerships.</p>
-                    <a href="/pricing" className="btn-u">Join to Request Deals</a>
-                  </div>
-                )}
               </div>
-            )}
-          </main>
+
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <button
+                    className="pg-btn"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </button>
+
+                  <div className="pg-numbers">
+                    {[...Array(totalPages)].map((_, i) => {
+                      const page = i + 1;
+                      // Only show first, last, and pages around current
+                      if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
+                        return (
+                          <button
+                            key={page}
+                            className={`pg-num ${currentPage === page ? 'active' : ''}`}
+                            onClick={() => handlePageChange(page)}
+                          >
+                            {page}
+                          </button>
+                        );
+                      } else if (page === currentPage - 2 || page === currentPage + 2) {
+                        return <span key={page} className="pg-dots">...</span>;
+                      }
+                      return null;
+                    })}
+                  </div>
+
+                  <button
+                    className="pg-btn"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+
+              {activeCategory === 'all' && searchQuery === '' && (
+                <div className="teaser">
+                  <h4>Can't find a specific tool?</h4>
+                  <p>We add 5-10 new deals every single week. If you're looking for something specific, our members can request new partnerships.</p>
+                  <a href="/pricing" className="btn-u">Join to Request Deals</a>
+                </div>
+              )}
+            </main>
+          </div>
         </div>
       </div>
 

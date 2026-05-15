@@ -41,7 +41,6 @@
   line-height: 1.6;
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
 }
 
 .deals-page-container::before {
@@ -135,9 +134,11 @@
 .mobile-burger.active span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 .mobile-burger.active span:nth-child(2) {
   opacity: 0;
 }
+
 .mobile-burger.active span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
@@ -149,6 +150,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px 0px;
+  padding-bottom: 20px;
 }
 
 /* PAGE HEADER */
@@ -223,12 +225,15 @@
 
 .sb {
   position: sticky;
-  top: 90px;
+  top: 100px;
   background: var(--n7);
   padding: 20px;
   border-radius: 16px;
   border: 1px solid var(--n4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  height: fit-content;
+  align-self: start;
 }
 
 .sbt {
@@ -1055,7 +1060,7 @@ footer {
     justify-content: center;
     padding: 80px 40px;
     transition: right .3s ease;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     z-index: 1000000;
   }
 

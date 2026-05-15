@@ -61,6 +61,7 @@ const DealModal = ({ deal, onClose }) => {
                   {deal.pricingContent.map((item, index) => (
                     <div className="pricing-row" key={index}>
                       <span className="p-name">{item.name}</span>
+
                       <span className="p-price">{item.price}</span>
                     </div>
                   ))}

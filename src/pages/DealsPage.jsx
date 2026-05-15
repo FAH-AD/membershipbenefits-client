@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import categoryData from '../category_wise_data_updated_headers.json';
 import DealCard from '../components/Deals/DealCard';
 import DealModal from '../components/Deals/DealModal';
@@ -17,6 +17,8 @@ const categoryInfoMap = {
   'business': { name: 'Business', icon: '🏢' },
   'it': { name: 'IT', icon: '🖥️' },
   'humar resource': { name: 'Human Resources', icon: '👥' },
+  'operations management': { name: 'Operations', icon: '🛠️' },
+  'lifestyle': { name: 'Lifestyle', icon: '🏠' },
 };
 
 const categoryOrder = [
@@ -31,7 +33,9 @@ const categoryOrder = [
   'communication',
   'it',
   'business',
-  'humar resource'
+  'operations management',
+  'humar resource',
+  'lifestyle'
 ];
 
 const DealsPage = () => {
@@ -39,6 +43,10 @@ const DealsPage = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [selectedDeal, setSelectedDeal] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    document.title = "Deals — MembershipBenefits.club";
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const itemsPerPage = 30;
@@ -47,14 +55,15 @@ const DealsPage = () => {
   const deals = useMemo(() => {
     const allDeals = [];
     Object.keys(categoryData)
-      .filter(catId => catId !== 'lifestyle' && catId !== 'operations management')
       .forEach(catId => {
         const catDeals = categoryData[catId];
         if (Array.isArray(catDeals)) {
+          const seenInCategory = new Set();
           catDeals.forEach(deal => {
-            // Filter out incomplete entries
-            if (deal['Logo Name']) {
+            // Filter out incomplete entries and duplicates within this category
+            if (deal['Logo Name'] && !seenInCategory.has(deal['Logo Name'])) {
               allDeals.push(mapJsonDealToLocal(deal, catId));
+              seenInCategory.add(deal['Logo Name']);
             }
           });
         }
@@ -65,19 +74,19 @@ const DealsPage = () => {
   // Dynamically generate categories from the data with specific ordering
   const categories = useMemo(() => {
     const counts = { all: 0 };
-    Object.keys(categoryData)
-      .filter(catId => catId !== 'lifestyle' && catId !== 'operations management')
-      .forEach(catId => {
-        const validDeals = categoryData[catId].filter(d => d['Logo Name']).length;
-        counts[catId] = validDeals;
-        counts.all += validDeals;
-      });
+    const allUniqueNames = new Set();
+
+    // Count unique deals per category and total unique deals
+    deals.forEach(deal => {
+      counts[deal.category] = (counts[deal.category] || 0) + 1;
+      allUniqueNames.add(deal.name);
+    });
+    counts.all = allUniqueNames.size;
 
     const cats = [{ id: 'all', name: 'All Deals', icon: '⚡', count: counts.all }];
 
     // Sort keys based on the defined order
     const sortedKeys = Object.keys(categoryData)
-      .filter(catId => catId !== 'lifestyle' && catId !== 'operations management')
       .sort((a, b) => {
         const indexA = categoryOrder.indexOf(a);
         const indexB = categoryOrder.indexOf(b);
@@ -99,33 +108,55 @@ const DealsPage = () => {
       });
     });
     return cats;
-  }, []);
+  }, [deals]);
 
   function mapJsonDealToLocal(jsonDeal, categoryId) {
     const name = jsonDeal['Logo Name'];
     const info = categoryInfoMap[categoryId] || { name: categoryId };
 
+    // Detect format and normalize
+    let description = jsonDeal['Description'] || '';
+    let offer = jsonDeal['Deal Detail'] || '';
+    let savings = jsonDeal['Save'] || '';
+    let link = jsonDeal['absolute href'] || jsonDeal['btn'] || '';
+    let usersText = jsonDeal['Users'] || '';
+
+    // Handle inconsistent formats across categories
+    if (savings && savings.startsWith('http')) {
+      link = savings;
+      savings = offer;
+      offer = description;
+      description = usersText;
+    } else if (jsonDeal['btn'] && jsonDeal['btn'].startsWith('http')) {
+      link = jsonDeal['btn'];
+      if (savings === 'Get deal' || savings === 'Get deal for free') {
+        savings = offer;
+        offer = description;
+        description = usersText;
+      }
+    }
+
     return {
-      id: jsonDeal['absolute href'] || Math.random().toString(36).substr(2, 9),
+      id: link || Math.random().toString(36).substr(2, 9),
       name: name,
       category: categoryId,
       categoryName: info.name,
       logo: jsonDeal['App Logo'] ? <img src={jsonDeal['App Logo']} alt={name} /> : name.substring(0, 3).toUpperCase(),
       logoStyle: jsonDeal['App Logo'] ? {} : { background: 'var(--n9)', color: 'var(--w)', fontSize: '16px', fontWeight: '900' },
-      tag: '', // JSON doesn't have tags
+      tag: '',
       tagClass: '',
       bgClass: 'bg-a',
-      description: jsonDeal['Description'] || 'No description available.',
-      offer: jsonDeal['Deal Detail'] || 'Exclusive Deal',
-      offerDetail: jsonDeal['Deal Detail'] || 'Exclusive Deal',
-      subText: jsonDeal['Users'] || 'Limited time offer',
-      savings: jsonDeal['Save'] || 'Significant Savings',
+      description: description || 'No description available.',
+      offer: offer || 'Exclusive Deal',
+      offerDetail: offer || 'Exclusive Deal',
+      subText: usersText || 'Limited time offer',
+      savings: savings || 'Significant Savings',
       rating: '4.5/5',
-      users: jsonDeal['Users'] || 'Many users',
+      users: usersText || 'Many users',
       dealsContent: {
         title: 'Deal Details',
-        items: [jsonDeal['Deal Detail']],
-        description: jsonDeal['Description'] || ''
+        items: [offer],
+        description: description || ''
       },
       pricingContent: [{ name: 'Standard', price: 'Check website for details' }],
       faqContent: [{ q: 'How do I redeem?', a: `Click the "Get deal" button to visit the provider's website and claim this offer.` }]
@@ -133,12 +164,23 @@ const DealsPage = () => {
   }
 
   const filteredDeals = useMemo(() => {
-    return deals.filter(deal => {
+    let list = deals.filter(deal => {
       const matchesCategory = activeCategory === 'all' || deal.category === activeCategory;
       const matchesSearch = deal.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         deal.description.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
+
+    if (activeCategory === 'all') {
+      const seen = new Set();
+      list = list.filter(deal => {
+        if (seen.has(deal.name)) return false;
+        seen.add(deal.name);
+        return true;
+      });
+    }
+
+    return list;
   }, [activeCategory, searchQuery, deals]);
 
   // Pagination logic
@@ -150,6 +192,7 @@ const DealsPage = () => {
 
   const handleCategoryChange = (catId) => {
     setActiveCategory(catId);
+    setSearchQuery(''); // Clear search query on category change
     setCurrentPage(1); // Reset to first page on category change
   };
 
@@ -176,21 +219,21 @@ const DealsPage = () => {
           </div>
 
           <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
-            <a href="/how-it-works">How It Works</a>
-            <a href="/pricing">Pricing</a>
-            <a href="/deals">Deals</a>
-            <a href="/about-us">About Us</a>
-            <a href="/faq">FAQ</a>
+            <a href="https://www.membershipbenefits.club/how-it-works">How It Works</a>
+            <a href="https://www.membershipbenefits.club/pricing">Pricing</a>
+            <a href="https://www.membershipbenefits.club/deals">Deals</a>
+            <a href="https://www.membershipbenefits.club/about-us">About Us</a>
+            <a href="https://www.membershipbenefits.club/faq">FAQ</a>
           </nav>
         </div>
       </header>
 
       <div className="pw">
         <div className="ph">
-          <h1>Explore <span>700+ exclusive</span> software deals</h1>
+          <h1>Explore <span>380+ exclusive</span> software deals</h1>
           <p>Every deal is from a closed network — not publicly available, not on any coupon site. Access unlocks the moment you join for $29/month.</p>
           <div className="stats">
-            <div className="stat"><span className="stat-val">{deals.length}</span><span className="stat-lbl">active deals</span></div>
+            <div className="stat"><span className="stat-val">{categories.find(c => c.id === 'all')?.count || 0}</span><span className="stat-lbl">active deals</span></div>
             <div className="stat"><span className="stat-val">{categories.length - 1}</span><span className="stat-lbl">categories</span></div>
             <div className="stat"><span className="stat-val">$450K+</span><span className="stat-lbl">max savings</span></div>
             <div className="stat"><span className="stat-val">$29</span><span className="stat-lbl">per month, flat</span></div>
@@ -322,7 +365,7 @@ const DealsPage = () => {
                 <div className="teaser">
                   <h4>Can't find a specific tool?</h4>
                   <p>We add 5-10 new deals every single week. If you're looking for something specific, our members can request new partnerships.</p>
-                  <a href="/pricing" className="btn-u">Join to Request Deals</a>
+                  <a href="https://www.membershipbenefits.club/pricing" className="btn-u">Join to Request Deals</a>
                 </div>
               )}
             </main>

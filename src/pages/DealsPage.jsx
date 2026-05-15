@@ -221,7 +221,7 @@ const DealsPage = () => {
           <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
             <a href="https://www.membershipbenefits.club/how-it-works">How It Works</a>
             <a href="https://www.membershipbenefits.club/pricing">Pricing</a>
-            <a href="https://www.membershipbenefits.club/deals">Deals</a>
+            <a href="/deals">Deals</a>
             <a href="https://www.membershipbenefits.club/about-us">About Us</a>
             <a href="https://www.membershipbenefits.club/faq">FAQ</a>
           </nav>

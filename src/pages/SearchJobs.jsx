@@ -16,6 +16,9 @@ import {
   CheckCircle,
   Loader,
   AlertTriangle,
+  Gift,
+  Sparkles,
+  ExternalLink,
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import axios from "axios"
@@ -65,6 +68,28 @@ const SearchJobs = () => {
   const [isExternalLoading, setIsExternalLoading] = useState(false)
   const [externalError, setExternalError] = useState(null)
   const [externalPage, setExternalPage] = useState(1)
+
+  // Deals Popup State
+  const [showDealsModal, setShowDealsModal] = useState(false)
+  const [dealsUrl, setDealsUrl] = useState("")
+
+  // Check for deals popup on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search)
+    const showPopup = urlParams.get("showDealsPopup")
+    const savedUrl = localStorage.getItem("deals_sign_in_url")
+
+    if (showPopup === "true" && savedUrl) {
+      setDealsUrl(savedUrl)
+      setShowDealsModal(true)
+
+      // Clean up URL and localStorage
+      const newParams = new URLSearchParams(location.search)
+      newParams.delete("showDealsPopup")
+      localStorage.removeItem("deals_sign_in_url")
+      navigate(`${location.pathname}${newParams.toString() ? '?' + newParams.toString() : ''}`, { replace: true })
+    }
+  }, [location.search, navigate])
 
   // Fetch jobs on mount and when search params change
   useEffect(() => {
@@ -349,20 +374,20 @@ const SearchJobs = () => {
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
         {/* Hero Section */}
-        <div className="relative mb-16 overflow-hidden rounded-[2.5rem] bg-black p-12 text-white shadow-2xl border border-white/5">
+        <div className="relative mb-8 md:mb-16 overflow-hidden rounded-3xl md:rounded-[2.5rem] bg-black p-8 md:p-12 text-white shadow-2xl border border-white/5">
           {/* AI Style Gradients */}
-          <div className="absolute top-0 right-0 w-full h-full pointer-events-none select-none">
+          <div className="absolute top-0 right-0 w-full h-full pointer-events-none select-none overflow-hidden">
             <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-indigo-600/30 rounded-full blur-[120px]"></div>
             <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-violet-600/20 via-transparent to-cyan-500/10"></div>
             <div className="absolute -bottom-48 -left-24 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[100px]"></div>
           </div>
 
           <div className="relative z-10 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-blue-300 text-xs font-bold uppercase tracking-widest mb-6 border border-white/10 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-blue-300 text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border border-white/10 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
               Strategic Career Discovery
             </div>
-            <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight leading-none text-white">
+            <h1 className="text-4xl md:text-6xl font-black mb-4 md:mb-6 tracking-tight leading-tight md:leading-none text-white">
               Explore <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-indigo-300">{searchParams.title || "Global"}</span> Careers
             </h1>
             <p className="text-slate-400 text-lg md:text-xl font-medium mb-8 max-w-xl leading-relaxed">
@@ -929,6 +954,70 @@ const SearchJobs = () => {
           Show Search
         </span>
       </button>
+
+      {/* Deals Access Modal */}
+      <AnimatePresence>
+        {showDealsModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowDealsModal(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-[92%] sm:max-w-[450px] md:max-w-3xl bg-white rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] border border-white/20 mx-auto max-h-[90vh] overflow-y-auto"
+            >
+              {/* Premium Background Elements */}
+              <div className="absolute top-0 right-0 w-full h-full pointer-events-none select-none overflow-hidden">
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#00d26a]/10 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+              </div>
+
+              <div className="relative p-6 md:p-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                <div className="flex-1 text-left">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-widest mb-4 border border-emerald-100">
+                    <Sparkles size={12} />
+                    Premium Membership Access
+                  </div>
+
+                  <h2 className="text-3xl font-black text-slate-900 mb-4 leading-tight">
+                    Unlock Exclusive Member Deals
+                  </h2>
+
+                  <p className="text-slate-500 text-base leading-relaxed">
+                    Your membership benefits dashboard is the core experience — giving you access
+                    to exclusive discounts, perks, and premium offers.
+                  </p>
+                </div>
+
+                <div className="flex-1 w-full space-y-6">
+                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p className="text-slate-600 text-sm font-medium mb-4 italic">
+                      "Jobs and events are included as additional benefits to help you grow your network and opportunities."
+                    </p>
+                    <button
+                      onClick={() => {
+                        window.open(dealsUrl, "_blank");
+                        setShowDealsModal(false);
+                      }}
+                      className="w-full py-4 bg-[#00d26a] hover:bg-[#1adb7a] text-white font-black rounded-xl transition-all shadow-[0_12px_24px_-8px_rgba(0,210,106,0.5)] active:scale-95 flex items-center justify-center gap-3 text-base group"
+                    >
+                      <span>Go to deals page</span>
+                      <ExternalLink size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <style dangerouslySetInnerHTML={{
         __html: `

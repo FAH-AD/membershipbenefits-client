@@ -69,16 +69,11 @@ export default function Login() {
             console.log(jsUsers)
 
             if (targetUser && targetUser.sign_in_url) {
+              // Save sign_in_url for the popup
+              localStorage.setItem("deals_sign_in_url", targetUser.sign_in_url);
 
-              // Open your system in new tab
-              const jobsTab = window.open(
-                window.location.origin + "/jobs?fromDeals=true",
-                "_blank"
-              );
-
-              // Redirect current tab to third-party deals system
-              window.location.href = targetUser.sign_in_url;
-
+              // Navigate to jobs with popup flag
+              navigate("/jobs?showDealsPopup=true");
               return;
             }
           }
@@ -95,7 +90,7 @@ export default function Login() {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Login failed. Invalid Credentials.");
+      toast.error("Invalid Credentials. Please check your email and password.");
     } finally {
       // We only stop loading if we're NOT redirecting
       // Actually, navigation will unmount the component, but just in case
@@ -166,12 +161,15 @@ export default function Login() {
               </button>
             </form>
 
-            {/* <p className="mt-10 text-center text-slate-600">
-              Don’t have an account?{' '}
-              <Link to="/signup" className="text-[#12a1e2] font-semibold hover:underline">
-                Register
-              </Link>
-            </p> */}
+            <p className="mt-10 text-center text-slate-600">
+              Don't have an account?{' '}
+              <a 
+                href="https://www.membershipbenefits.club/pricing" 
+                className="text-[#00d26a] font-semibold hover:underline"
+              >
+                Register here
+              </a>
+            </p>
           </div>
 
           <div className="hidden md:flex flex-1 justify-center items-center rounded-r-lg bg-slate-50">

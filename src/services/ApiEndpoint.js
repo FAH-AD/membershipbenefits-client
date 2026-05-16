@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: ' https://membershiptbenefits-server-1.onrender.com',
+  baseURL: 'https://membershiptbenefits-server-1.onrender.com',
   headers: {
     "Content-Type": "application/json",
   },
@@ -53,7 +53,7 @@ instance.interceptors.response.use(
     console.log("Response interceptor - Error:", error.response?.status, error.config?.url);
     console.log("Error details:", error.response?.data);
 
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 && !error.config?.url.includes('/api/auth/login')) {
       console.warn("401 Unauthorized - Clearing token and redirecting to login");
       localStorage.removeItem("authToken");
       window.location.href = "/login";

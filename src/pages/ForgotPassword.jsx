@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import { post } from '../services/ApiEndpoint';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -14,8 +15,8 @@ export default function ForgotPassword() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axios.post('/api/auth/forgot-password', { email });
-      toast.success(res.data.message);
+      const res = await post('/api/auth/forgot-password', { email });
+      toast.success(res.data.message || 'Password reset code sent to email');
       navigate('/verify-code', { state: { email } });
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to send code");
@@ -62,13 +63,18 @@ export default function ForgotPassword() {
             />
             <motion.button
               type="submit"
-              className="w-full bg-[#00d26a] hover:bg-[#1adb7a] text-white font-bold py-3 rounded-lg shadow-sm transition-all"
+              className="w-full bg-[#00d26a] hover:bg-[#1adb7a] text-white font-bold py-3 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
               disabled={isLoading}
             >
-              {isLoading ? 'Sending...' : 'Send Logic Code'}
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>Sending...</span>
+                </>
+              ) : 'Send Code'}
             </motion.button>
           </form>
         </motion.div>

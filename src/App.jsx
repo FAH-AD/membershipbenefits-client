@@ -103,7 +103,26 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <Toaster />
+        <Toaster 
+          position="top-center"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{
+            zIndex: 1000000,
+            top: 20,
+          }}
+          toastOptions={{
+            // Define default options
+            className: '',
+            duration: 5000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+              zIndex: 1000000,
+            },
+          }}
+        />
         <Routes>
 
           {/* Public Routes */}

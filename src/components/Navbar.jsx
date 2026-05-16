@@ -224,7 +224,7 @@ const Navbar = () => {
           {navLinks.map((link, index) => {
             const isExternal = link.href.startsWith('http');
             const isActive = location.pathname === link.href;
-            
+
             return isExternal ? (
               <a
                 key={index}
@@ -302,8 +302,8 @@ const Navbar = () => {
                 <Link to="/login" className="btn-login" onClick={closeMenu}>
                   Log in
                 </Link>
-                <a 
-                  href="https://www.membershipbenefits.club/pricing" 
+                <a
+                  href="https://www.membershipbenefits.club/pricing"
                   className="btn-start"
                   onClick={closeMenu}
                 >

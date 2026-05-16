@@ -50,7 +50,7 @@ export default function Login() {
           // 1. Get JWT token from JoinSecret (valid for 5 mins)
           const authRes = await axios.post('/joinsecret-api/api/v1/authentications', {}, {
             headers: {
-              'Authorization': `Bearer ${import.meta.env.VITE_JOINSECRET_BEARER_TOKEN}`
+              'Authorization': `Bearer 7iNMlB0RwkxALaMHbRsxgw`
             }
           });
 

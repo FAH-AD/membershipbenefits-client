@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetUser } from '../redux/AuthSlice';
 import Navbar from '../components/Navbar';
+import LoadingOverlay from '../components/LoadingOverlay';
 import login from '../assets/login-img.png';
 import { Eye, EyeOff } from "lucide-react";
 import webSocketSingleton from '../socket';
@@ -15,6 +16,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,37 +29,82 @@ export default function Login() {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const response = await post("/api/auth/login", { email, password });
       if (response.status === 200) {
-        console.log("FULL LOGIN RESPONSE:", response);
-        console.log("LOGIN RESPONSE DATA:", response.data);
-        console.log("LOGIN RESPONSE DATA.DATA:", response.data?.data);
-
         const { user, token } = response.data.data;
         const { message } = response.data;
         webSocketSingleton.init(token)
 
         localStorage.setItem("authToken", token);
         dispatch(SetUser(user));
-        console.log(user, "user on login")
         toast.success(message);
 
+        // Open current system dashboard in a new tab immediately
+
+
+        // JoinSecret Integration logic
+        try {
+          // 1. Get JWT token from JoinSecret (valid for 5 mins)
+          const authRes = await axios.post('/joinsecret-api/api/v1/authentications', {}, {
+            headers: {
+              'Authorization': `Bearer ${import.meta.env.VITE_JOINSECRET_BEARER_TOKEN}`
+            }
+          });
+
+          const jsToken = authRes.data.jwt_token; // Try common keys
+
+          if (jsToken) {
+            // 2. Get user list from JoinSecret
+            const usersRes = await axios.get('/joinsecret-api/api/v1/users', {
+              headers: {
+                'Authorization': `Bearer ${jsToken}`
+              }
+            });
+
+            const jsUsers = Array.isArray(usersRes.data) ? usersRes.data : (usersRes.data.users || []);
+            const targetUser = jsUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+            console.log(jsUsers)
+
+            if (targetUser && targetUser.sign_in_url) {
+
+              // Open your system in new tab
+              const jobsTab = window.open(
+                window.location.origin + "/jobs?fromDeals=true",
+                "_blank"
+              );
+
+              // Redirect current tab to third-party deals system
+              window.location.href = targetUser.sign_in_url;
+
+              return;
+            }
+          }
+        } catch (jsError) {
+          console.error("JoinSecret Integration Error:", jsError);
+        }
+
+        // Normal fallback navigation
         if (user.role === "admin") {
           navigate("/admin");
-        } else if (user.role === "client") {
-          navigate("/jobs");
-        } else if (user.role === "freelancer") {
+        } else if (user.role === "client" || user.role === "freelancer") {
           navigate("/jobs");
         }
       }
     } catch (error) {
       console.error(error);
       toast.error("Login failed. Invalid Credentials.");
+    } finally {
+      // We only stop loading if we're NOT redirecting
+      // Actually, navigation will unmount the component, but just in case
+      setIsLoading(false);
     }
   };
   return (
     <>
+      {isLoading && <LoadingOverlay />}
       <Navbar showFullNav={false} />
       <div className="bg-slate-50 min-h-screen pt-4 pb-4 px-4 overflow-hidden">
         <div className='max-w-6xl w-full m-auto mt-12'>
@@ -77,7 +124,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter email id / username"
-                  className="w-full border border-slate-200 rounded-md px-4 text-slate-900 py-3 focus:outline-none focus:ring-2 focus:ring-[#12a1e2] focus:border-transparent bg-slate-50"
+                  className="w-full border border-slate-200 rounded-md px-4 text-slate-900 py-3 focus:outline-none focus:ring-2 focus:ring-[#00d26a] focus:border-transparent bg-slate-50"
                 />
               </div>
 
@@ -89,7 +136,7 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter password"
-                    className="w-full border border-slate-200 rounded-md text-slate-900 px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-[#12a1e2] focus:border-transparent bg-slate-50"
+                    className="w-full border border-slate-200 rounded-md text-slate-900 px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-[#00d26a] focus:border-transparent bg-slate-50"
                   />
                   <div
                     className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -106,14 +153,14 @@ export default function Login() {
 
               <div className="flex items-end justify-between mb-6">
 
-                <Link to="/forgot-password" size="sm" className="text-[#12a1e2] hover:underline font-medium">
+                <Link to="/forgot-password" size="sm" className="text-[#00d26a] hover:underline font-medium">
                   Forgot Password?
                 </Link>
               </div>
 
               <button
                 type="submit"
-                className="bg-[#12a1e2] hover:bg-[#0e8cd4] text-white font-bold w-full py-3 rounded-md transition-all shadow-md active:scale-[0.98]"
+                className="bg-[#00d26a] hover:bg-[#1adb7a] text-white font-bold w-full py-3 rounded-md transition-all shadow-md active:scale-[0.98]"
               >
                 Login
               </button>

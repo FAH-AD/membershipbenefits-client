@@ -56,13 +56,13 @@ export default function ForgotPassword() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-slate-200 bg-white text-slate-900 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-[#12a1e2] focus:border-transparent transition-all"
+              className="w-full border border-slate-200 bg-white text-slate-900 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-[#00d26a] focus:border-transparent transition-all"
               variants={inputVariants}
               whileFocus="focus"
             />
             <motion.button
               type="submit"
-              className="w-full bg-[#12a1e2] hover:bg-[#0e8cd4] text-white font-bold py-3 rounded-lg shadow-sm transition-all"
+              className="w-full bg-[#00d26a] hover:bg-[#1adb7a] text-white font-bold py-3 rounded-lg shadow-sm transition-all"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"

@@ -67,6 +67,13 @@ import ResetPassword from './pages/ResetPassword';
 
 import Messaging from './pages/Messaging';
 
+const ExternalRedirect = ({ url }) => {
+  useEffect(() => {
+    window.location.replace(url);
+  }, [url]);
+  return null;
+};
+
 export default function App() {
   const token = localStorage.getItem('authToken');
   const user = useSelector((state) => state.Auth.user);
@@ -109,7 +116,7 @@ export default function App() {
           </Route> */}
 
           <Route path="/" element={<PublicLayouts />}>
-            <Route index element={<Home />} />
+            <Route index element={<ExternalRedirect url="https://www.membershipbenefits.club/" />} />
             <Route path="jobs" element={<SearchJobs />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<RoleSelection />} />

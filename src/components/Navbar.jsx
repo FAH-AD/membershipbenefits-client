@@ -117,11 +117,11 @@ const Navbar = () => {
   const getNavLinks = () => {
     if (!isAuthenticated) {
       return [
-        { name: "Home", href: "/" },
-        { name: "About Us", href: "https://ripmediagroup.com/" },
-        { name: "Services", href: "https://ripmediagroup.com/services-2" },
-        { name: "Contact Us", href: "https://ripmediagroup.com/contact-us" },
-        { name: "Events", href: "/events" },
+        { name: "How It Works", href: "https://www.membershipbenefits.club/how-it-works" },
+        { name: "Pricing", href: "https://www.membershipbenefits.club/pricing" },
+        { name: "Deals", href: "/deals" },
+        { name: "About Us", href: "https://www.membershipbenefits.club/about-us" },
+        { name: "FAQ", href: "https://www.membershipbenefits.club/faq" },
       ];
     }
 
@@ -201,144 +201,119 @@ const Navbar = () => {
   const verificationStatus = getVerificationStatus();
 
   return (
-    <header
-      className={`sticky top-0 z-40 w-full border-b border-white/10 transition-all duration-200 bg-[rgb(11,79,213)] text-white`}
-    >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="site-header">
+      <div className="header-container">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <Link to="/" className="header-logo">
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/69b30bfaac362e539cfe126d/07b0c51a-28f8-40b9-98cc-d5d1ab77ec6c/logo.png?format=1500w"
+            alt="MembershipBenefits.club"
+          />
+        </Link>
 
-          <span className="text-xl font-bold text-white">Membership Benefits</span>
+        {/* Mobile Burger */}
+        <div className={`mobile-burger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link, index) => (
-            <Link
-              key={index}
-              to={link.href}
-              className={`text-sm font-medium transition-colors ${location.pathname === link.href
-                ? "text-white opacity-100" // Highlighted state
-                : "text-white/80 hover:text-white" // Normal state
-                }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Auth Buttons or User Profile */}
-        <div className="flex items-center gap-4">
-          {isAuthenticated ? (
-            <>
-              {/* Copy Invite Link - Only for client owners */}
-              {user?.role === 'client' && regUrl && (
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(regUrl);
-                    alert('Invite link copied to clipboard!');
-                  }}
-                  className="hidden lg:flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-xs font-bold transition-all border border-white/20"
-                >
-                  <Users size={14} />
-                  Copy Invite Link
-                </button>
-              )}
-
-              {/* Messages Icon - Only for logged in users */}
-
-              {/* User Profile Dropdown */}
-              <div className="relative">
-                <button onClick={toggleProfile} className="profile-trigger flex items-center gap-2 focus:outline-none">
-                  <div className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#12a1e2]">
-                    <img
-                      src={
-
-                        "https://cdn-icons-png.freepik.com/256/12225/12225828.png?ga=GA1.1.929895557.1769420934&semt=ais_white_label"}
-                      alt="Profile"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <span className="hidden sm:block text-sm font-medium text-white">{user?.name}</span>
-                  <ChevronDown size={16} className="text-white" />
-                </button>
-
-                {isProfileOpen && (
-                  <div className="profile-menu absolute right-0 mt-2 w-56 rounded-md bg-white border border-slate-200 shadow-lg py-1 z-50">
-                    <div className="px-4 py-3 border-b border-slate-200">
-                      <p className="text-sm text-slate-900">{userProfile?.name || user?.name}</p>
-                      <p className="text-xs text-slate-500 truncate">{userProfile?.email || user?.email}</p>
-
-                    </div>
-                    {/* Role switcher for demo purposes */}
-                    <div className=" border-slate-200 mt-1">
-                      <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center px-4 py-2 text-sm text-slate-900 hover:bg-slate-100 transition-colors"
-                      >
-                        <LogOut size={16} className="mr-2" />
-                        Sign out
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="text-sm font-medium text-slate-900 hover:text-[#12a1e2] transition-colors">
-
-              </Link>
-              <Link
-                to="/login"
-                className="rounded-md bg-[rgb(37,37,37)] px-4 py-2 text-sm font-medium text-white hover:bg-black transition-colors"
+        {/* Navigation Wrapper */}
+        <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
+          {/* Desktop/Mobile Navigation Links */}
+          {navLinks.map((link, index) => {
+            const isExternal = link.href.startsWith('http');
+            const isActive = location.pathname === link.href;
+            
+            return isExternal ? (
+              <a
+                key={index}
+                href={link.href}
+                className={isActive ? "active" : ""}
+                onClick={closeMenu}
               >
-                Log in
-              </Link>
-            </>
-          )}
-
-          {/* Mobile menu button */}
-          <button onClick={toggleMenu} className="md:hidden text-white hover:text-white/80 transition-colors">
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200">
-          {user?.role === 'client' && regUrl && (
-            <div className="px-4 py-3 border-b border-slate-100">
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(regUrl);
-                  alert('Invite link copied!');
-                }}
-                className="w-full flex items-center justify-center gap-2 bg-[rgb(11,79,213)] text-white py-2 rounded-md text-sm font-bold"
-              >
-                <Users size={16} />
-                Copy Invite Link
-              </button>
-            </div>
-          )}
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navLinks.map((link, index) => (
+                {link.name}
+              </a>
+            ) : (
               <Link
                 key={index}
                 to={link.href}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${location.pathname === link.href
-                  ? "bg-slate-100 text-[#12a1e2]" // Highlighted state
-                  : "text-slate-900 hover:bg-slate-100" // Normal state
-                  }`}
+                className={isActive ? "active" : ""}
                 onClick={closeMenu}
               >
                 {link.name}
               </Link>
-            ))}
+            );
+          })}
+
+          {/* Header Actions (Auth / Profile) */}
+          <div className="header-actions">
+            {isAuthenticated ? (
+              <>
+                {/* User Profile Dropdown */}
+                <div className="relative">
+                  <button onClick={toggleProfile} className="profile-trigger flex items-center gap-2 focus:outline-none">
+                    <div className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#00d26a]">
+                      <img
+                        src="https://cdn-icons-png.freepik.com/256/12225/12225828.png?ga=GA1.1.929895557.1769420934&semt=ais_white_label"
+                        alt="Profile"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <span className="text-sm font-medium text-white">{user?.name}</span>
+                    <ChevronDown size={16} className="text-white" />
+                  </button>
+
+                  {isProfileOpen && (
+                    <div className="profile-menu absolute right-0 mt-2 w-56 rounded-md bg-white border border-slate-200 shadow-lg py-1 z-50">
+                      <div className="px-4 py-3 border-b border-slate-200">
+                        <p className="text-sm text-slate-900 font-bold">{userProfile?.name || user?.name}</p>
+                        <p className="text-xs text-slate-500 truncate">{userProfile?.email || user?.email}</p>
+                      </div>
+                      <div className="mt-1">
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center px-4 py-2 text-sm text-slate-900 hover:bg-slate-100 transition-colors"
+                        >
+                          <LogOut size={16} className="mr-2" />
+                          Sign out
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Copy Invite Link - Only for client owners */}
+                {user?.role === 'client' && regUrl && (
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(regUrl);
+                      alert('Invite link copied to clipboard!');
+                    }}
+                    className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-xs font-bold transition-all border border-white/10 text-white"
+                  >
+                    <Users size={14} />
+                    Invite
+                  </button>
+                )}
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="btn-login" onClick={closeMenu}>
+                  Log in
+                </Link>
+                <a 
+                  href="https://www.membershipbenefits.club/pricing" 
+                  className="btn-start"
+                  onClick={closeMenu}
+                >
+                  Start Now
+                </a>
+              </>
+            )}
           </div>
-        </div>
-      )}
+        </nav>
+      </div>
     </header>
   );
 };

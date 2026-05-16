@@ -225,7 +225,7 @@ const DealsPage = () => {
             <a href="https://www.membershipbenefits.club/about-us">About Us</a>
             <a href="https://www.membershipbenefits.club/faq">FAQ</a>
             <div className="header-actions">
-              <a href="https://deals.membershipbenefits.club/" className="btn-login">Login</a>
+              <a href="https://portal.membershipbenefits.club/login" className="btn-login">Login</a>
               <a href="https://www.membershipbenefits.club/pricing" className="btn-start">Start Now</a>
             </div>
           </nav>

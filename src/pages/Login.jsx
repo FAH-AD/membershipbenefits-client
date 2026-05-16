@@ -47,35 +47,14 @@ export default function Login() {
 
         // JoinSecret Integration logic
         try {
-          // 1. Get JWT token from JoinSecret (valid for 5 mins)
-          const authRes = await axios.post('/joinsecret-api/api/v1/authentications', {}, {
-            headers: {
-              'Authorization': `Bearer 7iNMlB0RwkxALaMHbRsxgw`
-            }
-          });
+          const dealsRes = await post("/api/auth/joinsecret-token", { email });
+          if (dealsRes.status === 200 && dealsRes.data.data.sign_in_url) {
+            // Save sign_in_url for the popup
+            localStorage.setItem("deals_sign_in_url", dealsRes.data.data.sign_in_url);
 
-          const jsToken = authRes.data.jwt_token; // Try common keys
-
-          if (jsToken) {
-            // 2. Get user list from JoinSecret
-            const usersRes = await axios.get('/joinsecret-api/api/v1/users', {
-              headers: {
-                'Authorization': `Bearer ${jsToken}`
-              }
-            });
-
-            const jsUsers = Array.isArray(usersRes.data) ? usersRes.data : (usersRes.data.users || []);
-            const targetUser = jsUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
-            console.log(jsUsers)
-
-            if (targetUser && targetUser.sign_in_url) {
-              // Save sign_in_url for the popup
-              localStorage.setItem("deals_sign_in_url", targetUser.sign_in_url);
-
-              // Navigate to jobs with popup flag
-              navigate("/jobs?showDealsPopup=true");
-              return;
-            }
+            // Navigate to jobs with popup flag
+            navigate("/jobs?showDealsPopup=true");
+            return;
           }
         } catch (jsError) {
           console.error("JoinSecret Integration Error:", jsError);
@@ -163,8 +142,8 @@ export default function Login() {
 
             <p className="mt-10 text-center text-slate-600">
               Don't have an account?{' '}
-              <a 
-                href="https://www.membershipbenefits.club/pricing" 
+              <a
+                href="https://www.membershipbenefits.club/pricing"
                 className="text-[#00d26a] font-semibold hover:underline"
               >
                 Register here

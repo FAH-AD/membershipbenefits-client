@@ -260,12 +260,12 @@ const Navbar = () => {
                         className="h-full w-full object-cover"
                       />
                     </div>
-                    <span className="text-sm font-medium text-white">{user?.name}</span>
-                    <ChevronDown size={16} className="text-white" />
+                    <span className="text-sm font-medium text-white truncate max-w-[100px] sm:max-w-[150px]">{user?.name}</span>
+                    <ChevronDown size={16} className="text-white flex-shrink-0" />
                   </button>
 
                   {isProfileOpen && (
-                    <div className="profile-menu absolute right-0 mt-2 w-56 rounded-md bg-white border border-slate-200 shadow-lg py-1 z-50">
+                    <div className="profile-menu absolute right-0 mt-2 w-48 md:w-56 rounded-md bg-white border border-slate-200 shadow-lg py-1 z-50">
                       <div className="px-4 py-3 border-b border-slate-200">
                         <p className="text-sm text-slate-900 font-bold">{userProfile?.name || user?.name}</p>
                         <p className="text-xs text-slate-500 truncate">{userProfile?.email || user?.email}</p>

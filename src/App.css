@@ -162,6 +162,7 @@
 
 .btn-start:hover {
   background: var(--g4);
+  color: white !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(0, 210, 106, 0.3);
 }

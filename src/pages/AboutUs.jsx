@@ -1,15 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
+import StaticHeader from '../components/StaticHeader';
 import StaticFooter from '../components/StaticFooter';
 import '../styles/StaticPages.css';
 
 const AboutUs = () => {
   return (
     <div className="static-page-container">
-      <Navbar />
+      <StaticHeader activePage="about-us" />
 
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -19,7 +19,7 @@ const AboutUs = () => {
           <div className="overline">The Origin Story</div>
           <h1>Built by someone who got tired<br />of watching members leave.</h1>
           <div className="about-grid">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -38,8 +38,8 @@ const AboutUs = () => {
                 <a href="/how-it-works" className="btn btn-ghost">See How It Works</a>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

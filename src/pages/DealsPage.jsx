@@ -221,12 +221,12 @@ const DealsPage = () => {
           </div>
 
           <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
-            <a href="https://www.membershipbenefits.club/how-it-works">How It Works</a>
+            <a href="/how-it-works">How It Works</a>
             <a href={user?.plan === 'free' ? '/pricing' : "https://www.membershipbenefits.club/pricing"}>Pricing</a>
             <a href="/deals" className="active">Deals</a>
 
-            <a href="https://www.membershipbenefits.club/about-us">About Us</a>
-            <a href="https://www.membershipbenefits.club/faq">FAQ</a>
+            <a href="/about-us">About Us</a>
+            <a href="/faq">FAQ</a>
             {!localStorage.getItem('authToken') && (
               <div className="header-actions">
                 <a href="https://portal.membershipbenefits.club/login" className="btn-login">Login</a>

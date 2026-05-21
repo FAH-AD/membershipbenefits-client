@@ -297,7 +297,7 @@ const Navbar = () => {
                   </button>
                 )}
               </>
-            ) : (
+            ) : !localStorage.getItem('authToken') ? (
               <>
                 <Link to="/login" className="btn-login" onClick={closeMenu}>
                   Log in
@@ -310,7 +310,7 @@ const Navbar = () => {
                   Start Now
                 </a>
               </>
-            )}
+            ) : null}
           </div>
         </nav>
       </div>

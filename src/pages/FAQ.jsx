@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '../components/Navbar';
+import StaticHeader from '../components/StaticHeader';
 import StaticFooter from '../components/StaticFooter';
 import '../styles/StaticPages.css';
 
@@ -84,9 +84,9 @@ const FAQ = () => {
 
   return (
     <div className="static-page-container">
-      <Navbar />
-      
-      <motion.section 
+      <StaticHeader activePage="faq" />
+
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -101,10 +101,10 @@ const FAQ = () => {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="section-narrow">
           {faqs.map((faq, index) => (
-            <FAQItem 
-              key={index} 
-              question={faq.question} 
-              answer={faq.answer} 
+            <FAQItem
+              key={index}
+              question={faq.question}
+              answer={faq.answer}
               isOpen={openIndex === index}
               onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
             />

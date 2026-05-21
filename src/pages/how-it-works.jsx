@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
+import StaticHeader from '../components/StaticHeader';
 import StaticFooter from '../components/StaticFooter';
 import '../styles/StaticPages.css';
 
 const Step = ({ number, title, description, micro, delay }) => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0, x: -20 }}
     whileInView={{ opacity: 1, x: 0 }}
     viewport={{ once: true }}
@@ -24,11 +24,11 @@ const Step = ({ number, title, description, micro, delay }) => (
 const HowItWorks = () => {
   return (
     <div className="static-page-container">
-      <Navbar />
+      <StaticHeader activePage="how-it-works" />
 
       <section className="section">
         <div className="section-inner">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -40,43 +40,43 @@ const HowItWorks = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr .85fr', gap: '40px' }} className="how-it-works-grid">
             <div className="steps-list">
-              <Step 
-                number="1" 
-                title="Tell Us About Your Community" 
-                description="Sign up and answer a few questions: your platform, approximate member count, brand colors, logo. That's it. We take it from there." 
+              <Step
+                number="1"
+                title="Tell Us About Your Community"
+                description="Sign up and answer a few questions: your platform, approximate member count, brand colors, logo. That's it. We take it from there."
                 micro="~5 minutes of your time"
                 delay={0.1}
               />
-              <Step 
-                number="2" 
-                title="We Build Your Portal" 
-                description="We configure your white-labeled deals marketplace. Your logo. Your colors. Your custom URL. We connect via API or Google Sheet." 
+              <Step
+                number="2"
+                title="We Build Your Portal"
+                description="We configure your white-labeled deals marketplace. Your logo. Your colors. Your custom URL. We connect via API or Google Sheet."
                 micro="1-3 business days"
                 delay={0.2}
               />
-              <Step 
-                number="3" 
-                title="Invite Your Members" 
-                description="We give you announcement templates, email copy, and a direct link. Members click, log in with SSO, and start savings. No extra accounts." 
+              <Step
+                number="3"
+                title="Invite Your Members"
+                description="We give you announcement templates, email copy, and a direct link. Members click, log in with SSO, and start savings. No extra accounts."
                 micro="Day of launch"
                 delay={0.3}
               />
-              <Step 
-                number="4" 
-                title="Watch Retention Improve" 
-                description="New deals added monthly. Members save without you lifting a finger. Dashboard shows usage, savings, and most popular tools." 
+              <Step
+                number="4"
+                title="Watch Retention Improve"
+                description="New deals added monthly. Members save without you lifting a finger. Dashboard shows usage, savings, and most popular tools."
                 micro="Ongoing (autopilot)"
                 delay={0.4}
               />
             </div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <div className="feature-card" style={{ marginBottom: '20px' }}>
+              {/* <div className="feature-card" style={{ marginBottom: '20px' }}>
                 <h3 style={{ color: 'var(--green)', marginBottom: '14px' }}>Every Plan Includes</h3>
                 <ul className="pricing-features">
                   <li>White-labeled savings portal</li>
@@ -88,7 +88,7 @@ const HowItWorks = () => {
                   <li>7/7 premium support</li>
                   <li>Optional: Job board + event feed</li>
                 </ul>
-              </div>
+              </div> */}
               <div className="feature-card">
                 <h3 style={{ color: 'var(--teal)', marginBottom: '10px' }}>Platforms We Connect To</h3>
                 <p style={{ fontSize: '13px', color: 'var(--gray-300)', lineHeight: 1.7 }}>

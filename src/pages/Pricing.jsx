@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '../components/Navbar';
 import StaticFooter from '../components/StaticFooter';
 import '../styles/StaticPages.css';
 
@@ -29,7 +29,9 @@ const FAQItem = ({ question, answer, isOpen, onClick }) => {
 };
 
 const Pricing = () => {
+  const user = useSelector((state) => state.Auth?.user);
   const [openIndex, setOpenIndex] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const pricingFaqs = [
     {
@@ -52,9 +54,38 @@ const Pricing = () => {
 
   return (
     <div className="static-page-container">
-      <Navbar />
+      <header className="site-header">
+        <div className="header-container">
+          <a href="https://www.membershipbenefits.club/" className="header-logo">
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/69b30bfaac362e539cfe126d/07b0c51a-28f8-40b9-98cc-d5d1ab77ec6c/logo.png?format=1500w"
+              alt="MembershipBenefits.club"
+            />
+          </a>
 
-      <motion.section 
+          <div className={`mobile-burger ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
+            <a href="https://www.membershipbenefits.club/how-it-works">How It Works</a>
+            <a href={user?.plan === 'free' ? '/pricing' : "https://www.membershipbenefits.club/pricing"} className="active">Pricing</a>
+            <a href="/deals">Deals</a>
+            <a href="https://www.membershipbenefits.club/about-us">About Us</a>
+            <a href="https://www.membershipbenefits.club/faq">FAQ</a>
+            {!localStorage.getItem('authToken') && (
+              <div className="header-actions">
+                <a href="https://portal.membershipbenefits.club/login" className="btn-login">Login</a>
+                <a href="https://www.membershipbenefits.club/pricing" className="btn-start">Start Now</a>
+              </div>
+            )}
+          </nav>
+        </div>
+      </header>
+
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -62,15 +93,16 @@ const Pricing = () => {
       >
         <div className="section-inner" style={{ textAlign: 'center' }}>
           <div className="overline">Pricing</div>
-          <h1>Simple pricing. Instant ROI.</h1>
-          <p className="body-text" style={{ margin: '0 auto' }}>Every plan pays for itself the first time a single member redeems a deal. No long-term contracts. Cancel anytime.</p>
+          <h2 style={{ color: 'white' }}>That’s one of many great deals!. </h2>
+          <h2 style={{ color: 'var(--green)' }}>Become a member and it’s yours! </h2>
+
         </div>
       </motion.section>
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="section-inner">
           <div className="pricing-grid">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -85,10 +117,10 @@ const Pricing = () => {
                 <li>400+ discounts on top tools</li>
                 <li>New premium deals monthly</li>
               </ul>
-              <a href="#" className="btn btn-ghost">Get Started</a>
+              <a href="https://buy.stripe.com/28EdR93QNf1EcQP3Bg1ck01" className="btn btn-ghost" style={{ backgroundColor: 'white', color: '#000' }}>Get Started</a>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -106,10 +138,10 @@ const Pricing = () => {
                 <li>New premium deals monthly</li>
                 <li>7/7 premium support</li>
               </ul>
-              <a href="#" className="btn btn-primary">Start Your Community Plan</a>
+              <a href="https://buy.stripe.com/14A3cv0EB1aO7wv5Jo1ck03" className="btn btn-primary">Start Your Community Plan</a>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -128,7 +160,7 @@ const Pricing = () => {
                 <li>Usage analytics dashboard</li>
                 <li>7/7 premium support</li>
               </ul>
-              <a href="#" className="btn btn-ghost">Talk to Us</a>
+              <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0JeLlE9aCBV1emvEd1BcRMcFysNEAAPXuCdfqxDZJjReDM72JV6oudD84TfKtiGF0IR0Jfi6yn?gv=true" className="btn btn-ghost" style={{ backgroundColor: 'white', color: '#000' }}>Talk to Us</a>
             </motion.div>
           </div>
 
@@ -143,10 +175,10 @@ const Pricing = () => {
         <div className="section-narrow">
           <h2 style={{ textAlign: 'center', marginBottom: '28px' }}>Common Pricing Questions</h2>
           {pricingFaqs.map((faq, index) => (
-            <FAQItem 
-              key={index} 
-              question={faq.question} 
-              answer={faq.answer} 
+            <FAQItem
+              key={index}
+              question={faq.question}
+              answer={faq.answer}
               isOpen={openIndex === index}
               onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
             />

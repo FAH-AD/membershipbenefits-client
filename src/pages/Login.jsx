@@ -42,10 +42,35 @@ export default function Login() {
         dispatch(SetUser(user));
         toast.success(message);
 
-        // Open current system dashboard in a new tab immediately
+        // Plan-based Redirection
+        if (user.role !== "admin") {
+          // Free users are redirected to the local deals page
+          if (user.plan === "free") {
+            navigate("/deals");
+            return;
+          }
 
+          // Individual and Community users are taken directly to the JoinSecret sign in URL
+          if (["individual", "community"].includes(user.plan)) {
+            try {
+              const dealsRes = await post("/api/auth/joinsecret-token", { email });
+              if (dealsRes.status === 200 && dealsRes.data.data.sign_in_url) {
+                // Save sign_in_url for the popup
+                localStorage.setItem("deals_sign_in_url", dealsRes.data.data.sign_in_url);
+                // Navigate directly to the JoinSecret external sign in url
+                window.location.href = dealsRes.data.data.sign_in_url;
+                return;
+              }
+            } catch (jsError) {
+              console.error("JoinSecret Integration Error:", jsError);
+              // Fallback to local deals page if api fails
+              navigate("/deals");
+              return;
+            }
+          }
+        }
 
-        // JoinSecret Integration logic
+        // JoinSecret Integration logic (Fallthrough for other users)
         try {
           const dealsRes = await post("/api/auth/joinsecret-token", { email });
           if (dealsRes.status === 200 && dealsRes.data.data.sign_in_url) {
@@ -53,7 +78,7 @@ export default function Login() {
             localStorage.setItem("deals_sign_in_url", dealsRes.data.data.sign_in_url);
 
             // Navigate to jobs with popup flag
-            navigate("/jobs?showDealsPopup=true");
+            window.location.href = dealsRes.data.data.sign_in_url;
             return;
           }
         } catch (jsError) {

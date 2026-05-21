@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import categoryData from '../category_wise_data_updated_headers.json';
 import DealCard from '../components/Deals/DealCard';
 import DealModal from '../components/Deals/DealModal';
@@ -39,6 +40,7 @@ const categoryOrder = [
 ];
 
 const DealsPage = () => {
+  const user = useSelector((state) => state.Auth?.user);
   const [activeCategory, setActiveCategory] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
   const [selectedDeal, setSelectedDeal] = useState(null);
@@ -220,14 +222,17 @@ const DealsPage = () => {
 
           <nav className={`header-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
             <a href="https://www.membershipbenefits.club/how-it-works">How It Works</a>
-            <a href="https://www.membershipbenefits.club/pricing">Pricing</a>
+            <a href={user?.plan === 'free' ? '/pricing' : "https://www.membershipbenefits.club/pricing"}>Pricing</a>
             <a href="/deals" className="active">Deals</a>
+
             <a href="https://www.membershipbenefits.club/about-us">About Us</a>
             <a href="https://www.membershipbenefits.club/faq">FAQ</a>
-            <div className="header-actions">
-              <a href="https://portal.membershipbenefits.club/login" className="btn-login">Login</a>
-              <a href="https://www.membershipbenefits.club/pricing" className="btn-start">Start Now</a>
-            </div>
+            {!localStorage.getItem('authToken') && (
+              <div className="header-actions">
+                <a href="https://portal.membershipbenefits.club/login" className="btn-login">Login</a>
+                <a href="https://www.membershipbenefits.club/pricing" className="btn-start">Start Now</a>
+              </div>
+            )}
           </nav>
         </div>
       </header>

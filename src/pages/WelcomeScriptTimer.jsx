@@ -190,7 +190,16 @@ export default function WelcomeScriptTimer() {
                       </div>
                     </div>
 
-                    {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
+                    {error && (
+                      <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px', textAlign: 'center' }}>
+                        {error}
+                        {error.toLowerCase().includes('already exist') && (
+                          <div style={{ marginTop: '10px' }}>
+                            <a href="/login" style={{ color: 'var(--green-primary, #06b6d4)', textDecoration: 'underline', fontWeight: 'bold' }}>Login here</a>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     <button type="submit" className="submit-btn cta-btn" style={{ background: '#06b6d4' }} disabled={loading}>
                       {loading ? (

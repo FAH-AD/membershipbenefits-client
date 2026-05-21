@@ -121,138 +121,147 @@ export default function WelcomeCommunity() {
       <div className="highlight-zone">
         <div className="container">
           {/* REGISTRATION FORM */}
-        <section className="reg-section">
-          <div className="reg-card">
-            {!success ? (
-              <div id="formArea">
-                <div className="reg-header">
-                  <h2>🎉 Activate Your Membership</h2>
-                  <p>Enter your details to get instant access to your deals portal.</p>
-                </div>
-                <form id="regFormCommunity" className="form-grid" onSubmit={handleSubmit}>
-                  <div className="form-group full">
-                    <label htmlFor="communityName">Community Name</label>
-                    <input type="text" id="communityName" name="communityName" placeholder="My Awesome Community" required ref={firstNameRef} value={formData.communityName} onChange={handleChange} />
+          <section className="reg-section">
+            <div className="reg-card">
+              {!success ? (
+                <div id="formArea">
+                  <div className="reg-header">
+                    <h2>🎉 Activate Your Membership</h2>
+                    <p>Enter your details to get instant access to your deals portal.</p>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="Jane" required value={formData.firstName} onChange={handleChange} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Doe" required value={formData.lastName} onChange={handleChange} />
-                  </div>
-                  <div className="form-group full">
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="jane@community.com" required value={formData.email} onChange={handleChange} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <div className="password-wrapper">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        name="password"
-                        placeholder="••••••••"
-                        required
-                        minLength="8"
-                        value={formData.password}
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="password-toggle"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={showPassword ? "Hide password" : "Show password"}
-                      >
-                        {showPassword ? (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                        ) : (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        )}
-                      </button>
+                  <form id="regFormCommunity" className="form-grid" onSubmit={handleSubmit}>
+                    <div className="form-group full">
+                      <label htmlFor="communityName">Community Name</label>
+                      <input type="text" id="communityName" name="communityName" placeholder="My Awesome Community" required ref={firstNameRef} value={formData.communityName} onChange={handleChange} />
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <div className="password-wrapper">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        placeholder="••••••••"
-                        required
-                        minLength="8"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="password-toggle"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                      >
-                        {showConfirmPassword ? (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                        ) : (
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        )}
-                      </button>
+                    <div className="form-group">
+                      <label htmlFor="firstName">First Name</label>
+                      <input type="text" id="firstName" name="firstName" placeholder="Jane" required value={formData.firstName} onChange={handleChange} />
                     </div>
-                  </div>
+                    <div className="form-group">
+                      <label htmlFor="lastName">Last Name</label>
+                      <input type="text" id="lastName" name="lastName" placeholder="Doe" required value={formData.lastName} onChange={handleChange} />
+                    </div>
+                    <div className="form-group full">
+                      <label htmlFor="email">Email Address</label>
+                      <input type="email" id="email" name="email" placeholder="jane@community.com" required value={formData.email} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <div className="password-wrapper">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          name="password"
+                          placeholder="••••••••"
+                          required
+                          minLength="8"
+                          value={formData.password}
+                          onChange={handleChange}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label={showPassword ? "Hide password" : "Show password"}
+                        >
+                          {showPassword ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="confirmPassword">Confirm Password</label>
+                      <div className="password-wrapper">
+                        <input
+                          type={showConfirmPassword ? "text" : "password"}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          placeholder="••••••••"
+                          required
+                          minLength="8"
+                          value={formData.confirmPassword}
+                          onChange={handleChange}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                        >
+                          {showConfirmPassword ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                          )}
+                        </button>
+                      </div>
+                    </div>
 
-                  {error && <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px' }}>{error}</div>}
+                    {error && (
+                      <div className="form-error" style={{ color: '#ff4d4d', fontSize: '0.9rem', gridColumn: 'span 2', marginTop: '10px', textAlign: 'center' }}>
+                        {error}
+                        {error.toLowerCase().includes('already exist') && (
+                          <div style={{ marginTop: '10px' }}>
+                            <a href="/login" style={{ color: 'var(--green-primary, #06b6d4)', textDecoration: 'underline', fontWeight: 'bold' }}>Login here</a>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
-                  <button type="submit" className="submit-btn cta-btn" disabled={loading}>
-                    {loading ? (
-                      <>
-                        <span className="btn-loader"></span>
-                        Activating...
-                      </>
-                    ) : 'Activate My Deals Portal →'}
-                  </button>
-                  <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
-                </form>
-              </div>
-            ) : (
-              <div id="successArea" className="success-message show">
-                <div className="success-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <h3>You're all set! 🚀</h3>
-                <p>Welcome to the club. Your community is registered and your deals portal is live. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
-                <div style={{ marginTop: '30px', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid var(--border-green)' }}>
-                  <p style={{ color: 'var(--green-primary)', fontWeight: '700', marginBottom: '10px' }}>Your Member Invite Link:</p>
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <input
-                      readOnly
-                      value={regUrl}
-                      style={{ flex: 1, background: '#000', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px', color: '#fff', fontSize: '0.8rem' }}
-                    />
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(regUrl);
-                        alert('Link copied to clipboard!');
-                      }}
-                      style={{ background: 'var(--green-primary)', border: 'none', borderRadius: '8px', padding: '0 15px', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}
-                    >
-                      Copy
+                    <button type="submit" className="submit-btn cta-btn" disabled={loading}>
+                      {loading ? (
+                        <>
+                          <span className="btn-loader"></span>
+                          Activating...
+                        </>
+                      ) : 'Activate My Deals Portal →'}
                     </button>
-                  </div>
-                  <p style={{ marginTop: '15px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                    Share this link with your members so they can join your community's private portal.
-                  </p>
+                    <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
+                  </form>
                 </div>
+              ) : (
+                <div id="successArea" className="success-message show">
+                  <div className="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <h3>You're all set! 🚀</h3>
+                  <p>Welcome to the club. Your community is registered and your deals portal is live. Please check your email to get access for 400+ deals. <br />The email may take a minute to arrive, we appreciate your patience.</p>
+                  <div style={{ marginTop: '30px', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', border: '1px solid var(--border-green)' }}>
+                    <p style={{ color: 'var(--green-primary)', fontWeight: '700', marginBottom: '10px' }}>Your Member Invite Link:</p>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <input
+                        readOnly
+                        value={regUrl}
+                        style={{ flex: 1, background: '#000', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '10px', color: '#fff', fontSize: '0.8rem' }}
+                      />
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(regUrl);
+                          alert('Link copied to clipboard!');
+                        }}
+                        style={{ background: 'var(--green-primary)', border: 'none', borderRadius: '8px', padding: '0 15px', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <p style={{ marginTop: '15px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                      Share this link with your members so they can join your community's private portal.
+                    </p>
+                  </div>
 
 
-              </div>
-            )}
-          </div>
-        </section>
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
 
       <div className="container">
         {/* BENEFITS */}

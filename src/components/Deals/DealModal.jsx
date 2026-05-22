@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import '../../styles/Deals.css';
 
 const DealModal = ({ deal, onClose }) => {
   const [activeTab, setActiveTab] = useState('deals');
+  const user = useSelector((state) => state.Auth?.user);
 
   if (!deal) return null;
+
+  const handleCtaClick = (e) => {
+    e.preventDefault();
+    console.log("user", user);
+    if (user && (user.plan === 'pro' || user.plan === 'community')) {
+
+      const dealsUrl = localStorage.getItem('deals_sign_in_url');
+      console.log("dealsUrl", dealsUrl);
+      if (dealsUrl) {
+        window.location.href = dealsUrl;
+      } else {
+        window.location.href = '/deals';
+      }
+    } else if (user && user.plan === 'free') {
+      window.location.href = '/pricing';
+    } else {
+      window.location.href = '/pricing';
+    }
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -91,7 +112,7 @@ const DealModal = ({ deal, onClose }) => {
               </div>
               <div className="cta-savings-badge">💰 {deal.savings}</div>
               <div className="cta-offer-desc">{deal.offerDetail}</div>
-              <a href="/pricing" className="btn-get-deal-modal">Get Deal Now</a>
+              <a onClick={handleCtaClick} className="btn-get-deal-modal">Get Deal Now</a>
               <p style={{ fontSize: '12px', color: 'var(--g4c)', textAlign: 'center' }}>No credit card required to apply.</p>
             </div>
           </div>

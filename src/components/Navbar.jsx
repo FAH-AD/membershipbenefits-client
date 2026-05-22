@@ -115,49 +115,24 @@ const Navbar = () => {
 
   // Navigation links based on user role
   const getNavLinks = () => {
-    if (!isAuthenticated) {
+    if (user?.role === "admin") {
       return [
-        { name: "How It Works", href: "https://www.membershipbenefits.club/how-it-works" },
-        { name: "Pricing", href: "https://www.membershipbenefits.club/pricing" },
-        { name: "Deals", href: "/deals" },
-        { name: "About Us", href: "https://www.membershipbenefits.club/about-us" },
-        { name: "FAQ", href: "https://www.membershipbenefits.club/faq" },
+        { name: "Dashboard", href: "/admin" },
+        { name: "Users", href: "/admin/users" },
+        { name: "Verify Users", href: "/admin/verify-users" },
+        { name: "Issues", href: "/admin/issues" },
+        { name: "Reports", href: "/admin/reports" },
+        { name: "Settings", href: "/admin/settings" },
       ];
     }
 
-    switch (user?.role) {
-      case "admin":
-        return [
-          { name: "Dashboard", href: "/admin" },
-          { name: "Users", href: "/admin/users" },
-          { name: "Verify Users", href: "/admin/verify-users" },
-          { name: "Issues", href: "/admin/issues" },
-          { name: "Reports", href: "/admin/reports" },
-          { name: "Settings", href: "/admin/settings" },
-        ];
-      case "client":
-        return [
-
-          { name: "Find Job", href: "/jobs" },
-
-          { name: "Post Job", href: "/company-member/post-job" },
-          { name: "My Applications", href: "/company-member/my-applications" },
-          { name: "My Jobs", href: "/company-member/my-jobs" },
-          { name: "Events", href: "/events" },
-          { name: "Support", href: "/company-member/support" },
-        ];
-      case "freelancer":
-        return [
-
-          { name: "Find Job", href: "/jobs" },
-          { name: "My Applications", href: "/member/my-proposals" },
-          { name: "Events", href: "/events" },
-
-          { name: "Support", href: "/member/support" },
-        ];
-      default:
-        return [];
-    }
+    return [
+      { name: "How It Works", href: "https://www.membershipbenefits.club/how-it-works" },
+      { name: "Pricing", href: user?.plan === 'free' ? '/pricing' : "https://www.membershipbenefits.club/pricing" },
+      { name: "Deals", href: "/deals" },
+      { name: "About Us", href: "https://www.membershipbenefits.club/about-us" },
+      { name: "FAQ", href: "https://www.membershipbenefits.club/faq" },
+    ];
   };
 
   const navLinks = getNavLinks();

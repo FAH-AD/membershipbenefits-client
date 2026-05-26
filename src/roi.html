@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Member Growth Calculator | MembershipBenefits.club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f9fc;
+    --bg-card: #ffffff;
+    --border: #e5eaf2;
+    --border-strong: #d6dde8;
+    --text: #0a1628;
+    --text-dim: #5a6a85;
+    --text-soft: #8090a8;
+    --accent: #00b85e;
+    --accent-dark: #008f47;
+    --accent-soft: #e6faf0;
+    --revenue: #2d6cdf;
+    --revenue-dark: #1d4ea8;
+    --revenue-soft: #eaf1fd;
+    --shadow-sm: 0 1px 2px rgba(10, 22, 40, 0.04);
+    --shadow-md: 0 4px 16px rgba(10, 22, 40, 0.06);
+    --shadow-lg: 0 12px 40px rgba(10, 22, 40, 0.08);
+    --shadow-xl: 0 24px 60px rgba(10, 22, 40, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-soft);
+    color: var(--text);
+    font-family: 'Outfit', system-ui, sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 32px 16px 80px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 48px; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    color: var(--accent-dark);
+    background: var(--accent-soft);
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 184, 94, 0.2);
+  }
+
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 5.5vw, 50px);
+    line-height: 1.05; margin-bottom: 16px;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  h1 .accent { color: var(--accent); }
+  h1 .revenue { color: var(--revenue); }
+
+  .subhead {
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Input strip — reframed for ownership */
+  .input-strip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 32px;
+  }
+
+  .input-strip-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .input-strip-sub {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 36px;
+  }
+  @media (max-width: 760px) {
+    .input-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+
+  .input-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .field-prompt {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+  }
+
+  .field-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .field-value-big {
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .field-value-unit {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 8px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    outline: none; cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 26px; height: 26px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 184, 94, 0.4), 0 0 0 4px white, 0 0 0 5px rgba(0, 184, 94, 0.3);
+    transition: transform 0.15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+  input[type="range"]::-moz-range-thumb {
+    width: 26px; height: 26px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer; border: none;
+    box-shadow: 0 2px 10px rgba(0, 184, 94, 0.4), 0 0 0 4px white, 0 0 0 5px rgba(0, 184, 94, 0.3);
+  }
+
+  .slider-range {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-top: 8px;
+  }
+
+  /* Result cards */
+  .result-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 720px) {
+    .result-cards { grid-template-columns: 1fr; }
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .stat-card.acquisition { border-color: var(--revenue-soft); }
+  .stat-card.retention { border-color: var(--accent-soft); }
+
+  .lift-percent {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+  .acquisition .lift-percent {
+    background: var(--revenue);
+    color: white;
+  }
+  .retention .lift-percent {
+    background: var(--accent);
+    color: white;
+  }
+
+  .stat-card .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .stat-card.acquisition .badge {
+    background: var(--revenue-soft);
+    color: var(--revenue);
+  }
+  .stat-card.retention .badge {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+  }
+
+  .stat-number {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 10px;
+  }
+  .stat-card.acquisition .stat-number { color: var(--revenue); }
+  .stat-card.retention .stat-number { color: var(--accent); }
+
+  .stat-headline {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .stat-sub {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .stat-math {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-soft);
+    line-height: 1.8;
+  }
+  .stat-math .formula-num {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .proof-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    background: var(--accent-soft);
+    padding: 6px 12px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+  .proof-line::before {
+    content: '✓';
+    font-size: 12px;
+    font-weight: 900;
+  }
+  .stat-card.acquisition .proof-line {
+    color: var(--revenue-dark);
+    background: var(--revenue-soft);
+  }
+
+  /* Grand total — ALL TEXT WHITE */
+  .grand-total {
+    background: linear-gradient(135deg, #0a1628 0%, #1a2842 100%);
+    color: white;
+    border-radius: 28px;
+    padding: 56px 40px;
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .grand-total::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -30%;
+    width: 80%; height: 200%;
+    background: radial-gradient(circle, rgba(0, 184, 94, 0.25) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .grand-total::after {
+    content: '';
+    position: absolute;
+    bottom: -50%; left: -30%;
+    width: 80%; height: 200%;
+    background: radial-gradient(circle, rgba(45, 108, 223, 0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .grand-total-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    position: relative;
+    opacity: 0.95;
+  }
+
+  .grand-total-number {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: clamp(64px, 12vw, 112px);
+    line-height: 0.95;
+    color: var(--accent);
+    letter-spacing: -0.045em;
+    margin-bottom: 16px;
+    position: relative;
+    text-shadow: 0 4px 24px rgba(0, 184, 94, 0.3);
+  }
+
+  .grand-total-sub {
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .grand-total-breakdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: white;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .grand-total-breakdown .gross {
+    color: white;
+    font-weight: 700;
+  }
+  .grand-total-breakdown .minus {
+    color: white;
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  .grand-total-breakdown .cost {
+    color: #ffb8b8;
+    font-weight: 700;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 48px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+  }
+  .cta-headline {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 4vw, 34px);
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.15;
+  }
+  .cta-sub {
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    font-size: 16px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-button {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 18px 40px;
+    border-radius: 100px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 6px 20px rgba(0, 184, 94, 0.35);
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 184, 94, 0.45);
+  }
+
+  /* Plan reveal at bottom — $97 only */
+  .plan-reveal {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px dashed var(--border);
+  }
+  .plan-reveal-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  .plan-pill {
+    display: inline-block;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    padding: 14px 24px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .plan-pill .num {
+    color: var(--accent-dark);
+    font-size: 18px;
+  }
+  .plan-pill .desc {
+    color: var(--text-dim);
+    font-weight: 500;
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .assumptions {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .assumptions summary {
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    font-weight: 700;
+  }
+  .assumptions summary:hover { color: var(--accent); }
+  .assumptions ul { margin-top: 14px; padding-left: 20px; }
+  .assumptions li { margin-bottom: 6px; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+  .updating { animation: pulse 0.3s ease-out; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="eyebrow">Member Growth Calculator</div>
+    <h1><span class="revenue">More signups.</span> <span class="accent">Longer tenure.</span><br/>Real numbers.</h1>
+    <p class="subhead">Communities that add software deals as a member perk see 10-20% lifts on both signup conversion and retention. Plug in your numbers below to see what that's worth.</p>
+  </header>
+
+  <!-- INPUT STRIP — ownership framing -->
+  <div class="input-strip">
+    <div class="input-strip-title">Tell me about your community</div>
+    <div class="input-strip-sub">Move the sliders to match your situation.</div>
+
+    <div class="input-grid">
+
+      <div class="input-block">
+        <div class="field-prompt">My community has...</div>
+        <div class="field-value-row">
+          <span class="field-value-big" id="sizeValue">100</span>
+          <span class="field-value-unit">members</span>
+        </div>
+        <input type="range" id="sizeSlider" min="25" max="500" value="100" step="5" />
+        <div class="slider-range"><span>25</span><span>500+</span></div>
+      </div>
+
+      <div class="input-block">
+        <div class="field-prompt">My members pay me...</div>
+        <div class="field-value-row">
+          <span class="field-value-big" id="feeValue">$50</span>
+          <span class="field-value-unit">/ month</span>
+        </div>
+        <input type="range" id="feeSlider" min="0" max="500" value="50" step="5" />
+        <div class="slider-range"><span>Free</span><span>$500</span></div>
+      </div>
+
+      <div class="input-block">
+        <div class="field-prompt">I get this many new signups...</div>
+        <div class="field-value-row">
+          <span class="field-value-big" id="signupsValue">10</span>
+          <span class="field-value-unit">/ month</span>
+        </div>
+        <input type="range" id="signupsSlider" min="0" max="100" value="10" step="1" />
+        <div class="slider-range"><span>0</span><span>100+</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RESULT CARDS -->
+  <div class="result-cards">
+
+    <div class="stat-card acquisition">
+      <div class="lift-percent">+15% signups</div>
+      <div class="badge">New Revenue</div>
+      <div class="stat-number" id="acqNumber">$0</div>
+      <div class="stat-headline">From extra signups</div>
+      <div class="stat-sub">Offering the deal perk lifts signup conversion by 15% on average.</div>
+      <div class="proof-line">Based on real community data</div>
+      <div class="stat-math">
+        <span class="formula-num" id="acqExtra">18</span> extra signups / yr<br/>
+        &times; <span class="formula-num" id="acqFee">$50</span> / month<br/>
+        &times; 10 months avg tenure
+      </div>
+    </div>
+
+    <div class="stat-card retention">
+      <div class="lift-percent">+15% retained</div>
+      <div class="badge">Retained Revenue</div>
+      <div class="stat-number" id="retNumber">$0</div>
+      <div class="stat-headline">From longer tenure</div>
+      <div class="stat-sub">15% of would-be churners stay an average of 6 more months.</div>
+      <div class="proof-line">Based on real community data</div>
+      <div class="stat-math">
+        <span class="formula-num" id="retCount">15</span> members retained<br/>
+        &times; <span class="formula-num" id="retFee">$50</span> / month<br/>
+        &times; 6 extra months
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GRAND TOTAL — ALL WHITE TEXT -->
+  <div class="grand-total">
+    <div class="grand-total-label">Your Annual Upside</div>
+    <div class="grand-total-number" id="grandTotal">$0</div>
+    <div class="grand-total-sub">In new and retained revenue. Per year.</div>
+    <div class="grand-total-breakdown">
+      <span>Gross</span>
+      <span class="gross" id="grossDisplay">$13,500</span>
+      <span class="minus">minus</span>
+      <span class="cost" id="costDisplay">$1,164 platform</span>
+    </div>
+  </div>
+
+  <!-- CTA — only $97 plan at bottom -->
+  <div class="cta-section">
+    <div class="cta-headline" id="ctaHeadline">Add a perk that pays for itself many times over.</div>
+    <div class="cta-sub">Branded deal portal, 580+ software discounts, live in under a day.</div>
+    <a href="#signup" class="cta-button">Start Free Trial</a>
+
+    <div class="plan-reveal">
+      <div class="plan-reveal-label">Simple Pricing</div>
+      <span class="plan-pill"><span class="num">$97</span>/mo<span class="desc">cancel anytime</span></span>
+    </div>
+  </div>
+
+  <details class="assumptions">
+    <summary>How we calculate this</summary>
+    <ul>
+      <li><strong>Acquisition lift:</strong> 15% more signups per month from offering deals as a member perk, amplified by community size (larger communities drive more word-of-mouth and referrals).</li>
+      <li><strong>New member tenure:</strong> Each new signup stays an average of 10 months at your stated fee.</li>
+      <li><strong>Retention lift:</strong> 15% of would-have-churned members stay 6 extra months because of the perk.</li>
+      <li><strong>Platform cost:</strong> $97/mo annualized.</li>
+    </ul>
+  </details>
+
+</div>
+
+<script>
+  const state = {
+    size: 100,
+    fee: 50,
+    signups: 10
+  };
+
+  const SIGNUP_LIFT = 0.15;
+  const NEW_MEMBER_TENURE = 10;
+  const RETENTION_LIFT_PCT = 0.15;
+  const EXTRA_MONTHS = 6;
+  const PLAN_MONTHLY = 97;
+
+  function fmt(n) {
+    const rounded = Math.round(n);
+    if (rounded < 0) return '-$' + Math.abs(rounded).toLocaleString('en-US');
+    return '$' + rounded.toLocaleString('en-US');
+  }
+
+  function calculate() {
+    const annualPlanCost = PLAN_MONTHLY * 12;
+
+    // Community size amplifies acquisition through referrals, word-of-mouth, social proof
+    // Larger community = stronger network effects when deal perk is added
+    const sizeMultiplier = 1 + (state.size / 200);
+
+    const extraSignupsPerYear = state.signups * SIGNUP_LIFT * 12 * sizeMultiplier;
+    const acqValue = extraSignupsPerYear * state.fee * NEW_MEMBER_TENURE;
+
+    const retainedMembers = state.size * RETENTION_LIFT_PCT;
+    const retValue = retainedMembers * state.fee * EXTRA_MONTHS;
+
+    const grossValue = acqValue + retValue;
+    const netProfit = grossValue - annualPlanCost;
+
+    return {
+      annualPlanCost,
+      extraSignupsPerYear,
+      acqValue,
+      retainedMembers,
+      retValue,
+      grossValue,
+      netProfit
+    };
+  }
+
+  function render() {
+    const r = calculate();
+
+    document.getElementById('acqNumber').textContent = fmt(r.acqValue);
+    document.getElementById('retNumber').textContent = fmt(r.retValue);
+    document.getElementById('grandTotal').textContent = fmt(r.netProfit);
+    document.getElementById('grossDisplay').textContent = fmt(r.grossValue);
+    document.getElementById('costDisplay').textContent = '-$' + r.annualPlanCost.toLocaleString('en-US') + ' platform';
+
+    document.getElementById('acqExtra').textContent = Math.round(r.extraSignupsPerYear);
+    document.getElementById('acqFee').textContent = state.fee === 0 ? '$0' : '$' + state.fee;
+    document.getElementById('retCount').textContent = Math.round(r.retainedMembers);
+    document.getElementById('retFee').textContent = state.fee === 0 ? '$0' : '$' + state.fee;
+
+    ['acqNumber', 'retNumber', 'grandTotal'].forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('updating');
+      void el.offsetWidth;
+      el.classList.add('updating');
+    });
+
+    const ctaHead = document.getElementById('ctaHeadline');
+    if (r.netProfit > 20000) {
+      ctaHead.textContent = `Add ${fmt(r.netProfit)} to your bottom line this year.`;
+    } else if (r.netProfit > 5000) {
+      ctaHead.textContent = `An extra ${fmt(r.netProfit)} per year. From one perk.`;
+    } else if (r.netProfit > 0) {
+      ctaHead.textContent = 'Add a perk that pays for itself many times over.';
+    } else {
+      ctaHead.textContent = 'A member perk that drives signups and retention.';
+    }
+  }
+
+  const sizeSlider = document.getElementById('sizeSlider');
+  const sizeValue = document.getElementById('sizeValue');
+  sizeSlider.addEventListener('input', (e) => {
+    const v = parseInt(e.target.value);
+    state.size = v;
+    sizeValue.textContent = v >= 500 ? '500+' : v;
+    render();
+  });
+
+  const feeSlider = document.getElementById('feeSlider');
+  const feeValue = document.getElementById('feeValue');
+  feeSlider.addEventListener('input', (e) => {
+    const v = parseInt(e.target.value);
+    state.fee = v;
+    feeValue.textContent = v === 0 ? 'Free' : '$' + v;
+    render();
+  });
+
+  const signupsSlider = document.getElementById('signupsSlider');
+  const signupsValue = document.getElementById('signupsValue');
+  signupsSlider.addEventListener('input', (e) => {
+    const v = parseInt(e.target.value);
+    state.signups = v;
+    signupsValue.textContent = v >= 100 ? '100+' : v;
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>

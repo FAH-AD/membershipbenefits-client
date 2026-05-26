@@ -58,6 +58,7 @@ import WelcomeCommunity from './pages/WelcomeCommunity';
 import CommunityRegister from './pages/CommunityRegister';
 import WelcomeFree from './pages/WelcomeFree';
 import WelcomeScriptTimer from './pages/WelcomeScriptTimer';
+import RoiCalculator from './pages/RoiCalculator';
 
 
 // Forgot Password Flow
@@ -103,7 +104,7 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <Toaster 
+        <Toaster
           position="top-center"
           reverseOrder={false}
           gutter={8}
@@ -159,6 +160,7 @@ export default function App() {
             <Route path="launch-kit" element={<LaunchKit />} />
             <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="community-register/:id" element={<CommunityRegister />} />
+            <Route path="roi" element={<RoiCalculator />} />
           </Route>
 
           {/* Admin Routes */}

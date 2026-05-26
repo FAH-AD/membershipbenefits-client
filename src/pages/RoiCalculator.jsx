@@ -1,0 +1,192 @@
+import React, { useState, useMemo, useEffect } from 'react';
+import './RoiCalculator.css';
+import Navbar from '../components/Navbar';
+
+const SIGNUP_LIFT = 0.15;
+const NEW_MEMBER_TENURE = 10;
+const RETENTION_LIFT_PCT = 0.15;
+const EXTRA_MONTHS = 6;
+const PLAN_MONTHLY = 97;
+
+function fmt(n) {
+    const rounded = Math.round(n);
+    if (rounded < 0) return '-$' + Math.abs(rounded).toLocaleString('en-US');
+    return '$' + rounded.toLocaleString('en-US');
+}
+
+export default function RoiCalculator() {
+    const [size, setSize] = useState(100);
+    const [fee, setFee] = useState(50);
+    const [signups, setSignups] = useState(10);
+
+    const [updateAnimation, setUpdateAnimation] = useState(false);
+
+    useEffect(() => {
+        setUpdateAnimation(true);
+        const t = setTimeout(() => setUpdateAnimation(false), 300);
+        return () => clearTimeout(t);
+    }, [size, fee, signups]);
+
+    const m = useMemo(() => {
+        const annualPlanCost = PLAN_MONTHLY * 12;
+        const sizeMultiplier = 1 + (size / 200);
+        const extraSignupsPerYear = signups * SIGNUP_LIFT * 12 * sizeMultiplier;
+        const acqValue = extraSignupsPerYear * fee * NEW_MEMBER_TENURE;
+        const retainedMembers = size * RETENTION_LIFT_PCT;
+        const retValue = retainedMembers * fee * EXTRA_MONTHS;
+        const grossValue = acqValue + retValue;
+        const netProfit = grossValue - annualPlanCost;
+
+        return {
+            annualPlanCost,
+            extraSignupsPerYear,
+            acqValue,
+            retainedMembers,
+            retValue,
+            grossValue,
+            netProfit
+        };
+    }, [size, fee, signups]);
+
+    const acqNumber = fmt(m.acqValue);
+    const retNumber = fmt(m.retValue);
+    const grandTotal = fmt(m.netProfit);
+    const grossDisplay = fmt(m.grossValue);
+    const costDisplay = '-$' + m.annualPlanCost.toLocaleString('en-US') + ' platform';
+    const acqExtra = Math.round(m.extraSignupsPerYear);
+    const acqFee = fee === 0 ? '$0' : '$' + fee;
+    const retCount = Math.round(m.retainedMembers);
+    const retFee = fee === 0 ? '$0' : '$' + fee;
+
+    let ctaHead = '';
+    if (m.netProfit > 20000) {
+        ctaHead = `Add ${grandTotal} to your bottom line this year.`;
+    } else if (m.netProfit > 5000) {
+        ctaHead = `An extra ${grandTotal} per year. From one perk.`;
+    } else if (m.netProfit > 0) {
+        ctaHead = 'Add a perk that pays for itself many times over.';
+    } else {
+        ctaHead = 'A member perk that drives signups and retention.';
+    }
+
+    const animClass = updateAnimation ? " updating" : "";
+
+    return (
+        <div className="roi-calc-wrapper">
+            <Navbar />
+            <div className="container">
+
+                <header className="header">
+                    <div className="eyebrow">Member Growth Calculator</div>
+                    <h1><span className="revenue">More signups.</span> <span className="accent">Longer tenure.</span><br />Real numbers.</h1>
+                    <p className="subhead">Communities that add software deals as a member perk see 10-20% lifts on both signup conversion and retention. Plug in your numbers below to see what that's worth.</p>
+                </header>
+
+                <div className="input-strip">
+                    <div className="input-strip-title">Tell me about your community</div>
+                    <div className="input-strip-sub">Move the sliders to match your situation.</div>
+
+                    <div className="input-grid">
+
+                        <div className="input-block">
+                            <div className="field-prompt">My community has...</div>
+                            <div className="field-value-row">
+                                <span className="field-value-big" id="sizeValue">{size >= 500 ? '500+' : size}</span>
+                                <span className="field-value-unit">members</span>
+                            </div>
+                            <input type="range" id="sizeSlider" min="25" max="500" value={size} step="5" onChange={(e) => setSize(parseInt(e.target.value))} />
+                            <div className="slider-range"><span>25</span><span>500+</span></div>
+                        </div>
+
+                        <div className="input-block">
+                            <div className="field-prompt">My members pay me...</div>
+                            <div className="field-value-row">
+                                <span className="field-value-big" id="feeValue">{fee === 0 ? 'Free' : '$' + fee}</span>
+                                <span className="field-value-unit">/ month</span>
+                            </div>
+                            <input type="range" id="feeSlider" min="0" max="500" value={fee} step="5" onChange={(e) => setFee(parseInt(e.target.value))} />
+                            <div className="slider-range"><span>Free</span><span>$500</span></div>
+                        </div>
+
+                        <div className="input-block">
+                            <div className="field-prompt">I get this many new signups...</div>
+                            <div className="field-value-row">
+                                <span className="field-value-big" id="signupsValue">{signups >= 100 ? '100+' : signups}</span>
+                                <span className="field-value-unit">/ month</span>
+                            </div>
+                            <input type="range" id="signupsSlider" min="0" max="100" value={signups} step="1" onChange={(e) => setSignups(parseInt(e.target.value))} />
+                            <div className="slider-range"><span>0</span><span>100+</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="result-cards">
+
+                    <div className="stat-card acquisition">
+                        <div className="lift-percent">+15% signups</div>
+                        <div className="badge">New Revenue</div>
+                        <div className={"stat-number" + animClass} id="acqNumber">{acqNumber}</div>
+                        <div className="stat-headline">From extra signups</div>
+                        <div className="stat-sub">Offering the deal perk lifts signup conversion by 15% on average.</div>
+                        <div className="proof-line">Based on real community data</div>
+                        <div className="stat-math">
+                            <span className="formula-num" id="acqExtra">{acqExtra}</span> extra signups / yr<br />
+                            &times; <span className="formula-num" id="acqFee">{acqFee}</span> / month<br />
+                            &times; 10 months avg tenure
+                        </div>
+                    </div>
+
+                    <div className="stat-card retention">
+                        <div className="lift-percent">+15% retained</div>
+                        <div className="badge">Retained Revenue</div>
+                        <div className={"stat-number" + animClass} id="retNumber">{retNumber}</div>
+                        <div className="stat-headline">From longer tenure</div>
+                        <div className="stat-sub">15% of would-be churners stay an average of 6 more months.</div>
+                        <div className="proof-line">Based on real community data</div>
+                        <div className="stat-math">
+                            <span className="formula-num" id="retCount">{retCount}</span> members retained<br />
+                            &times; <span className="formula-num" id="retFee">{retFee}</span> / month<br />
+                            &times; 6 extra months
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className="grand-total">
+                    <div className="grand-total-label">Your Annual Upside</div>
+                    <div className={"grand-total-number" + animClass} id="grandTotal">{grandTotal}</div>
+                    <div className="grand-total-sub">In new and retained revenue. Per year.</div>
+                    <div className="grand-total-breakdown">
+                        <span>Gross</span>
+                        <span className="gross" id="grossDisplay">{grossDisplay}</span>
+                        <span className="minus">minus</span>
+                        <span className="cost" id="costDisplay">{costDisplay}</span>
+                    </div>
+                </div>
+
+                <div className="cta-section">
+                    <div className="cta-headline" id="ctaHeadline">{ctaHead}</div>
+                    <div className="cta-sub">Branded deal portal, 580+ software discounts, live in under a day.</div>
+                    <a href="https://www.membershipbenefits.club/pricing" className="cta-button">Start Free Trial</a>
+
+                    <div className="plan-reveal">
+                        <div className="plan-reveal-label">Simple Pricing</div>
+                        <span className="plan-pill"><span className="num">$97</span>/mo<span className="desc">cancel anytime</span></span>
+                    </div>
+                </div>
+
+                <details className="assumptions">
+                    <summary>How we calculate this</summary>
+                    <ul>
+                        <li><strong>Acquisition lift:</strong> 15% more signups per month from offering deals as a member perk, amplified by community size (larger communities drive more word-of-mouth and referrals).</li>
+                        <li><strong>New member tenure:</strong> Each new signup stays an average of 10 months at your stated fee.</li>
+                        <li><strong>Retention lift:</strong> 15% of would-have-churned members stay 6 extra months because of the perk.</li>
+                        <li><strong>Platform cost:</strong> $97/mo annualized.</li>
+                    </ul>
+                </details>
+
+            </div>
+        </div>
+    );
+}

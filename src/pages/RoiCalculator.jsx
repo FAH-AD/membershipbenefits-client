@@ -112,7 +112,7 @@ export default function RoiCalculator() {
                         </div>
 
                         <div className="input-block">
-                            <div className="field-prompt">Software discounts and ongoing engagement helps me grow by...</div>
+                            <div className="field-prompt">Savings and ongoing engagement growth...</div>
                             <div className="field-value-row">
                                 <span className="field-value-big" id="liftValue">{lift}%</span>
                                 <span className="field-value-unit">extra signups / year</span>

@@ -239,7 +239,7 @@ const DealsPage = () => {
 
       <div className="pw">
         <div className="ph">
-          <h1>Explore <span>380+ exclusive</span> software deals</h1>
+          <h1>Explore <span>330+ exclusive</span> software deals</h1>
           <p>Every deal is from a closed network — not publicly available, not on any coupon site. Access unlocks the moment you join for $29/month.</p>
           <div className="stats">
             <div className="stat"><span className="stat-val">{categories.find(c => c.id === 'all')?.count || 0}</span><span className="stat-lbl">active deals</span></div>

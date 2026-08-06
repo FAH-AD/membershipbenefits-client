@@ -532,7 +532,7 @@
 .clog {
   width: 44px;
   height: 44px;
-  background: var(--n6);
+  background: white;
   border: 1px solid var(--n3);
   border-radius: 9px;
   display: flex;
@@ -1120,7 +1120,8 @@ footer {
     gap: 12px;
   }
 
-  .btn-login, .btn-start {
+  .btn-login,
+  .btn-start {
     width: 100%;
     text-align: center;
     padding: 14px;

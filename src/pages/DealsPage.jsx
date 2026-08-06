@@ -6,20 +6,20 @@ import DealModal from '../components/Deals/DealModal';
 import '../styles/Deals.css';
 
 const categoryInfoMap = {
-  'ai': { name: 'AI', icon: '🤖' },
-  'project management': { name: 'Project Management', icon: '📊' },
-  'data': { name: 'Data', icon: '🗄️' },
-  'customer': { name: 'Customer', icon: '💬' },
-  'developer': { name: 'Development', icon: '⚙️' },
-  'marketing': { name: 'Marketing', icon: '📣' },
-  'finance': { name: 'Finance', icon: '💰' },
-  'communication': { name: 'Communication', icon: '📡' },
-  'sales': { name: 'Sales', icon: '🎯' },
-  'business': { name: 'Business', icon: '🏢' },
-  'it': { name: 'IT', icon: '🖥️' },
-  'humar resource': { name: 'Human Resources', icon: '👥' },
-  'operations management': { name: 'Operations', icon: '🛠️' },
-  'lifestyle': { name: 'Lifestyle', icon: '🏠' },
+  'ai': { name: 'AI', icon: '' },
+  'project management': { name: 'Project Management', icon: '' },
+  'data': { name: 'Data', icon: '' },
+  'customer': { name: 'Customer', icon: '' },
+  'developer': { name: 'Development', icon: '' },
+  'marketing': { name: 'Marketing', icon: '' },
+  'finance': { name: 'Finance', icon: '' },
+  'communication': { name: 'Communication', icon: '' },
+  'sales': { name: 'Sales', icon: '' },
+  'business': { name: 'Business', icon: '' },
+  'it': { name: 'IT', icon: '' },
+  'human resource': { name: 'Human Resources', icon: '' },
+  'operations management': { name: 'Operations', icon: '' },
+  'lifestyle': { name: 'Lifestyle', icon: '' },
 };
 
 const categoryOrder = [
@@ -85,7 +85,7 @@ const DealsPage = () => {
     });
     counts.all = allUniqueNames.size;
 
-    const cats = [{ id: 'all', name: 'All Deals', icon: '⚡', count: counts.all }];
+    const cats = [{ id: 'all', name: 'All Deals', icon: '', count: counts.all }];
 
     // Sort keys based on the defined order
     const sortedKeys = Object.keys(categoryData)
@@ -100,7 +100,7 @@ const DealsPage = () => {
     sortedKeys.forEach(catId => {
       const info = categoryInfoMap[catId] || {
         name: catId.charAt(0).toUpperCase() + catId.slice(1).replace(/_/g, ' '),
-        icon: '📁'
+        icon: ''
       };
       cats.push({
         id: catId,
@@ -239,7 +239,7 @@ const DealsPage = () => {
 
       <div className="pw">
         <div className="ph">
-          <h1>Explore <span>330+ exclusive</span> software deals</h1>
+          <h1>Explore <span>320+ exclusive</span> software deals</h1>
           <p>Every deal is from a closed network — not publicly available, not on any coupon site. Access unlocks the moment you join for $29/month.</p>
           <div className="stats">
             <div className="stat"><span className="stat-val">{categories.find(c => c.id === 'all')?.count || 0}</span><span className="stat-lbl">active deals</span></div>

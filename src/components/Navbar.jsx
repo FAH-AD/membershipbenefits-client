@@ -181,7 +181,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="header-logo">
           <img
-            src="https://images.squarespace-cdn.com/content/v1/69b30bfaac362e539cfe126d/07b0c51a-28f8-40b9-98cc-d5d1ab77ec6c/logo.png?format=1500w"
+            src="/mbc-logo.webp"
             alt="MembershipBenefits.club"
           />
         </Link>

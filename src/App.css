@@ -97,7 +97,7 @@
 }
 
 .header-logo img {
-  max-height: 31px;
+  max-height: 50px !important;
   width: auto;
   object-fit: contain;
 }

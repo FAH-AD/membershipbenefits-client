@@ -84,7 +84,12 @@ const DealsLanding = () => {
   return (
     <div className="deals-landing">
       <nav>
-        <Link to="https://www.membershipbenefits.club/" className="nav-logo">Membership<span>Benefits</span>.club</Link>
+        <Link to="/" className="header-logo">
+          <img
+            src="/mbc-logo.webp"
+            alt="MembershipBenefits.club"
+          />
+        </Link>
         <a href="https://membershipbenefits.club/pricing" className="nav-cta">Get Started</a>
       </nav>
 

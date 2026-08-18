@@ -66,7 +66,12 @@ export default function WelcomeScriptTimer() {
       <div className="container">
         {/* NAV */}
         <nav>
-          <div className="logo">Membership<span>Benefits</span>.club</div>
+          <Link to="/" className="header-logo">
+            <img
+              src="/mbc-logo.webp"
+              alt="MembershipBenefits.club"
+            />
+          </Link>
           <div className="nav-badge" style={{ color: '#06b6d4', borderColor: 'rgba(6, 182, 212, 0.3)', background: 'rgba(6, 182, 212, 0.1)' }}>✦ Script Timer Access</div>
         </nav>
 

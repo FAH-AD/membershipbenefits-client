@@ -73,7 +73,12 @@ export default function WelcomeCommunity() {
       <div className="container">
         {/* NAV */}
         <nav>
-          <div className="logo">Membership<span>Benefits</span>.club</div>
+          <Link to="/" className="header-logo">
+            <img
+              src="/mbc-logo.webp"
+              alt="MembershipBenefits.club"
+            />
+          </Link>
           <div className="nav-badge">✦ Member Access</div>
         </nav>
 

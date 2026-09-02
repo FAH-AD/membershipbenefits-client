@@ -79,11 +79,12 @@ export default function WelcomeFree() {
               alt="MembershipBenefits.club"
             />
           </Link>
-          <div className="nav-badge">✦ Free Access</div>
+
         </nav>
 
         {/* HERO */}
         <section className="hero">
+          <h1>Welcome to the club!</h1>
           <section className="reg-section">
             <div className="reg-card">
               {!success ? (
@@ -202,10 +203,10 @@ export default function WelcomeFree() {
             </span>
             Free Plan Activated
           </div>
-          <h1>Welcome to the club!</h1>
-          <p>
-            You just unlocked 30–80% off 400+ tools for your personal use. Register below and your deals portal goes live instantly.
-          </p>
+
+          <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(1.4rem,3vw,1.8rem)", fontWeight: 700, letterSpacing: "-0.02em", textTransform: "none", color: "#FFFFFF", marginBottom: "24px", textAlign: "center" }}>
+            You just unlocked 30–80% off 400+ tools for your personal use. Register, and your deals portal goes live instantly.
+          </h2>
         </section>
 
         {/* SAVINGS TICKER */}

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { post } from '../services/ApiEndpoint';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy } from 'lucide-react';
 import './Welcome.css';
+import { Link } from 'react-router-dom';
 import RegistrationLoading from '../components/RegistrationLoading';
 
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';

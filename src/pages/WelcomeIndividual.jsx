@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { post } from '../services/ApiEndpoint';
+import { Link } from 'react-router-dom';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy } from 'lucide-react';
 import './Welcome.css';
 import RegistrationLoading from '../components/RegistrationLoading';

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { post } from '../services/ApiEndpoint';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import './Welcome.css';
+import { Link } from "react-router-dom"
 import RegistrationLoading from '../components/RegistrationLoading';
 
 export default function WelcomeScriptTimer() {

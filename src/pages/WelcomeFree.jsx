@@ -84,83 +84,6 @@ export default function WelcomeFree() {
 
         {/* HERO */}
         <section className="hero">
-          <div className="hero-badge">
-            <span className="check">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </span>
-            Free Plan Activated
-          </div>
-          <h1>Welcome to the club!</h1>
-          <p>
-            You just unlocked 30–80% off 400+ tools for your personal use. Register below and your deals portal goes live instantly.
-          </p>
-        </section>
-
-        {/* SAVINGS TICKER */}
-        <section className="ticker-section">
-          <div className="section-label green" style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(1.4rem,3vw,1.8rem)", fontWeight: 800, letterSpacing: "-0.02em", textTransform: "none", color: "var(--green-primary)", marginBottom: "24px", textAlign: "center" }}>
-            Start saving today.
-          </div>
-          <div className="ticker">
-            <div className="ticker-item">
-              <div className="ticker-number">$22,000+</div>
-              <div className="ticker-label">In Annual Savings</div>
-            </div>
-            <div className="ticker-divider"></div>
-            <div className="ticker-item">
-              <div className="ticker-number">400+</div>
-              <div className="ticker-label">Tool Deals</div>
-            </div>
-            <div className="ticker-divider"></div>
-            <div className="ticker-item">
-              <div className="ticker-number">30–80%</div>
-              <div className="ticker-label">Off Retail</div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* HIGHLIGHTED ZONE */}
-      <div className="highlight-zone">
-        <div className="container">
-          {/* SCRIPT TIMER FEATURES */}
-          <section className="script-timer-section">
-            <div className="script-timer-header">
-              <h2 className="badge">THIS MONTHS DEAL FOR FREE MEMBERS: Script Timer Ai at 75% Off</h2>
-              <h2>Get <span style={{ color: 'var(--teal, #06b6d4)' }}>Script Timer AI</span> at 75% Off</h2>
-              {/* <p>Register for free below and unlock 75% discount on premium tool suite.</p> */}
-            </div>
-            <div className="script-timer-grid">
-              <div className="st-feature-card">
-                <div className="st-feature-icon"><Mic size={24} /></div>
-                <h3>Voice AI: Text to Voice</h3>
-              </div>
-              <div className="st-feature-card">
-                <div className="st-feature-icon"><PenTool size={24} /></div>
-                <h3>Script Writing & Coaching</h3>
-              </div>
-              <div className="st-feature-card">
-                <div className="st-feature-icon"><Video size={24} /></div>
-                <h3>Speech Coach (Video & Audio)</h3>
-              </div>
-              <div className="st-feature-card">
-                <div className="st-feature-icon"><ImagePlus size={24} /></div>
-                <h3>Image Creator</h3>
-              </div>
-              <div className="st-feature-card">
-                <div className="st-feature-icon"><ShieldCheck size={24} /></div>
-                <h3>Plagiarism Detection</h3>
-              </div>
-              <div className="st-feature-card">
-                <div className="st-feature-icon"><ClipboardCheck size={24} /></div>
-                <h3>Auto Rewriting and Grade Scoring</h3>
-              </div>
-            </div>
-          </section>
-
-          {/* REGISTRATION FORM */}
           <section className="reg-section">
             <div className="reg-card">
               {!success ? (
@@ -271,6 +194,84 @@ export default function WelcomeFree() {
               )}
             </div>
           </section>
+          <div className="hero-badge">
+            <span className="check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            Free Plan Activated
+          </div>
+          <h1>Welcome to the club!</h1>
+          <p>
+            You just unlocked 30–80% off 400+ tools for your personal use. Register below and your deals portal goes live instantly.
+          </p>
+        </section>
+
+        {/* SAVINGS TICKER */}
+        <section className="ticker-section">
+          <div className="section-label green" style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(1.4rem,3vw,1.8rem)", fontWeight: 800, letterSpacing: "-0.02em", textTransform: "none", color: "var(--green-primary)", marginBottom: "24px", textAlign: "center" }}>
+            Start saving today.
+          </div>
+          <div className="ticker">
+            <div className="ticker-item">
+              <div className="ticker-number">$22,000+</div>
+              <div className="ticker-label">In Annual Savings</div>
+            </div>
+            <div className="ticker-divider"></div>
+            <div className="ticker-item">
+              <div className="ticker-number">400+</div>
+              <div className="ticker-label">Tool Deals</div>
+            </div>
+            <div className="ticker-divider"></div>
+            <div className="ticker-item">
+              <div className="ticker-number">30–80%</div>
+              <div className="ticker-label">Off Retail</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* HIGHLIGHTED ZONE */}
+      <div className="highlight-zone">
+        <div className="container">
+          {/* SCRIPT TIMER FEATURES */}
+          <section className="script-timer-section">
+            <div className="script-timer-header">
+              <h2 className="badge">THIS MONTHS DEAL FOR FREE MEMBERS: Script Timer Ai at 75% Off</h2>
+              <h2>Get <span style={{ color: 'var(--teal, #06b6d4)' }}>Script Timer AI</span> at 75% Off</h2>
+              {/* <p>Register for free below and unlock 75% discount on premium tool suite.</p> */}
+            </div>
+            <div className="script-timer-grid">
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><Mic size={24} /></div>
+                <h3>Voice AI: Text to Voice</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><PenTool size={24} /></div>
+                <h3>Script Writing & Coaching</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><Video size={24} /></div>
+                <h3>Speech Coach (Video & Audio)</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><ImagePlus size={24} /></div>
+                <h3>Image Creator</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><ShieldCheck size={24} /></div>
+                <h3>Plagiarism Detection</h3>
+              </div>
+              <div className="st-feature-card">
+                <div className="st-feature-icon"><ClipboardCheck size={24} /></div>
+                <h3>Auto Rewriting and Grade Scoring</h3>
+              </div>
+            </div>
+          </section>
+
+          {/* REGISTRATION FORM */}
+
         </div>
       </div>
 

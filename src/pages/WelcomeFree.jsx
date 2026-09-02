@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { post } from '../services/ApiEndpoint';
+import { Link } from 'react-router-dom';
 import { CircleDollarSign, LayoutDashboard, RefreshCcw, TrendingUp, Zap, LifeBuoy, Mic, PenTool, Video, ImagePlus, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import './Welcome.css';
 import RegistrationLoading from '../components/RegistrationLoading';

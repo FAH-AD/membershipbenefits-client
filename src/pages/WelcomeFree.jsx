@@ -177,7 +177,7 @@ export default function WelcomeFree() {
                           <span className="btn-loader"></span>
                           Activating...
                         </>
-                      ) : 'Activate My Free Portal →'}
+                      ) : 'Activate my free discount and open access →'}
                     </button>
                     <div className="form-note">Your info is only used to set up your portal. No spam, ever.</div>
                   </form>
